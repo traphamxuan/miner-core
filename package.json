@@ -1,6 +1,6 @@
 {
-  "name": "@tareling/exong",
-  "version": "1.0.0",
+  "name": "@tareling/game-plan-core",
+  "version": "0.0.1",
   "description": "Exo core engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,11 +10,15 @@
   "repository": "git@gitlab.com:tareling/game-plan-core.git",
   "author": "Pham Xuan Tra <jurytare@gmail.com>",
   "license": "MIT",
-  "prepare" : "npm run build",
+  "prepare": "npm run build",
+  "publishConfig": {
+    "@tareling:registry": "https://gitlab.com/api/v4/projects/44454002/packages/npm/"
+  },
   "scripts": {
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/node": "^18.15.8",
     "typescript": "^5.0.2"
   }
 }
