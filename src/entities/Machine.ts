@@ -1,10 +1,13 @@
 import { BaseEntity } from "../common/BaseEntity"
+import { Resource } from "./Resource"
 
 export class Machine extends BaseEntity {
   power: number
-  constructor() {
+  production: Resource | undefined
+  constructor(power: number) {
     super()
-    this.power = 1
+    this.power = power
   }
+  setProduct = (prod: Resource | undefined) => this.production = prod
   upgrade() {}
 }
