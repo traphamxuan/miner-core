@@ -1,9 +1,9 @@
 import * as readline from 'readline';
 import { stdin as input, stdout as output } from 'process';
 
-import { Planet } from '../src'
+// import { Planet } from '../src'
 
-const planet = Planet.register()
+// const planet = Planet.register()
 
 
 const reader = readline.createInterface({ input, output });
@@ -25,11 +25,11 @@ function warehouse_prop() {
 			default:
 				warehouse_prop();
 				break;
-		};
+		}
 	});
 }
 
-function factory_machines(){
+function factory_machines() {
 	console.log(`This is all machines in the factory
 	- S <machineID> <Name> to set a recipe for a machine
 	- D <machineID> to remove a receipe of a machine
@@ -51,7 +51,7 @@ function factory_machines(){
 			default:
 				factory_machines();
 				break;
-		};
+		}
 	});
 
 }
@@ -83,7 +83,7 @@ function trans_vehicles() {
 			default:
 				trans_vehicles();
 				break;
-		};
+		}
 	});
 
 }
@@ -111,11 +111,11 @@ function main() {
 				reader.close();
 				break;
 			default:
-				console.log('\u033[2J');
+				console.log('\u0033[2J');
 				main();
 				break;
-  
-		};
+
+		}
 	});
 }
 

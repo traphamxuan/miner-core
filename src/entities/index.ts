@@ -1,11 +1,10 @@
-import { Accelerator } from "./Accelerator"
-import { Machine } from "./Machine"
-import { Mine } from "./Mine"
-import { Resource } from "./Resource"
-import { Shuttle } from "./Shuttle"
-
-export { Accelerator }
-export { Machine }
-export { Mine }
-export { Resource }
-export { Shuttle }
+export * from './Accelerator'
+export * from './Machine'
+export * from './Shuttle'
+export * from './Deposit'
+export * from './Recipe'
+export * from './Planet'
+export * from './Resource'
+export * from './static'
+export * from './common/ResourceAmount'
+export * from './common/Ore'
