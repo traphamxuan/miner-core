@@ -5,6 +5,7 @@ export type RawPlanet = {
   uid: string
   // isFactory: boolean
   startedAt: number
+  updatedAt: string
 }
 
 export type TPlanet = {
@@ -14,6 +15,7 @@ export type TPlanet = {
   startedAt: number
   // isFactory: boolean
   userId: string
+  updatedAt: Date
 }
 
 export class Planet {
@@ -23,6 +25,7 @@ export class Planet {
   startedAt: number
   // isFactory: boolean
   userId: string
+  updatedAt: Date
 
   toRaw(): RawPlanet {
     return {
@@ -31,17 +34,19 @@ export class Planet {
       // // isFactory: this.isFactory,
       uid: this.userId,
       startedAt: this.startedAt,
-      money: this.money.toString()
+      money: this.money.toString(),
+      updatedAt: this.updatedAt.toISOString(),
     }
   }
 
   constructor(data: RawPlanet) {
-    this.id = data.id,
+    this.id = data.id
     this.name = data.name
     this.money = BigInt(data.money)
     // // this.isFactory = data.isFactory
     this.userId = data.uid
     this.startedAt = data.startedAt
+    this.updatedAt = new Date(data.updatedAt)
     return this
   }
 
