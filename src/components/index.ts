@@ -1,5 +1,5 @@
 import { gameLoop } from '../core'
-import { RawDeposit, RawShuttle, RawResource, RawMachine, RawRecipe, Resource, Deposit, Shuttle, Recipe, Machine, ShuttleD, MachineR } from '../entities'
+import { RawDeposit, RawShuttle, RawResource, RawMachine, RawRecipe, Resource, Deposit, Shuttle, Recipe, Machine, ShuttleD, MachineR, RawPlanet, Planet } from '../entities'
 import { fService, fInternal } from './factory'
 import { mService, mInternal } from './miner'
 import { pService } from './planet'
@@ -12,7 +12,7 @@ export * from './warehouse'
 export * from './static'
 
 
-export type TotalPlanetRawData = {
+export type TotalPlanetRawData = RawPlanet & {
   deposits: RawDeposit[],
   shuttles: RawShuttle[],
   resources: RawResource[],
@@ -28,9 +28,10 @@ export function loadPlanet(planetId: string, rawData: TotalPlanetRawData): Error
     return null
   }
 
-  const planet = pService.load(planetId)
-  if (planet instanceof Error) {
-    return planet
+  const p = pService.load(planetId)
+  if (p instanceof Error) {
+    pService.addPlanet(new Planet(rawData))
+    pService.load(planetId)
   }
   rawData.resources.forEach(r => wService.addResource(new Resource(r)))
   rawData.deposits.forEach(d => mService.addDeposit(new Deposit(d)))
