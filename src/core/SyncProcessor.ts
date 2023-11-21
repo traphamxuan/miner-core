@@ -1,23 +1,31 @@
+import { SubEvent } from '../common/services/SubEvent.js'
 import { GameProcessor } from '../common/interfaces/GameProcessor.js'
 
 export interface SyncService {
+  id: string
   sync(ts: number): void
 }
 
+export type TRenderAction = {
+  onSync: (id: string, ts: number) => void
+}
+
 export class SyncProcessor implements GameProcessor {
+  private subEvent: SubEvent<TRenderAction>
+
   private syncQueue: Record<string, {
     service: SyncService,
-    callback?: (ts: number) => void
   }>
   constructor() {
     this.syncQueue = {}
+    this.subEvent = new SubEvent()
   }
 
   process(ts: number): void {
     const syncList = Object.values(this.syncQueue)
     syncList.forEach(q => {
       q.service.sync(ts)
-      q.callback && q.callback(ts)
+      this.subEvent.dispatchEvent(q.service.id, 'onSync', ts)
     })
   }
 
@@ -25,11 +33,15 @@ export class SyncProcessor implements GameProcessor {
     this.syncQueue = {}
   }
 
-  register(key: string, service: SyncService, callback?: (ts: number) => void) {
-    this.syncQueue[key] = { service, callback }
-  }
 
-  unregister(key: string) {
-    delete this.syncQueue[key]
+  register(service: SyncService, action: TRenderAction, uid = 'default') {
+    this.syncQueue[service.id] = { service }
+    this.subEvent.registerChange(service.id, uid, action)
+  }
+  unregister(service: SyncService, uid?: string) {
+    this.subEvent.unregisterChange(service.id, uid)
+    if (!uid) {
+      delete this.syncQueue[service.id]
+    }
   }
 }

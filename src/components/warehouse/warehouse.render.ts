@@ -1,13 +1,14 @@
-import { SyncService } from "../../core/SyncProcessor"
+import { SyncService, TRenderAction } from "../../core/SyncProcessor"
 import { WarehouseService } from "./warehouse.service"
 import { syncProcessor } from "../../core"
 
 export class WarehouseRender implements SyncService {
-  constructor(private warehouseService: WarehouseService) {}
+  readonly id = 'warehouse-render'
+  constructor(private warehouseService: WarehouseService) { }
   sync(ts: number) {
     this.warehouseService.Resources().forEach(resource => resource.syncedAt < ts && (resource.syncedAt = ts))
   }
 
-  register(callback?: (ts: number) => void) { syncProcessor.register(this.warehouseService.id, this, callback) }
-  unregister() { syncProcessor.unregister(this.warehouseService.id) }
+  register(callback: TRenderAction, uid = 'default') { syncProcessor.register(this, callback, uid) }
+  unregister(uid?: string) { syncProcessor.unregister(this, uid) }
 }
