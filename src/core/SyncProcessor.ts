@@ -1,5 +1,6 @@
 import { SubEvent } from '../common/services/SubEvent.js'
 import { GameProcessor } from '../common/interfaces/GameProcessor.js'
+import { isEmptyObject } from '../common/utils/index.js'
 
 export interface SyncService {
   id: string
@@ -40,7 +41,7 @@ export class SyncProcessor implements GameProcessor {
   }
   unregister(service: SyncService, uid?: string) {
     this.subEvent.unregisterChange(service.id, uid)
-    if (!uid) {
+    if (!uid || isEmptyObject(this.syncQueue[service.id])) {
       delete this.syncQueue[service.id]
     }
   }
