@@ -1,45 +1,48 @@
-import { Accelerator } from './Accelerator'
-import type { TAccelerator } from './Accelerator'
-import { BaseEntity } from '../common/BaseEntity'
+import { StaticResource } from "./static"
+import { TStaticResource } from "./static/Resource"
 
-export type TResource = {
-  name: string
-  category: string
-  quantity: number
-  value: number
-  cost: number
-  accelerators: TAccelerator[]
-  ingres: { item: string, quantity: number }[]
+export type RawResource = {
+  id: string
+  pid: string
+  srid: string
+  amount: string
+  syncedAt: number
 }
 
-export class Resource extends BaseEntity {
-  totalCost: number
-  quantity: number
-  ingres: { src: Resource, quantity: number }[]
-  totalAce: Accelerator
-  accelerators: Accelerator[]
-  constructor(public name: string, public category: string, private _value = 0, private _cost = 0) {
-    super()
-    this.totalCost = _cost
-    this.quantity = 0
-    this.totalAce = new Accelerator(1, 1)
-    this.accelerators = []
-    this.ingres = []
+export type TResource = {
+  id: string
+  planetId: string
+  amount: bigint
+  syncedAt: number
+  readonly base: TStaticResource
+}
+export class Resource implements TResource {
+  id: string
+  planetId: string
+  amount: bigint
+  syncedAt: number
+  base: TStaticResource
+
+  constructor(raw: RawResource, sResource?: TStaticResource) {
+    const base = sResource || StaticResource.RESOURCES.getOne(raw.srid)
+    if (!base) {
+      throw new Error(`Cannot create Resource`)
+    }
+    this.id = raw.id
+    this.planetId = raw.pid
+    this.base = base
+    this.amount = BigInt(raw.amount)
+    this.syncedAt = raw.syncedAt
   }
 
-  toPlainObject = (): TResource => ({
-    name: this.name,
-    category: this.category,
-    quantity: this.quantity,
-    value: this._value,
-    cost: this._cost,
-    accelerators: this.accelerators,
-    ingres: this.ingres.map(ingre => ({ quantity: ingre.quantity, item: ingre.src.name })),
-  })
-  
-  get value() { return this._value * this.totalAce.value }
-  set value(value: number) { this._value = value / this.totalAce.value }
 
-  get cost() { return this._cost * this.totalAce.cost }
-  set cost(cost: number) { this._cost = cost / this.totalAce.cost }
+  toRaw(): RawResource {
+    return {
+      id: this.id,
+      pid: this.planetId,
+      srid: this.base.id,
+      amount: this.amount.toString(),
+      syncedAt: this.syncedAt,
+    }
+  }
 }

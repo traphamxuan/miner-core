@@ -1,0 +1,30 @@
+import { Shuttle } from "../../entities"
+
+export class QuickAccessStore<T extends { id: string }> {
+  private oData: Record<string, T>
+  private aData: T[]
+  constructor() {
+    this.oData = {}
+    this.aData = []
+  }
+
+  get length(): number { return this.aData.length }
+
+  reset() { this.oData = {}; this.aData = [] }
+
+  add(data: T, keys: string[] = []) {
+    this.oData[data.id] = data
+    keys.forEach(key => this.oData[key] = data)
+    this.aData.push(data)
+  }
+  replaceKey(oKey: string, nKey: string): T | undefined {
+    const data = this.oData[oKey]
+    if (!data) return undefined
+    delete this.oData[oKey]
+    this.oData[nKey] = data
+    return data
+  }
+  getStores(): T[] { return this.aData }
+  getOne(idOrKey: string): T | undefined { return this.oData[idOrKey] }
+
+}
