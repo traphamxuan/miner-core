@@ -9,6 +9,6 @@ export class FactoryRender implements SyncService {
     this.factoryService.Machines().forEach(machine => machine.syncedAt < ts && machine.sync(ts))
   }
 
-  register(callback: TRenderAction, uid = 'default') { syncProcessor.register(this, callback, uid) }
+  register(callback: TRenderAction, uid = 'default') { return syncProcessor.register(this, callback, uid) }
   unregister(uid?: string) { syncProcessor.unregister(this, uid) }
 }

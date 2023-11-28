@@ -9,6 +9,6 @@ export class WarehouseRender implements SyncService {
     this.warehouseService.Resources().forEach(resource => resource.syncedAt < ts && (resource.syncedAt = ts))
   }
 
-  register(callback: TRenderAction, uid = 'default') { syncProcessor.register(this, callback, uid) }
+  register(callback: TRenderAction, uid = 'default') { return syncProcessor.register(this, callback, uid) }
   unregister(uid?: string) { syncProcessor.unregister(this, uid) }
 }

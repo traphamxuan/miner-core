@@ -105,7 +105,7 @@ export class WarehouseService {
   }
 
   registerChange(resPackOrPlanetId: string, uId: string, action: TWarehouseAction) {
-    this.subEvent.registerChange(resPackOrPlanetId, uId, action)
+    return this.subEvent.registerChange(resPackOrPlanetId, uId, action)
   }
 
   unregisterChanges(resPackOrPlanetId: string, uId?: string) {

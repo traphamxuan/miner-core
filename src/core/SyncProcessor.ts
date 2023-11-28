@@ -37,7 +37,7 @@ export class SyncProcessor implements GameProcessor {
 
   register(service: SyncService, action: TRenderAction, uid = 'default') {
     this.syncQueue[service.id] = { service }
-    this.subEvent.registerChange(service.id, uid, action)
+    return this.subEvent.registerChange(service.id, uid, action)
   }
   unregister(service: SyncService, uid?: string) {
     this.subEvent.unregisterChange(service.id, uid)
