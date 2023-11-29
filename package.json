@@ -1,6 +1,6 @@
 {
   "name": "@tareling/exo-miner-core",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Exo core engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
