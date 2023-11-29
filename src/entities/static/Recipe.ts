@@ -50,20 +50,5 @@ export class StaticRecipe {
       return acc
     }, [])
   }
-
-  toRaw(): RawStaticRecipe {
-    return {
-      id: this.id,
-      cost: this.cost,
-      price: this.price.toString(),
-      name: this.target.name,
-      ingredients: this.ingredients.map(ingre => ({
-        srid: ingre.id,
-        srName: '',
-        amount: ingre.amount.toString(),
-      }))
-    }
-  }
-
 }
 
