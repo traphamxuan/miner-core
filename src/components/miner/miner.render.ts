@@ -12,6 +12,6 @@ export class MinerRender implements SyncService {
     this.minerService.Shuttles().forEach(shuttle => shuttle.syncedAt < ts && shuttle.sync(ts))
   }
 
-  register(callback: TRenderAction, uid = 'default') { return syncProcessor.register(this, callback, uid) }
+  register(callback: TRenderAction, uid?: string) { return syncProcessor.register(this, callback, uid) }
   unregister(uid?: string) { syncProcessor.unregister(this, uid) }
 }
