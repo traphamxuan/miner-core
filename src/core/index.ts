@@ -8,10 +8,25 @@ export type { SyncProcessor }
 export type { InternalProcessor, TInternalRequest }
 export type { InputProcessor, TInputRequest }
 export type { GameLoop }
+export type Engine = {
+  external: ExternalProcessor,
+  sync: SyncProcessor,
+  internal: InternalProcessor,
+  input: InputProcessor,
+  loop: GameLoop,
+}
 
-export const externalProcessor = new ExternalProcessor()
-export const syncProcessor = new SyncProcessor()
-export const internalProcessor = new InternalProcessor()
-export const inputProcessor = new InputProcessor()
-export const gameLoop = new GameLoop(externalProcessor, internalProcessor, inputProcessor, syncProcessor)
-export const GlobalTick = () => GameLoop.Tick
+export function createCoreEngine(): Engine {
+  const external = new ExternalProcessor()
+  const sync = new SyncProcessor()
+  const internal = new InternalProcessor()
+  const input = new InputProcessor()
+  const loop = new GameLoop(external, internal, input, sync)
+  return {
+    external,
+    sync,
+    internal,
+    input,
+    loop,
+  }
+}

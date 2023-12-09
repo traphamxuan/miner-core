@@ -1,54 +1,42 @@
-import { gameLoop } from '../core'
-import { RawDeposit, RawShuttle, RawResource, RawMachine, RawRecipe, Resource, Deposit, Shuttle, Recipe, Machine, ShuttleD, MachineR, RawPlanet, Planet } from '../entities'
-import { fService, fInternal } from './factory'
-import { mService, mInternal } from './miner'
-import { pService } from './planet'
-import { wService } from './warehouse'
+import { Engine } from '@/core';
+import { FactoryInputManagement, FactoryInternalEvent, FactoryRender, FactoryService, createFactory } from './factory';
+import { MinerRender, MinerInputManagement, MinerService, MinerInternalEvent, createMiner } from './miner';
+import { PlanetService } from './planet/planet.service';
+import { WarehouseInputManagement, WarehouseService, createWarehouse } from './warehouse';
+import { WarehouseRender } from './warehouse/warehouse.render';
 
-export * from './planet'
-export * from './factory'
-export * from './miner'
-export * from './warehouse'
-export * from './static'
-
-
-export type TotalPlanetRawData = RawPlanet & {
-  deposits: RawDeposit[],
-  shuttles: RawShuttle[],
-  resources: RawResource[],
-  machines: RawMachine[],
-  recipes: RawRecipe[],
+export type Component = {
+  planet: {
+    service: PlanetService
+  }
+  factory: {
+    render: FactoryRender
+    input: FactoryInputManagement
+    service: FactoryService
+    internal: FactoryInternalEvent
+  }
+  miner: {
+    render: MinerRender
+    input: MinerInputManagement
+    service: MinerService
+    internal: MinerInternalEvent
+  }
+  warehouse: {
+    render: WarehouseRender
+    input: WarehouseInputManagement
+    service: WarehouseService
+  }
 }
 
-export function loadPlanet(planetId: string, rawData: TotalPlanetRawData): Error | null {
-  if (pService.planet) {
-    if (pService.planet.id != planetId) {
-      return new Error('Exist planet is working. Remove the old one first!!!')
-    }
-    return null
+export function createComponents(engine: Engine): Component {
+  const pService = new PlanetService()
+  const warehouse = createWarehouse(engine, pService)
+  const miner = createMiner(engine, pService, warehouse.service)
+  const factory = createFactory(engine, pService, warehouse.service)
+  return {
+    planet: { service: pService },
+    warehouse,
+    miner,
+    factory,
   }
-
-  const p = pService.load(planetId)
-  if (p instanceof Error) {
-    pService.addPlanet(new Planet(rawData))
-    pService.load(planetId)
-  }
-  rawData.resources.forEach(r => wService.addResource(new Resource(r)))
-  rawData.deposits.forEach(d => mService.addDeposit(new Deposit(d)))
-  rawData.shuttles.forEach(s => mService.addShuttle(new Shuttle(s, mService.Deposits())))
-  rawData.recipes.forEach(r => fService.addRecipe(new Recipe(r)))
-  rawData.machines.forEach(m => fService.addMachine(new Machine(m, fService.Recipes())))
-
-  mService.Shuttles().forEach(shuttle => shuttle.deposit && mInternal.publishShuttleEvent(shuttle as ShuttleD))
-  fService.Machines().forEach(machine => machine.recipe && fInternal.publishMachineEvent(machine as MachineR))
-  return null
-}
-
-export function unloadPlanet() {
-  // TODO: Do the last looping
-  gameLoop.reset()
-  mService.reset()
-  fService.reset()
-  wService.reset()
-  pService.unload()
 }

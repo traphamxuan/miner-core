@@ -1,3 +1,5 @@
+export type UnSubEvent = () => void
+
 export class SubEvent<T extends Record<string, (id: string, ...args: any[]) => void>> {
   private subscribers: Record<string, { action: Record<string, T> }>
   private uniqueIdx: number
@@ -11,7 +13,7 @@ export class SubEvent<T extends Record<string, (id: string, ...args: any[]) => v
     this.subscribers = {}
   }
 
-  registerChange(id: string, key: string | undefined, action: T): () => void {
+  registerChange(id: string, key: string | undefined, action: T): UnSubEvent {
     let sub = this.subscribers[id]
     if (!sub) {
       sub = { action: {} }

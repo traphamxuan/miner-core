@@ -77,36 +77,45 @@ export class MinerService {
     return shuttle.load
   }
 
-  addNewMine(staticShuttle: StaticShuttle, staticDeposit: StaticDeposit, ts: number): { deposit: Deposit, shuttle: Shuttle } | Error {
+  addNewDeposit(sDeposit: StaticDeposit, ts: number): Deposit | Error {
     const planet = this.planetService.planet
     if (!planet) {
       return new Error('No planet available')
     }
-    let deposit = this.Deposit(staticDeposit.id)
+
+    let deposit = this.Deposit(sDeposit.id)
     if (!deposit) {
 
-      if (!planet.checkMoney(staticDeposit.price)) {
-        return new Error(`Not enough money ${planet.money} < ${staticDeposit.price}`)
+      if (!planet.checkMoney(sDeposit.price)) {
+        return new Error(`Not enough money ${planet.money} < ${sDeposit.price}`)
       }
-      planet.withdrawMoney(staticDeposit.price)
-      deposit = Deposit.initFromStatic(planet.id, staticDeposit, ts)
+      planet.withdrawMoney(sDeposit.price)
+      deposit = Deposit.initFromStatic(planet.id, sDeposit, ts)
 
       this.addDeposit(deposit)
       deposit.oreStorages.map(ore => {
         this.warehouseService.put([{
           id: ore.base.id,
           amount: 0n,
+          base: ore.base,
         }])
       })
     }
+    return deposit
+  }
 
-    let shuttle = this.Shuttle(staticShuttle.id)
+  addNewShuttle(sShuttle: StaticShuttle, ts: number): Shuttle | Error {
+    const planet = this.planetService.planet
+    if (!planet) {
+      return new Error('No planet available')
+    }
+
+    let shuttle = this.Shuttle(sShuttle.id)
     if (!shuttle) {
-      shuttle = Shuttle.initFromStatic(planet.id, staticShuttle, ts)
-      shuttle.deposit = deposit
+      shuttle = Shuttle.initFromStatic(planet.id, sShuttle, ts)
       this.addShuttle(shuttle)
     }
 
-    return { deposit, shuttle }
+    return shuttle
   }
 }

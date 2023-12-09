@@ -1,12 +1,14 @@
 import { ShuttleD } from "../../entities";
 import { MinerService } from "./miner.service";
 import { BaseInternalEvent } from "../../common/interfaces/BaseInternalEvent";
+import type { Engine } from "@/core";
 
 export class MinerInternalEvent extends BaseInternalEvent{
   constructor(
+    engine: Engine,
     private minerService: MinerService,
   ) {
-    super()
+    super(engine.internal)
   }
 
   get id(): string { return this.minerService.id + '-internal' }
@@ -19,7 +21,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
     let ts: number
     if (shuttle.isReturned) {
       ts = shuttle.syncedAt + shuttle.position / shuttle.speed * 1000
-      return this.makeRequest('unload-' + shuttle.id, ts, (ok, failed) => (err, _, isSkip) => {
+      return this.makeRequest('unload-' + shuttle.base.id, ts, (ok, failed) => (err, _, isSkip) => {
         if (isSkip) {
         return
       }
@@ -36,7 +38,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
     }
 
     ts = shuttle.syncedAt + (shuttle.deposit.base.position.y - shuttle.position) / shuttle.speed * 1000
-    return this.makeRequest('load-' + shuttle.id, ts, (ok, failed) => (err, _, isSkip) => {
+    return this.makeRequest('load-' + shuttle.base.id, ts, (ok, failed) => (err, _, isSkip) => {
       if (isSkip) {
         return
       }

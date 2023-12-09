@@ -4,7 +4,7 @@ export class GameLoop {
   private elapseTs: number
   private startTs: number
   private isContinue: boolean
-  private static tick: number
+  private tick: number
   constructor(
     private external: GameProcessor,
     private internal: GameProcessor,
@@ -14,10 +14,11 @@ export class GameLoop {
     this.elapseTs = 0
     this.startTs = -1
     this.isContinue = false
+    this.tick = 0
   }
 
-  static get Tick() { return GameLoop.tick }
-  private setTick(ts: number) { GameLoop.tick = ts }
+  get Tick() { return this.tick }
+  private setTick(ts: number) { this.tick = ts }
 
   private getTicks(ts: number): number {
     return ts < this.startTs ? 0 : ts - this.startTs + this.elapseTs

@@ -1,5 +1,6 @@
-import { pService } from '../planet'
-import { wService } from '../warehouse'
+import { Engine, GameLoop, InputProcessor, InternalProcessor, SyncProcessor } from '@/core'
+import { PlanetService } from '../planet/planet.service'
+import { WarehouseService } from '../warehouse'
 import { FactoryInputManagement } from './factory.input'
 import { FactoryInternalEvent } from './factory.internal'
 import { FactoryRender } from './factory.render'
@@ -11,9 +12,24 @@ export type { FactoryRender } from './factory.render'
 export type { FactoryExternal } from './factory.external'
 export type { FactoryInternalEvent } from './factory.internal'
 
-const fService = new FactoryService(pService, wService)
-const fInternal = new FactoryInternalEvent(fService, wService)
-const fInput = new FactoryInputManagement(fService, fInternal)
-const fRender = new FactoryRender(fService)
-
-export { fRender, fService, fInternal, fInput }
+export function createFactory(
+  engine: Engine,
+  pService: PlanetService,
+  wService: WarehouseService,
+): {
+  service: FactoryService,
+  internal: FactoryInternalEvent,
+  input: FactoryInputManagement,
+  render: FactoryRender
+} {
+  const service = new FactoryService(pService, wService)
+  const internal = new FactoryInternalEvent(engine, service, wService)
+  const input = new FactoryInputManagement(engine, service, internal)
+  const render = new FactoryRender(engine, service)
+  return {
+    service,
+    internal,
+    input,
+    render,
+  }
+}

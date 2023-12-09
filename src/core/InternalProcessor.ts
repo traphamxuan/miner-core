@@ -1,5 +1,5 @@
 import { Heap } from 'heap-js';
-import { GameProcessor } from '../common/interfaces/GameProcessor.js';
+import { GameProcessor } from '../common/interfaces/GameProcessor';
 
 export type TInternalRequest = {
   id: string

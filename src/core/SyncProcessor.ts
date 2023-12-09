@@ -1,6 +1,6 @@
 import { SubEvent } from '../common/services/SubEvent.js'
 import { GameProcessor } from '../common/interfaces/GameProcessor.js'
-import { isEmptyObject } from '../common/utils/index.js'
+import { isEmptyObject } from '../common/utils'
 
 export interface SyncService {
   id: string

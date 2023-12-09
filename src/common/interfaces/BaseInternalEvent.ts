@@ -1,8 +1,8 @@
-import { internalProcessor, TInternalRequest } from "../../core"
+import { InternalProcessor, TInternalRequest } from "../../core"
 
 export abstract class BaseInternalEvent {
   private preMsgQueue: Record<string, TInternalRequest>
-  constructor() {
+  constructor(private internalProc: InternalProcessor) {
     this.preMsgQueue = {}
   }
 
@@ -35,7 +35,7 @@ export abstract class BaseInternalEvent {
         oldMsg && (oldMsg.isDone = true)
       }
       this.preMsgQueue[id] = msg
-      internalProcessor.request(msg)
+      this.internalProc.request(msg)
     })
   }
 
@@ -64,7 +64,7 @@ export abstract class BaseInternalEvent {
       oldMsg && (oldMsg.isDone = true)
     }
     this.preMsgQueue[id] = msg
-    internalProcessor.request(msg)
+    this.internalProc.request(msg)
   }
     
 }

@@ -3,42 +3,60 @@ import { StaticDeposit, StaticShuttle } from '../../entities/static'
 import { MinerInternalEvent } from './miner.internal'
 import { MinerService } from './miner.service'
 import { BaseInputEvent } from '../../common/interfaces/BaseInputEvent'
+import type { Engine } from '@/core'
 
 export class MinerInputManagement extends BaseInputEvent {
   constructor(
+    engine: Engine,
     private minerService: MinerService,
     private minerInternal: MinerInternalEvent
   ) {
-    super()
+    super(engine.input)
   }
 
   get id(): string { return this.minerService.id + '-input' }
 
-  requestNewMiner(sShuttle: StaticShuttle, sDeposit: StaticDeposit): Promise<{ shuttle: Shuttle, deposit: Deposit }> {
+  requestSetDeposit(shuttle: Shuttle, deposit?: Deposit): Promise<Shuttle> {
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)
         return
       }
-      const result = this.minerService.addNewMine(sShuttle, sDeposit, ts)
-      if (result instanceof Error) {
-        failed(result)
-        return
-      }
-      result.shuttle.deposit && this.minerInternal.publishShuttleEvent(result.shuttle as ShuttleD)
-      ok(result)
+      shuttle.deposit = deposit
+      deposit && this.minerInternal.publishShuttleEvent(shuttle as ShuttleD)
+      ok(shuttle)
     })
   }
 
-  updateMinerID(shuttle: Shuttle, shuttleID: string, deposit: Deposit, depositId: string): Promise<{ shuttle: Shuttle, deposit: Deposit }> {
+  requestNewShuttle(sShuttle: StaticShuttle, createdAt = 0): Promise<Shuttle> {
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)
         return
       }
-      this.minerService.updateMinerID(shuttle.id, shuttleID, deposit.id, depositId)
-      this.minerInternal.updateMinerID(shuttle.id, shuttleID)
-      ok({ shuttle, deposit })
+      ts = ts < createdAt ? createdAt : ts
+      const shuttle = this.minerService.addNewShuttle(sShuttle, ts)
+      if (shuttle instanceof Error) {
+        failed(shuttle)
+        return
+      }
+      ok(shuttle)
+    })
+  }
+
+  requestNewDeposit(sDeposit: StaticDeposit, createdAt = 0): Promise<Deposit> {
+    return this.makeRequest((ok, failed) => (err, ts) => {
+      if (err) {
+        failed(err)
+        return
+      }
+      ts = ts < createdAt ? createdAt : ts
+      const deposit = this.minerService.addNewDeposit(sDeposit, ts)
+      if (deposit instanceof Error) {
+        failed(deposit)
+        return
+      }
+      ok(deposit)
     })
   }
 

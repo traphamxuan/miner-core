@@ -15,7 +15,7 @@ export class PlanetService {
   runningPlanet() { return this.planet }
 
   addPlanet(planet: Planet): Planet {
-    this.planets.add(planet, [planet.name])
+    this.planets.add(planet, [planet.id, planet.name])
     return planet
   }
 
