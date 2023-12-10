@@ -1,7 +1,7 @@
 import { ShuttleD } from "../../entities";
 import { MinerService } from "./miner.service";
 import { BaseInternalEvent } from "../../common/interfaces/BaseInternalEvent";
-import type { Engine } from "@/core";
+import type { Engine } from "../../core";
 
 export class MinerInternalEvent extends BaseInternalEvent{
   constructor(

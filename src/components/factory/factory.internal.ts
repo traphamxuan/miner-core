@@ -7,7 +7,7 @@ import { Engine, InternalProcessor } from "../../core";
 export class FactoryInternalEvent extends BaseInternalEvent{
   private getTick: () => number
   constructor(
-    engine: Engine,
+    engine: Pick<Engine, 'loop' | 'internal'>,
     private factoryService: FactoryService,
     private warehouseService: WarehouseService,
   ) {

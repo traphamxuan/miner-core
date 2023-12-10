@@ -1,0 +1,173 @@
+{
+  "planet": {
+      "id": "656fe46907326eceaa520267",
+      "name": "My Planet 2",
+      "uid": "656b2417fed77e1821654cd8",
+      "startedAt": 1701831785536,
+      "money": "17080",
+      "updatedAt": "2023-12-06T07:26:26.348Z"
+  },
+  "resources": [
+      {
+          "id": "656fee705b1433ae0f39a710",
+          "pid": "656fe46907326eceaa520267",
+          "srid": "1",
+          "amount": "833064",
+          "syncedAt": 8371417.270000018
+      },
+      {
+          "id": "6570051d313d1bb330ac17d6",
+          "pid": "656fe46907326eceaa520267",
+          "srid": "2",
+          "amount": "46575",
+          "syncedAt": 8371417.270000018
+      },
+      {
+          "id": "123",
+          "pid": "656fe46907326eceaa520267",
+          "srid": "2",
+          "amount": "46575",
+          "syncedAt": 8371417.270000018
+      }
+  ],
+  "deposits": [
+      {
+          "id": "656fe47207326eceaa520268",
+          "ores": [
+              {
+                  "srid": "1",
+                  "amount": "685849.4263894111"
+              }
+          ],
+          "rate": 10.367999999999999,
+          "pid": "656fe46907326eceaa520267",
+          "sdid": "82",
+          "syncedAt": 138424729.07558262
+      },
+      {
+          "id": "6570019e5d8c1bb66e548618",
+          "ores": [
+              {
+                  "srid": "1",
+                  "amount": "458305.0000000094"
+              },
+              {
+                  "srid": "2",
+                  "amount": "130945.00000000234"
+              }
+          ],
+          "rate": 5,
+          "pid": "656fe46907326eceaa520267",
+          "sdid": "83",
+          "syncedAt": 138420976.39500004
+      },
+      {
+          "id": "657001a15d8c1bb66e54861a",
+          "ores": [
+              {
+                  "srid": "1",
+                  "amount": "272799.9999999986"
+              },
+              {
+                  "srid": "2",
+                  "amount": "327359.9999999986"
+              }
+          ],
+          "rate": 5,
+          "pid": "656fe46907326eceaa520267",
+          "sdid": "84",
+          "syncedAt": 138423926.23700002
+      },
+      {
+          "id": "657002465d8c1bb66e54861c",
+          "ores": [
+              {
+                  "srid": "2",
+                  "amount": "476391.00000000926"
+              },
+              {
+                  "srid": "3",
+                  "amount": "130774.00000000231"
+              }
+          ],
+          "rate": 5,
+          "pid": "656fe46907326eceaa520267",
+          "sdid": "85",
+          "syncedAt": 138418760.67900002
+      }
+  ],
+  "recipes": [],
+  "shuttles": [
+      {
+          "id": "656fe47207326eceaa520269",
+          "pid": "656fe46907326eceaa520267",
+          "ssid": "122",
+          "did": "656fe47207326eceaa520268",
+          "capacity": 10,
+          "position": {
+              "x": 0,
+              "y": 20
+          },
+          "isReturned": true,
+          "power": 21.49908479999999,
+          "load": [
+              {
+                  "srid": "1",
+                  "amount": "10"
+              }
+          ],
+          "syncedAt": 138424729.07558262
+      },
+      {
+          "id": "6570019e5d8c1bb66e548619",
+          "pid": "656fe46907326eceaa520267",
+          "ssid": "123",
+          "did": "6570019e5d8c1bb66e548618",
+          "capacity": 5,
+          "position": {
+              "x": 0,
+              "y": 25
+          },
+          "isReturned": true,
+          "power": 5,
+          "load": [
+              {
+                  "srid": "1",
+                  "amount": "5"
+              }
+          ],
+          "syncedAt": 138420976.39500004
+      },
+      {
+          "id": "657001a15d8c1bb66e54861b",
+          "pid": "656fe46907326eceaa520267",
+          "ssid": "124",
+          "did": "657001a15d8c1bb66e54861a",
+          "capacity": 5,
+          "position": {
+              "x": 0,
+              "y": 0
+          },
+          "isReturned": false,
+          "power": 5,
+          "load": [],
+          "syncedAt": 138423926.23700002
+      },
+      {
+          "id": "657002465d8c1bb66e54861d",
+          "pid": "656fe46907326eceaa520267",
+          "ssid": "125",
+          "did": "657002465d8c1bb66e54861c",
+          "capacity": 5,
+          "position": {
+              "x": 0,
+              "y": 0
+          },
+          "isReturned": false,
+          "power": 5,
+          "load": [],
+          "syncedAt": 138418760.67900002
+      }
+  ],
+  "machines": []
+}

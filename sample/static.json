@@ -1,0 +1,3109 @@
+{
+    "version": "1701280601997",
+    "resources": [
+        {
+            "id": "1",
+            "name": "Carbon",
+            "category": "Ore",
+            "value": "1",
+            "weight": 1,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/d/d9/Carbon.png"
+        },
+        {
+            "id": "2",
+            "name": "Tin",
+            "category": "Ore",
+            "value": "2",
+            "weight": 2,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/80/Tin.png"
+        },
+        {
+            "id": "3",
+            "name": "Cobalt",
+            "category": "Ore",
+            "value": "4",
+            "weight": 3,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/80/Cobalt.png"
+        },
+        {
+            "id": "4",
+            "name": "Bismuth",
+            "category": "Ore",
+            "value": "8",
+            "weight": 4,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/c/c5/Bismuth.png"
+        },
+        {
+            "id": "5",
+            "name": "Cerussite",
+            "category": "Ore",
+            "value": "16",
+            "weight": 5,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/87/Cerussite.png"
+        },
+        {
+            "id": "6",
+            "name": "Manganese",
+            "category": "Ore",
+            "value": "36",
+            "weight": 6,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/f4/Manganese.png"
+        },
+        {
+            "id": "7",
+            "name": "Einherjer",
+            "category": "Ore",
+            "value": "75",
+            "weight": 7,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/3/3d/Einherjer.png"
+        },
+        {
+            "id": "8",
+            "name": "Dark Matter",
+            "category": "Ore",
+            "value": "160",
+            "weight": 8,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/17/Dark_Matter.png"
+        },
+        {
+            "id": "9",
+            "name": "Kriptonite",
+            "category": "Ore",
+            "value": "340",
+            "weight": 9,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/8c/Kriptonite.png"
+        },
+        {
+            "id": "10",
+            "name": "Coreium",
+            "category": "Ore",
+            "value": "730",
+            "weight": 10,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/5/59/Coreium.png"
+        },
+        {
+            "id": "11",
+            "name": "Cerythium",
+            "category": "Ore",
+            "value": "1600",
+            "weight": 11,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/4/4b/Cerythium.png"
+        },
+        {
+            "id": "12",
+            "name": "Etherium",
+            "category": "Ore",
+            "value": "3500",
+            "weight": 12,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/3/31/Etherium.png"
+        },
+        {
+            "id": "13",
+            "name": "Cosmium",
+            "category": "Ore",
+            "value": "7800",
+            "weight": 13,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/b/bf/Cosmium.png"
+        },
+        {
+            "id": "14",
+            "name": "Galaxium",
+            "category": "Ore",
+            "value": "17500",
+            "weight": 14,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/f1/Galaxium.png"
+        },
+        {
+            "id": "15",
+            "name": "Mythril",
+            "category": "Ore",
+            "value": "40000",
+            "weight": 15,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/fa/Mythril.png"
+        },
+        {
+            "id": "16",
+            "name": "Xenon",
+            "category": "Ore",
+            "value": "92000",
+            "weight": 16,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/f4/Xenon.png"
+        },
+        {
+            "id": "17",
+            "name": "Wrayth",
+            "category": "Ore",
+            "value": "215000",
+            "weight": 17,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/5/58/Wrayth.png"
+        },
+        {
+            "id": "18",
+            "name": "Aurorium",
+            "category": "Ore",
+            "value": "510000",
+            "weight": 18,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/e/e0/Aurorium.png"
+        },
+        {
+            "id": "19",
+            "name": "Tungsten",
+            "category": "Ore",
+            "value": "1250000",
+            "weight": 19,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/a/a3/Tungsten.png"
+        },
+        {
+            "id": "20",
+            "name": "Zyther",
+            "category": "Ore",
+            "value": "3200000",
+            "weight": 20,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/c/cb/Zyther.png"
+        },
+        {
+            "id": "21",
+            "name": "Bluestarstuff",
+            "category": "Ore",
+            "value": "0",
+            "weight": 21
+        },
+        {
+            "id": "22",
+            "name": "Galactic",
+            "category": "Ore",
+            "value": "0",
+            "weight": 22
+        },
+        {
+            "id": "23",
+            "name": "Refined Carbon",
+            "category": "Refinement",
+            "value": "3340",
+            "weight": 23
+        },
+        {
+            "id": "24",
+            "name": "Refined Tin",
+            "category": "Refinement",
+            "value": "6900",
+            "weight": 24,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/21/Refined_Tin.png"
+        },
+        {
+            "id": "25",
+            "name": "Refined Cobalt",
+            "category": "Refinement",
+            "value": "14030",
+            "weight": 25,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/e/e2/Refined_Cobalt.png"
+        },
+        {
+            "id": "26",
+            "name": "Refined Bismuth",
+            "category": "Refinement",
+            "value": "28750",
+            "weight": 26
+        },
+        {
+            "id": "27",
+            "name": "Refined Cerussite",
+            "category": "Refinement",
+            "value": "63480",
+            "weight": 27
+        },
+        {
+            "id": "28",
+            "name": "Refined Manganese",
+            "category": "Refinement",
+            "value": "138000",
+            "weight": 28,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/05/Refined_Manganese.png"
+        },
+        {
+            "id": "29",
+            "name": "Refined Einherjer",
+            "category": "Refinement",
+            "value": "276000",
+            "weight": 29,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/82/Refined_Einherjer.png"
+        },
+        {
+            "id": "30",
+            "name": "Manganese Alloy",
+            "category": "Refinement",
+            "value": "538200",
+            "weight": 30
+        },
+        {
+            "id": "31",
+            "name": "Cobalt Alloy",
+            "category": "Refinement",
+            "value": "782000",
+            "weight": 31
+        },
+        {
+            "id": "32",
+            "name": "Kriptonite Alloy",
+            "category": "Refinement",
+            "value": "1790000",
+            "weight": 32
+        },
+        {
+            "id": "33",
+            "name": "Coreium Alloy",
+            "category": "Refinement",
+            "value": "3750000",
+            "weight": 33,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/07/Coreium_Alloy.png"
+        },
+        {
+            "id": "34",
+            "name": "Cerythium Alloy",
+            "category": "Refinement",
+            "value": "7150000",
+            "weight": 34
+        },
+        {
+            "id": "35",
+            "name": "Etherium Alloy",
+            "category": "Refinement",
+            "value": "16100000",
+            "weight": 35,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/9/90/Etherium_Alloy.png"
+        },
+        {
+            "id": "36",
+            "name": "Cosmium Alloy",
+            "category": "Refinement",
+            "value": "33350000",
+            "weight": 36,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/0d/Cosmium_Alloy.png"
+        },
+        {
+            "id": "37",
+            "name": "Galaxium Alloy",
+            "category": "Refinement",
+            "value": "35650000",
+            "weight": 37,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/3/3f/Galaxium_Alloy.png"
+        },
+        {
+            "id": "38",
+            "name": "Mythril Alloy",
+            "category": "Refinement",
+            "value": "78200000",
+            "weight": 38,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/9/97/Mythril_Alloy.png"
+        },
+        {
+            "id": "39",
+            "name": "Xenon Alloy",
+            "category": "Refinement",
+            "value": "174800000",
+            "weight": 39,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/0f/Xenon_Alloy.png"
+        },
+        {
+            "id": "40",
+            "name": "Wrayth Alloy",
+            "category": "Refinement",
+            "value": "404800000",
+            "weight": 40,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/f3/Wrayth_Alloy.png"
+        },
+        {
+            "id": "41",
+            "name": "Aurorium Alloy",
+            "category": "Refinement",
+            "value": "956800000",
+            "weight": 41,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/9/90/Aurorium_Alloy.png"
+        },
+        {
+            "id": "42",
+            "name": "Tungsten Alloy",
+            "category": "Refinement",
+            "value": "2360000000",
+            "weight": 42,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/27/Tungsten_Alloy.png"
+        },
+        {
+            "id": "43",
+            "name": "Zyther Alloy",
+            "category": "Refinement",
+            "value": "5890000000",
+            "weight": 43,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/a/a2/Zyther_Alloy.png"
+        },
+        {
+            "id": "44",
+            "name": "Bluestarstuff Alloy",
+            "category": "Refinement",
+            "value": "0",
+            "weight": 44
+        },
+        {
+            "id": "45",
+            "name": "Galactic Alloy",
+            "category": "Refinement",
+            "value": "0",
+            "weight": 45
+        },
+        {
+            "id": "46",
+            "name": "Cables",
+            "category": "Product",
+            "value": "23000",
+            "weight": 46,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/2a/Cables.png"
+        },
+        {
+            "id": "47",
+            "name": "Fuse",
+            "category": "Product",
+            "value": "46000",
+            "weight": 47,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/1d/Fuse.png"
+        },
+        {
+            "id": "48",
+            "name": "Heat Sensor",
+            "category": "Product",
+            "value": "161000",
+            "weight": 48,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/02/Heat_Sensor.png"
+        },
+        {
+            "id": "49",
+            "name": "Ball Bearing",
+            "category": "Product",
+            "value": "310500",
+            "weight": 49,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/e/ea/Ball_Bearing.png"
+        },
+        {
+            "id": "50",
+            "name": "Glass",
+            "category": "Product",
+            "value": "483000",
+            "weight": 50,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/15/Glass.png"
+        },
+        {
+            "id": "51",
+            "name": "Circuit",
+            "category": "Product",
+            "value": "1380000",
+            "weight": 51,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/18/Circuit.png"
+        },
+        {
+            "id": "52",
+            "name": "Lense",
+            "category": "Product",
+            "value": "2300000",
+            "weight": 52,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/fe/Lense.png"
+        },
+        {
+            "id": "53",
+            "name": "Laser Optic",
+            "category": "Product",
+            "value": "6900000",
+            "weight": 53,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/9/91/Laser_Optic.png"
+        },
+        {
+            "id": "54",
+            "name": "Mini Rover",
+            "category": "Product",
+            "value": "17250000",
+            "weight": 54,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/c/cd/Mini_Rover.png"
+        },
+        {
+            "id": "55",
+            "name": "Solar Panel",
+            "category": "Product",
+            "value": "28750000",
+            "weight": 55,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/5/5d/Solar_Panel.png"
+        },
+        {
+            "id": "56",
+            "name": "Laser Blaster",
+            "category": "Product",
+            "value": "69000000",
+            "weight": 56,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/5/58/Laser_Blaster.png"
+        },
+        {
+            "id": "57",
+            "name": "Advanced Sensors",
+            "category": "Product",
+            "value": "80500000",
+            "weight": 57,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/b/b9/Advanced_Sensors.png"
+        },
+        {
+            "id": "58",
+            "name": "Surface Scanner",
+            "category": "Product",
+            "value": "164450000",
+            "weight": 58,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/9/9d/Surface_Scanner.png"
+        },
+        {
+            "id": "59",
+            "name": "Planet Explorer",
+            "category": "Product",
+            "value": "414000000",
+            "weight": 59,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/9/9e/Planet_Explorer.png"
+        },
+        {
+            "id": "60",
+            "name": "Planet Dust Collector",
+            "category": "Product",
+            "value": "2210000000",
+            "weight": 60,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/85/Planet_Dust_Collector.png"
+        },
+        {
+            "id": "61",
+            "name": "Plasma Cannon",
+            "category": "Product",
+            "value": "2480000000",
+            "weight": 61,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/a/aa/Plasma_Cannon.png"
+        },
+        {
+            "id": "62",
+            "name": "Ion Rocket Engine",
+            "category": "Product",
+            "value": "3330000000",
+            "weight": 62,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/f9/Ion_Rocket_Engine.png"
+        },
+        {
+            "id": "63",
+            "name": "Mobile Telescope",
+            "category": "Product",
+            "value": "5750000000",
+            "weight": 63,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/25/Mobile_Telescope.png"
+        },
+        {
+            "id": "64",
+            "name": "Advanced Antenna",
+            "category": "Product",
+            "value": "7820000000",
+            "weight": 64,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/f7/Advanced_Antenna.png"
+        },
+        {
+            "id": "65",
+            "name": "Xenon Engine",
+            "category": "Product",
+            "value": "8050000000",
+            "weight": 65,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/27/Xenon_Engine.png"
+        },
+        {
+            "id": "66",
+            "name": "Planet Radar",
+            "category": "Product",
+            "value": "11500000000",
+            "weight": 66,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/b/bc/Planet_Radar.png"
+        },
+        {
+            "id": "67",
+            "name": "Infrared Homing Turret",
+            "category": "Product",
+            "value": "25300000000",
+            "weight": 67,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/15/Infrared_Homing_Turret.png"
+        },
+        {
+            "id": "68",
+            "name": "Gravity Reactor",
+            "category": "Product",
+            "value": "161000000000",
+            "weight": 68,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/16/Gravity_Reactor.png"
+        },
+        {
+            "id": "69",
+            "name": "Exospace Probe",
+            "category": "Product",
+            "value": "207000000000",
+            "weight": 69,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/2c/Exospace_Probe.png"
+        },
+        {
+            "id": "70",
+            "name": "Space Protector X1000",
+            "category": "Product",
+            "value": "1150000000000",
+            "weight": 70,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/4/42/Space_Protector_X1000.png"
+        },
+        {
+            "id": "71",
+            "name": "Supercombustion Fuel",
+            "category": "Product",
+            "value": "2300000000000",
+            "weight": 71,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/fc/Supercombustion_Fuel.png"
+        },
+        {
+            "id": "72",
+            "name": "Space Fleet Station",
+            "category": "Product",
+            "value": "5750000000000",
+            "weight": 72,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/7/70/Space_Fleet_Station.png"
+        },
+        {
+            "id": "73",
+            "name": "Super Wrayth Lense",
+            "category": "Product",
+            "value": "11500000000000",
+            "weight": 73
+        },
+        {
+            "id": "74",
+            "name": "Hyperspeed Thrusters",
+            "category": "Product",
+            "value": "23000000000000",
+            "weight": 74
+        },
+        {
+            "id": "75",
+            "name": "Aurora Alternator",
+            "category": "Product",
+            "value": "57500000000000",
+            "weight": 75
+        },
+        {
+            "id": "76",
+            "name": "Space Elevator",
+            "category": "Product",
+            "value": "115000000000000",
+            "weight": 76
+        },
+        {
+            "id": "77",
+            "name": "Space Particle Engine",
+            "category": "Product",
+            "value": "575000000000000",
+            "weight": 77
+        },
+        {
+            "id": "78",
+            "name": "Galactic Portal",
+            "category": "Product",
+            "value": "3450000000000000",
+            "weight": 78
+        },
+        {
+            "id": "79",
+            "name": "Time Traveling Machine",
+            "category": "Product",
+            "value": "5750000000000000",
+            "weight": 80
+        },
+        {
+            "id": "80",
+            "name": "Dyson Sphere",
+            "category": "Product",
+            "value": "13800000000000000",
+            "weight": 79,
+            "icon": "https://static.wikia.nocookie.net/exominer/images/b/b8/Dyson_Sphere.png"
+        },
+        {
+            "id": "81",
+            "name": "Black Hole Generator",
+            "category": "Product",
+            "value": "57500000000000000",
+            "weight": 81
+        }
+    ],
+    "deposits": [
+        {
+            "id": "82",
+            "name": "Deposit 1",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/3/30/Deposit_1.png",
+            "price": "100",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "1",
+                    "srName": "Carbon",
+                    "ratio": 100,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 20
+            }
+        },
+        {
+            "id": "83",
+            "name": "Deposit 2",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/82/Deposit_2.png",
+            "price": "200",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "1",
+                    "srName": "Carbon",
+                    "ratio": 80,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "2",
+                    "srName": "Tin",
+                    "ratio": 20,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 25
+            }
+        },
+        {
+            "id": "84",
+            "name": "Deposit 3",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/fd/Deposit_3.png",
+            "price": "500",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "1",
+                    "srName": "Carbon",
+                    "ratio": 50,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "2",
+                    "srName": "Tin",
+                    "ratio": 50,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 30
+            }
+        },
+        {
+            "id": "85",
+            "name": "Deposit 4",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/d/d1/Deposit_4.png",
+            "price": "1250",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "2",
+                    "srName": "Tin",
+                    "ratio": 80,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "3",
+                    "srName": "Cobalt",
+                    "ratio": 20,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 35
+            }
+        },
+        {
+            "id": "86",
+            "name": "Deposit 5",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/a/a7/Deposit_5.png",
+            "price": "5000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "1",
+                    "srName": "Carbon",
+                    "ratio": 20,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "2",
+                    "srName": "Tin",
+                    "ratio": 30,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "3",
+                    "srName": "Cobalt",
+                    "ratio": 50,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 50
+            }
+        },
+        {
+            "id": "87",
+            "name": "Deposit 6",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/15/Deposit_6.png",
+            "price": "9000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "3",
+                    "srName": "Cobalt",
+                    "ratio": 100,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 55
+            }
+        },
+        {
+            "id": "88",
+            "name": "Deposit 7",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/6/68/Deposit_7.png",
+            "price": "15000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "1",
+                    "srName": "Carbon",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "2",
+                    "srName": "Tin",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "4",
+                    "srName": "Bismuth",
+                    "ratio": 20,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 56
+            }
+        },
+        {
+            "id": "89",
+            "name": "Deposit 8",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/b/b7/Deposit_8.png",
+            "price": "25000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "1",
+                    "srName": "Carbon",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "4",
+                    "srName": "Bismuth",
+                    "ratio": 60,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 100
+            }
+        },
+        {
+            "id": "90",
+            "name": "Deposit 9",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/a/a0/Deposit_9.png",
+            "price": "40000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "4",
+                    "srName": "Bismuth",
+                    "ratio": 80,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "5",
+                    "srName": "Cerussite",
+                    "ratio": 20,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 110
+            }
+        },
+        {
+            "id": "91",
+            "name": "Deposit 10",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/c/cc/Deposit_10.png",
+            "price": "75000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "3",
+                    "srName": "Cobalt",
+                    "ratio": 50,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "4",
+                    "srName": "Bismuth",
+                    "ratio": 30,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "5",
+                    "srName": "Cerussite",
+                    "ratio": 20,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 120
+            }
+        },
+        {
+            "id": "92",
+            "name": "Deposit 11",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/1a/Deposit_11.png",
+            "price": "150000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "4",
+                    "srName": "Bismuth",
+                    "ratio": 100,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 150
+            }
+        },
+        {
+            "id": "93",
+            "name": "Deposit 12",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/c/c7/Deposit_12.png",
+            "price": "250000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "3",
+                    "srName": "Cobalt",
+                    "ratio": 20,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "4",
+                    "srName": "Bismuth",
+                    "ratio": 30,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "5",
+                    "srName": "Cerussite",
+                    "ratio": 50,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 160
+            }
+        },
+        {
+            "id": "94",
+            "name": "Deposit 13",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/a/af/Deposit_13.png",
+            "price": "400000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "5",
+                    "srName": "Cerussite",
+                    "ratio": 20,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "6",
+                    "srName": "Manganese",
+                    "ratio": 80,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 170
+            }
+        },
+        {
+            "id": "95",
+            "name": "Deposit 14",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/80/Deposit_14.png",
+            "price": "800000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "1",
+                    "srName": "Carbon",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "2",
+                    "srName": "Tin",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "7",
+                    "srName": "Einherjer",
+                    "ratio": 20,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 200
+            }
+        },
+        {
+            "id": "96",
+            "name": "Deposit 15",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/b/bf/Deposit_15.png",
+            "price": "1510000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "6",
+                    "srName": "Manganese",
+                    "ratio": 50,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "7",
+                    "srName": "Einherjer",
+                    "ratio": 50,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 210
+            }
+        },
+        {
+            "id": "97",
+            "name": "Deposit 16",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/03/Deposit_16.png",
+            "price": "3000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "7",
+                    "srName": "Einherjer",
+                    "ratio": 100,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 220
+            }
+        },
+        {
+            "id": "98",
+            "name": "Deposit 17",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/f9/Deposit_17.png",
+            "price": "6400000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "4",
+                    "srName": "Bismuth",
+                    "ratio": 35,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "5",
+                    "srName": "Cerussite",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "8",
+                    "srName": "Dark Matter",
+                    "ratio": 25,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 300
+            }
+        },
+        {
+            "id": "99",
+            "name": "Deposit 18",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/9/9f/Deposit_18.png",
+            "price": "12000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "3",
+                    "srName": "Cobalt",
+                    "ratio": 20,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "8",
+                    "srName": "Dark Matter",
+                    "ratio": 80,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 310
+            }
+        },
+        {
+            "id": "100",
+            "name": "Deposit 19",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/2f/Deposit_19.png",
+            "price": "25000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "7",
+                    "srName": "Einherjer",
+                    "ratio": 70,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "9",
+                    "srName": "Kriptonite",
+                    "ratio": 30,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 320
+            }
+        },
+        {
+            "id": "101",
+            "name": "Deposit 20",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/2a/Deposit_20.png",
+            "price": "50000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "8",
+                    "srName": "Dark Matter",
+                    "ratio": 30,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "9",
+                    "srName": "Kriptonite",
+                    "ratio": 70,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 400
+            }
+        },
+        {
+            "id": "102",
+            "name": "Deposit 21",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/0c/Deposit_21.png",
+            "price": "100000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "9",
+                    "srName": "Kriptonite",
+                    "ratio": 100,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 420
+            }
+        },
+        {
+            "id": "103",
+            "name": "Deposit 22",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/9/9e/Deposit_22.png",
+            "price": "200000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "6",
+                    "srName": "Manganese",
+                    "ratio": 70,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "10",
+                    "srName": "Coreium",
+                    "ratio": 30,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 440
+            }
+        },
+        {
+            "id": "104",
+            "name": "Deposit 23",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/88/Deposit_23.png",
+            "price": "400000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "7",
+                    "srName": "Einherjer",
+                    "ratio": 10,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "8",
+                    "srName": "Dark Matter",
+                    "ratio": 20,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "10",
+                    "srName": "Coreium",
+                    "ratio": 70,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 500
+            }
+        },
+        {
+            "id": "105",
+            "name": "Deposit 24",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/f/f8/Deposit_24.png",
+            "price": "800000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "9",
+                    "srName": "Kriptonite",
+                    "ratio": 30,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "10",
+                    "srName": "Coreium",
+                    "ratio": 70,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 520
+            }
+        },
+        {
+            "id": "106",
+            "name": "Deposit 25",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/28/Deposit_25.png",
+            "price": "1800000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "4",
+                    "srName": "Bismuth",
+                    "ratio": 60,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "11",
+                    "srName": "Cerythium",
+                    "ratio": 40,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 540
+            }
+        },
+        {
+            "id": "107",
+            "name": "Deposit 26",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/25/Deposit_26.png",
+            "price": "4000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "8",
+                    "srName": "Dark Matter",
+                    "ratio": 50,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "11",
+                    "srName": "Cerythium",
+                    "ratio": 50,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 600
+            }
+        },
+        {
+            "id": "108",
+            "name": "Deposit 27",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/7/71/Deposit_27.png",
+            "price": "10000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "11",
+                    "srName": "Cerythium",
+                    "ratio": 100,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 620
+            }
+        },
+        {
+            "id": "109",
+            "name": "Deposit 28",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/1/1f/Deposit_28.png",
+            "price": "20000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "10",
+                    "srName": "Coreium",
+                    "ratio": 35,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "11",
+                    "srName": "Cerythium",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "12",
+                    "srName": "Etherium",
+                    "ratio": 25,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "110",
+            "name": "Deposit 29",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/2/2b/Deposit_29.png",
+            "price": "35010000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "10",
+                    "srName": "Coreium",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "12",
+                    "srName": "Etherium",
+                    "ratio": 60,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "111",
+            "name": "Deposit 30",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/8/8c/Deposit_30.png",
+            "price": "80000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "8",
+                    "srName": "Dark Matter",
+                    "ratio": 10,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "12",
+                    "srName": "Etherium",
+                    "ratio": 90,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "112",
+            "name": "Deposit 31",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/4/40/Deposit_31.png",
+            "price": "200000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "12",
+                    "srName": "Etherium",
+                    "ratio": 70,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "13",
+                    "srName": "Cosmium",
+                    "ratio": 30,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "113",
+            "name": "Deposit 32",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/6/6a/Deposit_32.png",
+            "price": "500000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "11",
+                    "srName": "Cerythium",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "13",
+                    "srName": "Cosmium",
+                    "ratio": 60,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "114",
+            "name": "Deposit 33",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/5/5e/Deposit_33.png",
+            "price": "1510000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "13",
+                    "srName": "Cosmium",
+                    "ratio": 100,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "115",
+            "name": "Deposit 34",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/e/e7/Deposit_34.png",
+            "price": "3010000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "12",
+                    "srName": "Etherium",
+                    "ratio": 55,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "13",
+                    "srName": "Cosmium",
+                    "ratio": 30,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "14",
+                    "srName": "Galaxium",
+                    "ratio": 15,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "116",
+            "name": "Deposit 35",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/3/37/Deposit_35.png",
+            "price": "10000000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "9",
+                    "srName": "Kriptonite",
+                    "ratio": 50,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "14",
+                    "srName": "Galaxium",
+                    "ratio": 50,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "117",
+            "name": "Deposit 36",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/4/4c/Deposit_36.png",
+            "price": "20000000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "14",
+                    "srName": "Galaxium",
+                    "ratio": 100,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "118",
+            "name": "Deposit 37",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/05/Deposit_37.png",
+            "price": "50010000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "14",
+                    "srName": "Galaxium",
+                    "ratio": 60,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "15",
+                    "srName": "Mythril",
+                    "ratio": 30,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "16",
+                    "srName": "Xenon",
+                    "ratio": 10,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "119",
+            "name": "Deposit 38",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/c/c1/Deposit_38.png",
+            "price": "100000000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "16",
+                    "srName": "Xenon",
+                    "ratio": 40,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "17",
+                    "srName": "Wrayth",
+                    "ratio": 20,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "120",
+            "name": "Deposit 39",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/0/0d/Deposit_39.png",
+            "price": "400000000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "18",
+                    "srName": "Aurorium",
+                    "ratio": 70,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "19",
+                    "srName": "Tungsten",
+                    "ratio": 30,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "id": "121",
+            "name": "Deposit 40",
+            "icon": "https://static.wikia.nocookie.net/exominer/images/5/5e/Deposit_40.png",
+            "price": "2000000000000000",
+            "rate": 5,
+            "ores": [
+                {
+                    "srid": "19",
+                    "srName": "Tungsten",
+                    "ratio": 80,
+                    "StaticResource": null
+                },
+                {
+                    "srid": "20",
+                    "srName": "Zyther",
+                    "ratio": 20,
+                    "StaticResource": null
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 640
+            }
+        }
+    ],
+    "shuttles": [
+        {
+            "id": "122",
+            "name": "Shuttle 1",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "123",
+            "name": "Shuttle 2",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "124",
+            "name": "Shuttle 3",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "125",
+            "name": "Shuttle 4",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "126",
+            "name": "Shuttle 5",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "127",
+            "name": "Shuttle 6",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "128",
+            "name": "Shuttle 7",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "129",
+            "name": "Shuttle 8",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "130",
+            "name": "Shuttle 9",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "131",
+            "name": "Shuttle 10",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "132",
+            "name": "Shuttle 11",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "133",
+            "name": "Shuttle 12",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "134",
+            "name": "Shuttle 13",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "135",
+            "name": "Shuttle 14",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "136",
+            "name": "Shuttle 15",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "137",
+            "name": "Shuttle 16",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "138",
+            "name": "Shuttle 17",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "139",
+            "name": "Shuttle 18",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "140",
+            "name": "Shuttle 19",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "141",
+            "name": "Shuttle 20",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "142",
+            "name": "Shuttle 21",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "143",
+            "name": "Shuttle 22",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "144",
+            "name": "Shuttle 23",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "145",
+            "name": "Shuttle 24",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "146",
+            "name": "Shuttle 25",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "147",
+            "name": "Shuttle 26",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "148",
+            "name": "Shuttle 27",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "149",
+            "name": "Shuttle 28",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "150",
+            "name": "Shuttle 29",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "151",
+            "name": "Shuttle 30",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "152",
+            "name": "Shuttle 31",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "153",
+            "name": "Shuttle 32",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "154",
+            "name": "Shuttle 33",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "155",
+            "name": "Shuttle 34",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "156",
+            "name": "Shuttle 35",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "157",
+            "name": "Shuttle 36",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "158",
+            "name": "Shuttle 37",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "159",
+            "name": "Shuttle 38",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "160",
+            "name": "Shuttle 39",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        },
+        {
+            "id": "161",
+            "name": "Shuttle 40",
+            "power": 5,
+            "capacity": 5,
+            "price": "0"
+        }
+    ],
+    "machines": [
+        {
+            "id": "221",
+            "name": "Machine 1",
+            "power": 1,
+            "price": "100"
+        },
+        {
+            "id": "222",
+            "name": "Machine 2",
+            "power": 1,
+            "price": "100000"
+        },
+        {
+            "id": "223",
+            "name": "Machine 3",
+            "power": 1,
+            "price": "1000000"
+        },
+        {
+            "id": "224",
+            "name": "Machine 4",
+            "power": 1,
+            "price": "1000000000"
+        },
+        {
+            "id": "225",
+            "name": "Machine 5",
+            "power": 1,
+            "price": "100000000000"
+        },
+        {
+            "id": "226",
+            "name": "Machine 6",
+            "power": 1,
+            "price": "1000000000000"
+        },
+        {
+            "id": "227",
+            "name": "Machine 7",
+            "power": 1,
+            "price": "1000000000000000"
+        },
+        {
+            "id": "228",
+            "name": "Machine 8",
+            "power": 1,
+            "price": "1000000000000000000"
+        },
+        {
+            "id": "229",
+            "name": "Machine 9",
+            "power": 1,
+            "price": "1000000000000000000000"
+        }
+    ],
+    "recipes": [
+        {
+            "id": "162",
+            "name": "Refined Carbon",
+            "srid": "23",
+            "cost": 3,
+            "ingredients": [
+                {
+                    "srid": "1",
+                    "amount": "1000",
+                    "srName": "Carbon"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "163",
+            "name": "Refined Tin",
+            "srid": "24",
+            "cost": 5,
+            "ingredients": [
+                {
+                    "srid": "2",
+                    "amount": "1000",
+                    "srName": "Tin"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "164",
+            "name": "Refined Cobalt",
+            "srid": "25",
+            "cost": 7,
+            "ingredients": [
+                {
+                    "srid": "3",
+                    "amount": "1000",
+                    "srName": "Cobalt"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "165",
+            "name": "Refined Bismuth",
+            "srid": "26",
+            "cost": 11,
+            "ingredients": [
+                {
+                    "srid": "4",
+                    "amount": "1000",
+                    "srName": "Bismuth"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "166",
+            "name": "Refined Cerussite",
+            "srid": "27",
+            "cost": 15,
+            "ingredients": [
+                {
+                    "srid": "5",
+                    "amount": "1000",
+                    "srName": "Cerussite"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "167",
+            "name": "Refined Manganese",
+            "srid": "28",
+            "cost": 22,
+            "ingredients": [
+                {
+                    "srid": "6",
+                    "amount": "1000",
+                    "srName": "Manganese"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "168",
+            "name": "Refined Einherjer",
+            "srid": "29",
+            "cost": 33,
+            "ingredients": [
+                {
+                    "srid": "7",
+                    "amount": "1000",
+                    "srName": "Einherjer"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "169",
+            "name": "Manganese Alloy",
+            "srid": "30",
+            "cost": 45,
+            "ingredients": [
+                {
+                    "srid": "28",
+                    "amount": "1",
+                    "srName": "Refined Manganese"
+                },
+                {
+                    "srid": "23",
+                    "amount": "10",
+                    "srName": "Refined Carbon"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "170",
+            "name": "Cobalt Alloy",
+            "srid": "31",
+            "cost": 90,
+            "ingredients": [
+                {
+                    "srid": "24",
+                    "amount": "15",
+                    "srName": "Refined Tin"
+                },
+                {
+                    "srid": "25",
+                    "amount": "30",
+                    "srName": "Refined Cobalt"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "171",
+            "name": "Kriptonite Alloy",
+            "srid": "32",
+            "cost": 112,
+            "ingredients": [
+                {
+                    "srid": "9",
+                    "amount": "1000",
+                    "srName": "Kriptonite"
+                },
+                {
+                    "srid": "29",
+                    "amount": "1",
+                    "srName": "Refined Einherjer"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "172",
+            "name": "Coreium Alloy",
+            "srid": "33",
+            "cost": 135,
+            "ingredients": [
+                {
+                    "srid": "30",
+                    "amount": "1",
+                    "srName": "Manganese Alloy"
+                },
+                {
+                    "srid": "10",
+                    "amount": "1000",
+                    "srName": "Coreium"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "173",
+            "name": "Cerythium Alloy",
+            "srid": "34",
+            "cost": 158,
+            "ingredients": [
+                {
+                    "srid": "31",
+                    "amount": "1",
+                    "srName": "Cobalt Alloy"
+                },
+                {
+                    "srid": "11",
+                    "amount": "1000",
+                    "srName": "Cerythium"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "174",
+            "name": "Etherium Alloy",
+            "srid": "35",
+            "cost": 180,
+            "ingredients": [
+                {
+                    "srid": "32",
+                    "amount": "1",
+                    "srName": "Kriptonite Alloy"
+                },
+                {
+                    "srid": "12",
+                    "amount": "1000",
+                    "srName": "Etherium"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "175",
+            "name": "Cosmium Alloy",
+            "srid": "36",
+            "cost": 203,
+            "ingredients": [
+                {
+                    "srid": "33",
+                    "amount": "1",
+                    "srName": "Coreium Alloy"
+                },
+                {
+                    "srid": "13",
+                    "amount": "1000",
+                    "srName": "Cosmium"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "176",
+            "name": "Galaxium Alloy",
+            "srid": "37",
+            "cost": 225,
+            "ingredients": [
+                {
+                    "srid": "34",
+                    "amount": "1",
+                    "srName": "Cerythium Alloy"
+                },
+                {
+                    "srid": "14",
+                    "amount": "1000",
+                    "srName": "Galaxium"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "177",
+            "name": "Mythril Alloy",
+            "srid": "38",
+            "cost": 271,
+            "ingredients": [
+                {
+                    "srid": "35",
+                    "amount": "1",
+                    "srName": "Etherium Alloy"
+                },
+                {
+                    "srid": "15",
+                    "amount": "1000",
+                    "srName": "Mythril"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "178",
+            "name": "Xenon Alloy",
+            "srid": "39",
+            "cost": 316,
+            "ingredients": [
+                {
+                    "srid": "16",
+                    "amount": "1000",
+                    "srName": "Xenon"
+                },
+                {
+                    "srid": "37",
+                    "amount": "1",
+                    "srName": "Galaxium Alloy"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "179",
+            "name": "Wrayth Alloy",
+            "srid": "40",
+            "cost": 361,
+            "ingredients": [
+                {
+                    "srid": "17",
+                    "amount": "1000",
+                    "srName": "Wrayth"
+                },
+                {
+                    "srid": "37",
+                    "amount": "1",
+                    "srName": "Galaxium Alloy"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "180",
+            "name": "Aurorium Alloy",
+            "srid": "41",
+            "cost": 406,
+            "ingredients": [
+                {
+                    "srid": "38",
+                    "amount": "1",
+                    "srName": "Mythril Alloy"
+                },
+                {
+                    "srid": "18",
+                    "amount": "1000",
+                    "srName": "Aurorium"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "181",
+            "name": "Tungsten Alloy",
+            "srid": "42",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "19",
+                    "amount": "1000",
+                    "srName": "Tungsten"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "182",
+            "name": "Zyther Alloy",
+            "srid": "43",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "20",
+                    "amount": "1000",
+                    "srName": "Zyther"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "183",
+            "name": "Bluestarstuff Alloy",
+            "srid": "44",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "21",
+                    "amount": "1000",
+                    "srName": "Bluestarstuff"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "184",
+            "name": "Galactic Alloy",
+            "srid": "45",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "22",
+                    "amount": "1000",
+                    "srName": "Galactic"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "185",
+            "name": "Cables",
+            "srid": "46",
+            "cost": 5,
+            "ingredients": [
+                {
+                    "srid": "23",
+                    "amount": "5",
+                    "srName": "Refined Carbon"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "186",
+            "name": "Fuse",
+            "srid": "47",
+            "cost": 10,
+            "ingredients": [
+                {
+                    "srid": "24",
+                    "amount": "5",
+                    "srName": "Refined Tin"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "187",
+            "name": "Heat Sensor",
+            "srid": "48",
+            "cost": 20,
+            "ingredients": [
+                {
+                    "srid": "46",
+                    "amount": "2",
+                    "srName": "Cables"
+                },
+                {
+                    "srid": "23",
+                    "amount": "10",
+                    "srName": "Refined Carbon"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "188",
+            "name": "Ball Bearing",
+            "srid": "49",
+            "cost": 41,
+            "ingredients": [
+                {
+                    "srid": "47",
+                    "amount": "2",
+                    "srName": "Fuse"
+                },
+                {
+                    "srid": "25",
+                    "amount": "5",
+                    "srName": "Refined Cobalt"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "189",
+            "name": "Glass",
+            "srid": "50",
+            "cost": 62,
+            "ingredients": [
+                {
+                    "srid": "26",
+                    "amount": "10",
+                    "srName": "Refined Bismuth"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "190",
+            "name": "Circuit",
+            "srid": "51",
+            "cost": 103,
+            "ingredients": [
+                {
+                    "srid": "27",
+                    "amount": "5",
+                    "srName": "Refined Cerussite"
+                },
+                {
+                    "srid": "26",
+                    "amount": "5",
+                    "srName": "Refined Bismuth"
+                },
+                {
+                    "srid": "46",
+                    "amount": "10",
+                    "srName": "Cables"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "191",
+            "name": "Lense",
+            "srid": "52",
+            "cost": 207,
+            "ingredients": [
+                {
+                    "srid": "50",
+                    "amount": "1",
+                    "srName": "Glass"
+                },
+                {
+                    "srid": "28",
+                    "amount": "5",
+                    "srName": "Refined Manganese"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "192",
+            "name": "Laser Optic",
+            "srid": "53",
+            "cost": 311,
+            "ingredients": [
+                {
+                    "srid": "29",
+                    "amount": "5",
+                    "srName": "Refined Einherjer"
+                },
+                {
+                    "srid": "24",
+                    "amount": "10",
+                    "srName": "Refined Tin"
+                },
+                {
+                    "srid": "52",
+                    "amount": "1",
+                    "srName": "Lense"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "193",
+            "name": "Mini Rover",
+            "srid": "54",
+            "cost": 415,
+            "ingredients": [
+                {
+                    "srid": "28",
+                    "amount": "5",
+                    "srName": "Refined Manganese"
+                },
+                {
+                    "srid": "51",
+                    "amount": "5",
+                    "srName": "Circuit"
+                },
+                {
+                    "srid": "49",
+                    "amount": "4",
+                    "srName": "Ball Bearing"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "194",
+            "name": "Solar Panel",
+            "srid": "55",
+            "cost": 518,
+            "ingredients": [
+                {
+                    "srid": "28",
+                    "amount": "5",
+                    "srName": "Refined Manganese"
+                },
+                {
+                    "srid": "51",
+                    "amount": "10",
+                    "srName": "Circuit"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "195",
+            "name": "Laser Blaster",
+            "srid": "56",
+            "cost": 622,
+            "ingredients": [
+                {
+                    "srid": "30",
+                    "amount": "5",
+                    "srName": "Manganese Alloy"
+                },
+                {
+                    "srid": "53",
+                    "amount": "1",
+                    "srName": "Laser Optic"
+                },
+                {
+                    "srid": "52",
+                    "amount": "5",
+                    "srName": "Lense"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "196",
+            "name": "Advanced Sensors",
+            "srid": "57",
+            "cost": 778,
+            "ingredients": [
+                {
+                    "srid": "31",
+                    "amount": "20",
+                    "srName": "Cobalt Alloy"
+                },
+                {
+                    "srid": "48",
+                    "amount": "30",
+                    "srName": "Heat Sensor"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "197",
+            "name": "Surface Scanner",
+            "srid": "58",
+            "cost": 934,
+            "ingredients": [
+                {
+                    "srid": "32",
+                    "amount": "5",
+                    "srName": "Kriptonite Alloy"
+                },
+                {
+                    "srid": "53",
+                    "amount": "2",
+                    "srName": "Laser Optic"
+                },
+                {
+                    "srid": "50",
+                    "amount": "5",
+                    "srName": "Glass"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "198",
+            "name": "Planet Explorer",
+            "srid": "59",
+            "cost": 1089,
+            "ingredients": [
+                {
+                    "srid": "33",
+                    "amount": "5",
+                    "srName": "Coreium Alloy"
+                },
+                {
+                    "srid": "54",
+                    "amount": "5",
+                    "srName": "Mini Rover"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "199",
+            "name": "Planet Dust Collector",
+            "srid": "60",
+            "cost": 1167,
+            "ingredients": [
+                {
+                    "srid": "56",
+                    "amount": "2",
+                    "srName": "Laser Blaster"
+                },
+                {
+                    "srid": "58",
+                    "amount": "2",
+                    "srName": "Surface Scanner"
+                },
+                {
+                    "srid": "30",
+                    "amount": "10",
+                    "srName": "Manganese Alloy"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "200",
+            "name": "Plasma Cannon",
+            "srid": "61",
+            "cost": 1297,
+            "ingredients": [
+                {
+                    "srid": "34",
+                    "amount": "15",
+                    "srName": "Cerythium Alloy"
+                },
+                {
+                    "srid": "56",
+                    "amount": "5",
+                    "srName": "Laser Blaster"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "201",
+            "name": "Ion Rocket Engine",
+            "srid": "62",
+            "cost": 1349,
+            "ingredients": [
+                {
+                    "srid": "32",
+                    "amount": "60",
+                    "srName": "Kriptonite Alloy"
+                },
+                {
+                    "srid": "27",
+                    "amount": "150",
+                    "srName": "Refined Cerussite"
+                },
+                {
+                    "srid": "33",
+                    "amount": "40",
+                    "srName": "Coreium Alloy"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "202",
+            "name": "Mobile Telescope",
+            "srid": "63",
+            "cost": 1452,
+            "ingredients": [
+                {
+                    "srid": "59",
+                    "amount": "2",
+                    "srName": "Planet Explorer"
+                },
+                {
+                    "srid": "52",
+                    "amount": "20",
+                    "srName": "Lense"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "203",
+            "name": "Advanced Antenna",
+            "srid": "64",
+            "cost": 1556,
+            "ingredients": [
+                {
+                    "srid": "31",
+                    "amount": "150",
+                    "srName": "Cobalt Alloy"
+                },
+                {
+                    "srid": "35",
+                    "amount": "20",
+                    "srName": "Etherium Alloy"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "204",
+            "name": "Xenon Engine",
+            "srid": "65",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "30",
+                    "amount": "400",
+                    "srName": "Manganese Alloy"
+                },
+                {
+                    "srid": "49",
+                    "amount": "200",
+                    "srName": "Ball Bearing"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "205",
+            "name": "Planet Radar",
+            "srid": "66",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "35",
+                    "amount": "20",
+                    "srName": "Etherium Alloy"
+                },
+                {
+                    "srid": "57",
+                    "amount": "2",
+                    "srName": "Advanced Sensors"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "206",
+            "name": "Infrared Homing Turret",
+            "srid": "67",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "44",
+                    "amount": "5",
+                    "srName": "Bluestarstuff Alloy"
+                },
+                {
+                    "srid": "61",
+                    "amount": "2",
+                    "srName": "Plasma Cannon"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "207",
+            "name": "Gravity Reactor",
+            "srid": "68",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "27",
+                    "amount": "150",
+                    "srName": "Refined Cerussite"
+                },
+                {
+                    "srid": "65",
+                    "amount": "2",
+                    "srName": "Xenon Engine"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "208",
+            "name": "Exospace Probe",
+            "srid": "69",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "64",
+                    "amount": "2",
+                    "srName": "Advanced Antenna"
+                },
+                {
+                    "srid": "63",
+                    "amount": "2",
+                    "srName": "Mobile Telescope"
+                },
+                {
+                    "srid": "55",
+                    "amount": "25",
+                    "srName": "Solar Panel"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "209",
+            "name": "Space Protector X1000",
+            "srid": "70",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "34",
+                    "amount": "300",
+                    "srName": "Cerythium Alloy"
+                },
+                {
+                    "srid": "67",
+                    "amount": "2",
+                    "srName": "Infrared Homing Turret"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "210",
+            "name": "Supercombustion Fuel",
+            "srid": "71",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "38",
+                    "amount": "500",
+                    "srName": "Mythril Alloy"
+                },
+                {
+                    "srid": "39",
+                    "amount": "100",
+                    "srName": "Xenon Alloy"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "211",
+            "name": "Space Fleet Station",
+            "srid": "72",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "59",
+                    "amount": "60",
+                    "srName": "Planet Explorer"
+                },
+                {
+                    "srid": "69",
+                    "amount": "2",
+                    "srName": "Exospace Probe"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "212",
+            "name": "Super Wrayth Lense",
+            "srid": "73",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "40",
+                    "amount": "10",
+                    "srName": "Wrayth Alloy"
+                },
+                {
+                    "srid": "57",
+                    "amount": "100",
+                    "srName": "Advanced Sensors"
+                },
+                {
+                    "srid": "64",
+                    "amount": "2",
+                    "srName": "Advanced Antenna"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "213",
+            "name": "Hyperspeed Thrusters",
+            "srid": "74",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "71",
+                    "amount": "2",
+                    "srName": "Supercombustion Fuel"
+                },
+                {
+                    "srid": "62",
+                    "amount": "10",
+                    "srName": "Ion Rocket Engine"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "214",
+            "name": "Aurora Alternator",
+            "srid": "75",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "41",
+                    "amount": "10",
+                    "srName": "Aurorium Alloy"
+                },
+                {
+                    "srid": "73",
+                    "amount": "2",
+                    "srName": "Super Wrayth Lense"
+                },
+                {
+                    "srid": "55",
+                    "amount": "50",
+                    "srName": "Solar Panel"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "215",
+            "name": "Space Elevator",
+            "srid": "76",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "31",
+                    "amount": "1500",
+                    "srName": "Cobalt Alloy"
+                },
+                {
+                    "srid": "34",
+                    "amount": "1000",
+                    "srName": "Cerythium Alloy"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "216",
+            "name": "Space Particle Engine",
+            "srid": "77",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "42",
+                    "amount": "10",
+                    "srName": "Tungsten Alloy"
+                },
+                {
+                    "srid": "39",
+                    "amount": "100",
+                    "srName": "Xenon Alloy"
+                },
+                {
+                    "srid": "74",
+                    "amount": "2",
+                    "srName": "Hyperspeed Thrusters"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "217",
+            "name": "Galactic Portal",
+            "srid": "78",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "41",
+                    "amount": "20",
+                    "srName": "Aurorium Alloy"
+                },
+                {
+                    "srid": "37",
+                    "amount": "500",
+                    "srName": "Galaxium Alloy"
+                },
+                {
+                    "srid": "77",
+                    "amount": "2",
+                    "srName": "Space Particle Engine"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "218",
+            "name": "Dyson Sphere",
+            "srid": "80",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "42",
+                    "amount": "100",
+                    "srName": "Tungsten Alloy"
+                },
+                {
+                    "srid": "55",
+                    "amount": "1000",
+                    "srName": "Solar Panel"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "219",
+            "name": "Time Traveling Machine",
+            "srid": "79",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "40",
+                    "amount": "100",
+                    "srName": "Wrayth Alloy"
+                },
+                {
+                    "srid": "45",
+                    "amount": "2",
+                    "srName": "Galactic Alloy"
+                }
+            ],
+            "price": "0"
+        },
+        {
+            "id": "220",
+            "name": "Black Hole Generator",
+            "srid": "81",
+            "cost": 0,
+            "ingredients": [
+                {
+                    "srid": "43",
+                    "amount": "10",
+                    "srName": "Zyther Alloy"
+                },
+                {
+                    "srid": "42",
+                    "amount": "10",
+                    "srName": "Tungsten Alloy"
+                },
+                {
+                    "srid": "68",
+                    "amount": "100",
+                    "srName": "Gravity Reactor"
+                },
+                {
+                    "srid": "79",
+                    "amount": "2",
+                    "srName": "Time Traveling Machine"
+                }
+            ],
+            "price": "0"
+        }
+    ]
+}

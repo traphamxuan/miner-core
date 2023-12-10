@@ -1,4 +1,4 @@
-import { Engine, GameLoop, InputProcessor, InternalProcessor, SyncProcessor } from '@/core'
+import { Engine, GameLoop, InputProcessor, InternalProcessor, SyncProcessor } from '../../core'
 import { PlanetService } from '../planet/planet.service'
 import { WarehouseService } from '../warehouse'
 import { FactoryInputManagement } from './factory.input'

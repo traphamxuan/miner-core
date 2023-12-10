@@ -1,4 +1,4 @@
-import { Engine } from "@/core"
+import { Engine } from "../../core"
 import { SyncProcessor, SyncService, TRenderAction } from "../../core/SyncProcessor"
 import { MinerService } from "./miner.service"
 

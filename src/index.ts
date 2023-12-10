@@ -7,7 +7,6 @@ import {
   RawResource,
   RawMachine,
   RawRecipe,
-  Planet,
   Resource,
   Deposit,
   Shuttle,
@@ -15,9 +14,7 @@ import {
   Machine,
   ShuttleD,
   MachineR,
-  initStatic,
   TStaticData,
-  deinitStatic,
 } from "./entities"
 
 export type GameData = {
@@ -30,27 +27,39 @@ export type GameData = {
 }
 
 export class Game {
-  readonly engine: Engine
-  readonly component: Component
+  private readonly engine: Engine
+  private readonly component: Component
   constructor() {
     this.engine = createCoreEngine()
     this.component = createComponents(this.engine)
   }
 
-  init(sData: TStaticData) {
-    initStatic(sData)
+  getService<T extends keyof Component['service']>(type: T): Component['service'][T] {
+    return this.component.service[type]
   }
-  deinit() {
-    deinitStatic()
+
+  getRender<T extends keyof Component['render']>(type: T): Component['render'][T] {
+    return this.component.render[type]
+  }
+
+  getInput<T extends keyof Component['input']>(type: T): Component['input'][T] {
+    return this.component.input[type]
+  }
+
+  start(elapseTs: number, startTs: number) {
+    this.engine.loop.start(elapseTs, startTs)
+  }
+  run(ts: number) {
+    this.engine.loop.run(ts)
   }
   
   load(rawData: GameData): Error | null {
-    const pService = this.component.planet.service
-    const wService = this.component.warehouse.service
-    const mService = this.component.miner.service
-    const fService = this.component.factory.service
-    const mInternal = this.component.miner.internal
-    const fInternal = this.component.factory.internal
+    const pService = this.component.service.planet
+    const wService = this.component.service.warehouse
+    const mService = this.component.service.miner
+    const fService = this.component.service.factory
+    const mInternal = this.component.internal.miner
+    const fInternal = this.component.internal.factory
 
     if (pService.planet) {
       if (pService.planet.id != rawData.planet.id) {
@@ -59,11 +68,8 @@ export class Game {
       return null
     }
   
-    const p = pService.load(rawData.planet.id)
-    if (p instanceof Error) {
-      pService.addPlanet(new Planet(rawData.planet))
-      pService.load(rawData.planet.id)
-    }
+    const p = pService.load(rawData.planet)
+   
     rawData.resources.forEach(r => wService.addResource(new Resource(r)))
     rawData.deposits.forEach(d => mService.addDeposit(new Deposit(d)))
     rawData.shuttles.forEach(s => mService.addShuttle(new Shuttle(s, mService.Deposits())))
@@ -78,10 +84,10 @@ export class Game {
   unload() {
     // TODO: Do the last looping
     this.engine.loop.reset()
-    this.component.miner.service.reset()
-    this.component.factory.service.reset()
-    this.component.warehouse.service.reset()
-    this.component.planet.service.unload()
+    this.component.service.miner.reset()
+    this.component.service.factory.reset()
+    this.component.service.warehouse.reset()
+    this.component.service.planet.unload()
   }
 }
 

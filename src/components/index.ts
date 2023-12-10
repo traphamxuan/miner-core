@@ -1,4 +1,4 @@
-import { Engine } from '@/core';
+import { Engine } from '../core';
 import { FactoryInputManagement, FactoryInternalEvent, FactoryRender, FactoryService, createFactory } from './factory';
 import { MinerRender, MinerInputManagement, MinerService, MinerInternalEvent, createMiner } from './miner';
 import { PlanetService } from './planet/planet.service';
@@ -6,25 +6,25 @@ import { WarehouseInputManagement, WarehouseService, createWarehouse } from './w
 import { WarehouseRender } from './warehouse/warehouse.render';
 
 export type Component = {
-  planet: {
-    service: PlanetService
+  service: {
+    planet: PlanetService
+    factory: FactoryService
+    miner: MinerService
+    warehouse: WarehouseService
   }
-  factory: {
-    render: FactoryRender
-    input: FactoryInputManagement
-    service: FactoryService
-    internal: FactoryInternalEvent
+  render: {
+    factory: FactoryRender
+    miner: MinerRender
+    warehouse: WarehouseRender
   }
-  miner: {
-    render: MinerRender
-    input: MinerInputManagement
-    service: MinerService
-    internal: MinerInternalEvent
+  input: {
+    factory: FactoryInputManagement
+    miner: MinerInputManagement
+    warehouse: WarehouseInputManagement
   }
-  warehouse: {
-    render: WarehouseRender
-    input: WarehouseInputManagement
-    service: WarehouseService
+  internal: {
+    factory: FactoryInternalEvent
+    miner: MinerInternalEvent
   }
 }
 
@@ -34,9 +34,25 @@ export function createComponents(engine: Engine): Component {
   const miner = createMiner(engine, pService, warehouse.service)
   const factory = createFactory(engine, pService, warehouse.service)
   return {
-    planet: { service: pService },
-    warehouse,
-    miner,
-    factory,
+    service: {
+      planet: pService,
+      factory: factory.service,
+      miner: miner.service,
+      warehouse: warehouse.service,
+    },
+    render: {
+      factory: factory.render,
+      miner: miner.render,
+      warehouse: warehouse.render,
+    },
+    input: {
+      factory: factory.input,
+      miner: miner.input,
+      warehouse: warehouse.input,
+    },
+    internal: {
+      factory: factory.internal,
+      miner: miner.internal,
+    }
   }
 }

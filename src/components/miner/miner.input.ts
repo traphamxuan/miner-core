@@ -3,7 +3,7 @@ import { StaticDeposit, StaticShuttle } from '../../entities/static'
 import { MinerInternalEvent } from './miner.internal'
 import { MinerService } from './miner.service'
 import { BaseInputEvent } from '../../common/interfaces/BaseInputEvent'
-import type { Engine } from '@/core'
+import type { Engine } from '../../core'
 
 export class MinerInputManagement extends BaseInputEvent {
   constructor(

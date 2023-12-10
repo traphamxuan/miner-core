@@ -29,23 +29,23 @@ import {
 export function initStatic(staticData: TStaticData) {
   staticData.resources.forEach(raw => {
     const staticData = new StaticResource(raw)
-    StaticResource.RESOURCES.add(staticData, [raw.name])
+    StaticResource.RESOURCES.add(staticData, [raw.id, raw.name])
   })
   staticData.deposits.forEach(raw => {
     const staticData = new StaticDeposit(raw)
-    StaticDeposit.DEPOSITS.add(staticData, [raw.name])
+    StaticDeposit.DEPOSITS.add(staticData, [raw.id, raw.name])
   })
   staticData.shuttles.forEach(raw => {
     const staticData = new StaticShuttle(raw)
-    StaticShuttle.SHUTTLES.add(staticData, [raw.name])
+    StaticShuttle.SHUTTLES.add(staticData, [raw.id, raw.name])
   })
   staticData.recipes.forEach(raw => {
     const staticData = new StaticRecipe(raw)
-    StaticRecipe.RECIPES.add(staticData, [raw.name])
+    StaticRecipe.RECIPES.add(staticData, [raw.id, raw.name])
   })
   staticData.machines.forEach(raw => {
     const staticData = new StaticMachine(raw)
-    StaticMachine.MACHINES.add(staticData, [raw.name])
+    StaticMachine.MACHINES.add(staticData, [raw.id, raw.name])
   })
 }
 

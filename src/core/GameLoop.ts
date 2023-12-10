@@ -40,11 +40,12 @@ export class GameLoop {
     this.isContinue = false
   }
 
-  loop(ts: number) {
+  run(ts: number) {
     if (!this.isContinue) return
+    const setTick = (ts: number) => this.setTick(ts)
     const tick = this.getTicks(ts)
-    this.external.process(tick, this.setTick)
-    this.internal.process(tick, this.setTick)
+    this.external.process(tick, setTick)
+    this.internal.process(tick, setTick)
     this.sync.process(tick)
     this.input.process(tick)
   }

@@ -3,7 +3,7 @@ import { StaticRecipe, StaticMachine } from '../../entities/static'
 import { FactoryInternalEvent } from './factory.internal'
 import { FactoryService } from './factory.service'
 import { BaseInputEvent } from '../../common/interfaces/BaseInputEvent'
-import { Engine } from '@/core'
+import { Engine } from '../../core'
 
 export class FactoryInputManagement extends BaseInputEvent {
 
