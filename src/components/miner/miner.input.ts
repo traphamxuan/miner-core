@@ -16,7 +16,12 @@ export class MinerInputManagement extends BaseInputEvent {
 
   get id(): string { return this.minerService.id + '-input' }
 
-  requestSetDeposit(shuttle: Shuttle, deposit?: Deposit): Promise<Shuttle> {
+  requestSetDeposit(sShuttleId: string, sDepositId?: string): Promise<Shuttle> {
+    const shuttle = this.minerService.Shuttle(sShuttleId)
+    if (!shuttle) {
+      throw new Error('Invalid shuttle ID')
+    }
+    const deposit = sDepositId ? this.minerService.Deposit(sDepositId) : undefined
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)
@@ -28,7 +33,11 @@ export class MinerInputManagement extends BaseInputEvent {
     })
   }
 
-  requestNewShuttle(sShuttle: StaticShuttle, createdAt = 0): Promise<Shuttle> {
+  requestNewShuttle(sShuttleId: string, createdAt = 0): Promise<Shuttle> {
+    const sShuttle = StaticShuttle.SHUTTLES.getOne(sShuttleId)
+    if (!sShuttle) {
+      throw new Error('Invalid static shuttle ID')
+    }
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)
@@ -44,7 +53,11 @@ export class MinerInputManagement extends BaseInputEvent {
     })
   }
 
-  requestNewDeposit(sDeposit: StaticDeposit, createdAt = 0): Promise<Deposit> {
+  requestNewDeposit(sDepositId: string, createdAt = 0): Promise<Deposit> {
+    const sDeposit = StaticDeposit.DEPOSITS.getOne(sDepositId)
+    if (!sDeposit) {
+      throw new Error('Invalid deposit id')
+    }
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)
@@ -60,7 +73,11 @@ export class MinerInputManagement extends BaseInputEvent {
     })
   }
 
-  upDepositRate(deposit: Deposit): Promise<Deposit> {
+  upDepositRate(sDepositId: string): Promise<Deposit> {
+    const deposit = this.minerService.Deposit(sDepositId)
+    if (!deposit) {
+      throw new Error('Invalid Deposit ID')
+    }
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)
@@ -71,7 +88,11 @@ export class MinerInputManagement extends BaseInputEvent {
     })
   }
 
-  upShuttleSpeed(shuttle: Shuttle): Promise<Shuttle> {
+  upShuttleSpeed(sShuttleId: string): Promise<Shuttle> {
+    const shuttle = this.minerService.Shuttle(sShuttleId)
+    if (!shuttle) {
+      throw new Error('Invalid Deposit ID')
+    }
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)
@@ -82,7 +103,11 @@ export class MinerInputManagement extends BaseInputEvent {
       ok(shuttle)
     })
   }
-  upShuttleCapacity(shuttle: Shuttle): Promise<Shuttle> {
+  upShuttleCapacity(sShuttleId: string): Promise<Shuttle> {
+    const shuttle = this.minerService.Shuttle(sShuttleId)
+    if (!shuttle) {
+      throw new Error('Invalid Deposit ID')
+    }
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)

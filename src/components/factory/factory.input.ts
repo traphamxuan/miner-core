@@ -15,7 +15,11 @@ export class FactoryInputManagement extends BaseInputEvent {
     super(engine.input)
   }
 
-  requestNewMachine(sMachine: StaticMachine): Promise<Machine> {
+  requestNewMachine(sMachineId: string): Promise<Machine> {
+    const sMachine = StaticMachine.MACHINES.getOne(sMachineId)
+    if (!sMachine) {
+      throw new Error('Invalid static machine ID')
+    }
     return this.makeRequest((ok, failed) => (err, ts, isSkip) => {
       if (isSkip) {
         failed(new Error('Request is skipped'))
@@ -34,7 +38,11 @@ export class FactoryInputManagement extends BaseInputEvent {
     })
   }
 
-  requestNewRecipe(sRecipe: StaticRecipe): Promise<Recipe> {
+  requestNewRecipe(sRecipeId: string): Promise<Recipe> {
+    const sRecipe = StaticRecipe.RECIPES.getOne(sRecipeId)
+    if (!sRecipe) {
+      throw new Error('Invalid static machine ID')
+    }
     return this.makeRequest((ok, failed) => (err, _, isSkip) => {
       if (isSkip) {
         failed(new Error('Request is skipped'))
@@ -53,7 +61,11 @@ export class FactoryInputManagement extends BaseInputEvent {
     })
   }
 
-  upMachinePower(machine: Machine): Promise<Machine> {
+  upMachinePower(sMachineId: string): Promise<Machine> {
+    const machine = this.factoryService.Machine(sMachineId)
+    if (!machine) {
+      throw new Error('Invalid static machine ID')
+    }
     return this.makeRequest((ok, failed) => (err, ts, isSkip) => {
       if (isSkip) {
         failed(new Error('Request is skipped'))
@@ -69,7 +81,12 @@ export class FactoryInputManagement extends BaseInputEvent {
       ok(machine)
     })
   }
-  setMachineRecipe({ machine, recipe }: { machine: Machine, recipe?: Recipe }): Promise<Machine> {
+  setMachineRecipe(sMachineId: string, sRecipeId?: string): Promise<Machine> {
+    const machine = this.factoryService.Machine(sMachineId)
+    if (!machine) {
+      throw new Error('Invalid static machine ID')
+    }
+    const recipe = sRecipeId ? this.factoryService.Recipe(sRecipeId) : undefined
     return this.makeRequest((ok, failed) => (err, ts, isSkip) => {
       if (isSkip) {
         failed(new Error('Request is skipped'))

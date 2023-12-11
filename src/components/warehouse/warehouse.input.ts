@@ -22,13 +22,13 @@ export class WarehouseInputManagement {
     })
   }
 
-  requestSellResource(resource: TResource) {
+  requestSellResource(sResourceId: string, amount: bigint) {
     return this.makeRequest((ok, failed) => (err, ts) => {
       if (err) {
         failed(err)
         return
       }
-      this.warehouseService.sell(resource.base.id, ts)
+      this.warehouseService.sell(sResourceId, ts, amount)
       ok(undefined)
     })
   }
