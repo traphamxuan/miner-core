@@ -90,6 +90,20 @@ export class Game {
     this.component.service.warehouse.reset()
     this.component.service.planet.unload()
   }
+
+  toRaw(): GameData | undefined {
+    if (!this.component.service.planet.planet) {
+      return undefined
+    }
+    return {
+      planet: this.component.service.planet.planet.toRaw(),
+      deposits: this.component.service.miner.Deposits().map(m => m.toRaw()),
+      shuttles: this.component.service.miner.Shuttles().map(m => m.toRaw()),
+      resources: this.component.service.warehouse.Resources().map(r => r.toRaw()),
+      machines: this.component.service.factory.Machines().map(f => f.toRaw()),
+      recipes: this.component.service.factory.Recipes().map(f => f.toRaw()),
+    }
+  }
 }
 
 export * from './entities'
