@@ -10,9 +10,9 @@ const game = new Game()
 function main() {
 	game.load(gameData)
 	const currentTs = new Date().getTime()
-	game.start(currentTs - new Date(gameData.planet.updatedAt).getTime(), currentTs)
+	game.start(currentTs)
 	console.log('Re-Calculate the game...')
-	game.run(new Date().getTime())
+	game.run(currentTs)
 	console.log('Finish')
 	const timer = setInterval(() => game.run(new Date().getTime()), 100)
 

@@ -29,7 +29,7 @@ export function handleInputMain(game: Game, end?: (value: unknown) => void) {
 				return
 			case 'q':
 				console.log('Goodbye!');
-				reader.close();
+				// reader.close();
 				onExit && onExit(0)
 				return;
 			default:
@@ -47,6 +47,7 @@ export function handleInputResourceView(game: Game) {
 		switch (command) {
 			case 's':
 				game.getInput('warehouse').requestSellResource(args[0], BigInt(args[1]))
+					.catch(err => console.error(err))
 				break;
 			case 'b':
 				unregisterContinuousShow(game, 'resource')
@@ -67,9 +68,11 @@ export function handleInputFactoryView(game: Game) {
 		switch (command) {
 			case 's':
 				game.getInput('factory').setMachineRecipe(args[0], args[1])
+					.catch(err => console.error(err))
 				break;
 			case 'p':
 				game.getInput('factory').upMachinePower(args[0])
+					.catch(err => console.error(err))
 				break;
 			case 'b':
 				unregisterContinuousShow(game, 'factory')
@@ -89,12 +92,15 @@ export function handleInputMinerView(game: Game) {
 		switch (command) {
 			case 'a':
 				game.getInput('miner').requestNewDeposit(args[0])
+					.catch(err => console.error(err))
 				break;
 			case 'm':
 				game.getInput('miner').upDepositRate(args[0])
+					.catch(err => console.error(err))
 				break;
 			case 's':
 				game.getInput('miner').upShuttleSpeed(args[0])
+					.catch(err => console.error(err))
 				break;
 			case 'b':
 				unregisterContinuousShow(game, 'miner')

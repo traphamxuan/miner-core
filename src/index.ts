@@ -46,8 +46,9 @@ export class Game {
     return this.component.input[type]
   }
 
-  start(elapseTs: number, startTs: number) {
-    this.engine.loop.start(elapseTs, startTs)
+  start(current: number) {
+    const elapseTs = new Date(this.component.service.planet.planet?.updatedAt || 0).getTime()
+    this.engine.loop.start(current - elapseTs, current)
   }
   run(ts: number) {
     this.engine.loop.run(ts)
