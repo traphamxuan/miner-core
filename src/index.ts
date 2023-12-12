@@ -52,7 +52,6 @@ export class Game {
       throw new Error('Planet has not loaded yet')
     }
     const elapse = planet.updatedAt.getTime() - planet.startedAt
-    console.log(elapse)
     this.engine.loop.start(elapse, current)
   }
   run(ts: number) {
