@@ -1,173 +1,458 @@
 {
-  "planet": {
-      "id": "656fe46907326eceaa520267",
-      "name": "My Planet 2",
-      "uid": "656b2417fed77e1821654cd8",
-      "startedAt": 1701831785536,
-      "money": "17080",
-      "updatedAt": "2023-12-06T07:26:26.348Z"
-  },
-  "resources": [
-      {
-          "id": "656fee705b1433ae0f39a710",
-          "pid": "656fe46907326eceaa520267",
-          "srid": "1",
-          "amount": "833064",
-          "syncedAt": 8371417.270000018
-      },
-      {
-          "id": "6570051d313d1bb330ac17d6",
-          "pid": "656fe46907326eceaa520267",
-          "srid": "2",
-          "amount": "46575",
-          "syncedAt": 8371417.270000018
-      },
-      {
-          "id": "123",
-          "pid": "656fe46907326eceaa520267",
-          "srid": "2",
-          "amount": "46575",
-          "syncedAt": 8371417.270000018
-      }
-  ],
-  "deposits": [
-      {
-          "id": "656fe47207326eceaa520268",
-          "ores": [
-              {
-                  "srid": "1",
-                  "amount": "685849.4263894111"
-              }
-          ],
-          "rate": 10.367999999999999,
-          "pid": "656fe46907326eceaa520267",
-          "sdid": "82",
-          "syncedAt": 138424729.07558262
-      },
-      {
-          "id": "6570019e5d8c1bb66e548618",
-          "ores": [
-              {
-                  "srid": "1",
-                  "amount": "458305.0000000094"
-              },
-              {
-                  "srid": "2",
-                  "amount": "130945.00000000234"
-              }
-          ],
-          "rate": 5,
-          "pid": "656fe46907326eceaa520267",
-          "sdid": "83",
-          "syncedAt": 138420976.39500004
-      },
-      {
-          "id": "657001a15d8c1bb66e54861a",
-          "ores": [
-              {
-                  "srid": "1",
-                  "amount": "272799.9999999986"
-              },
-              {
-                  "srid": "2",
-                  "amount": "327359.9999999986"
-              }
-          ],
-          "rate": 5,
-          "pid": "656fe46907326eceaa520267",
-          "sdid": "84",
-          "syncedAt": 138423926.23700002
-      },
-      {
-          "id": "657002465d8c1bb66e54861c",
-          "ores": [
-              {
-                  "srid": "2",
-                  "amount": "476391.00000000926"
-              },
-              {
-                  "srid": "3",
-                  "amount": "130774.00000000231"
-              }
-          ],
-          "rate": 5,
-          "pid": "656fe46907326eceaa520267",
-          "sdid": "85",
-          "syncedAt": 138418760.67900002
-      }
-  ],
-  "recipes": [],
-  "shuttles": [
-      {
-          "id": "656fe47207326eceaa520269",
-          "pid": "656fe46907326eceaa520267",
-          "ssid": "122",
-          "did": "656fe47207326eceaa520268",
-          "capacity": 10,
-          "position": {
-              "x": 0,
-              "y": 20
-          },
-          "isReturned": true,
-          "power": 21.49908479999999,
-          "load": [
-              {
-                  "srid": "1",
-                  "amount": "10"
-              }
-          ],
-          "syncedAt": 138424729.07558262
-      },
-      {
-          "id": "6570019e5d8c1bb66e548619",
-          "pid": "656fe46907326eceaa520267",
-          "ssid": "123",
-          "did": "6570019e5d8c1bb66e548618",
-          "capacity": 5,
-          "position": {
-              "x": 0,
-              "y": 25
-          },
-          "isReturned": true,
-          "power": 5,
-          "load": [
-              {
-                  "srid": "1",
-                  "amount": "5"
-              }
-          ],
-          "syncedAt": 138420976.39500004
-      },
-      {
-          "id": "657001a15d8c1bb66e54861b",
-          "pid": "656fe46907326eceaa520267",
-          "ssid": "124",
-          "did": "657001a15d8c1bb66e54861a",
-          "capacity": 5,
-          "position": {
-              "x": 0,
-              "y": 0
-          },
-          "isReturned": false,
-          "power": 5,
-          "load": [],
-          "syncedAt": 138423926.23700002
-      },
-      {
-          "id": "657002465d8c1bb66e54861d",
-          "pid": "656fe46907326eceaa520267",
-          "ssid": "125",
-          "did": "657002465d8c1bb66e54861c",
-          "capacity": 5,
-          "position": {
-              "x": 0,
-              "y": 0
-          },
-          "isReturned": false,
-          "power": 5,
-          "load": [],
-          "syncedAt": 138418760.67900002
-      }
-  ],
-  "machines": []
+    "planet": {
+        "name": "Tra Pham",
+        "money": "22870",
+        "uid": "656b2417fed77e1821654cd8",
+        "startedAt": 1701520442646,
+        "updatedAt": "2023-12-12T18:07:34.336Z",
+        "id": "656b243afed77e1821654cd9"
+    },
+    "resources": [
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "srid": "1",
+            "amount": "9005216",
+            "syncedAt": 310129708.88600004,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656b2449fed77e1821654cda",
+            "StaticResource": null,
+            "Planet": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "srid": "2",
+            "amount": "2588961",
+            "syncedAt": 0,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28007326eceaa520251",
+            "StaticResource": null,
+            "Planet": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "srid": "3",
+            "amount": "2389119",
+            "syncedAt": 0,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28707326eceaa520256",
+            "StaticResource": null,
+            "Planet": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "srid": "4",
+            "amount": "1517635",
+            "syncedAt": 0,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28c07326eceaa52025d",
+            "StaticResource": null,
+            "Planet": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "srid": "5",
+            "amount": "744433",
+            "syncedAt": 0,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe29007326eceaa520262",
+            "StaticResource": null,
+            "Planet": null
+        }
+    ],
+    "deposits": [
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "82",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "8.359157384086377"
+                }
+            ],
+            "rate": 7.199999999999999,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656b2449fed77e1821654cdb"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "83",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "2006062.5591599962"
+                },
+                {
+                    "srid": "2",
+                    "amount": "573160.6397900005"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28007326eceaa520252"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "84",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "244617.47403669803"
+                },
+                {
+                    "srid": "2",
+                    "amount": "1432888.4740371958"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28507326eceaa520254"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "85",
+            "ores": [
+                {
+                    "srid": "2",
+                    "amount": "2087914.5587399965"
+                },
+                {
+                    "srid": "3",
+                    "amount": "573153.6396850012"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28707326eceaa520257"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "86",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "6.174524360302626"
+                },
+                {
+                    "srid": "2",
+                    "amount": "8.761786540270897"
+                },
+                {
+                    "srid": "3",
+                    "amount": "1867669.9363022838"
+                }
+            ],
+            "rate": 7.199999999999999,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28807326eceaa520259"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "87",
+            "ores": [
+                {
+                    "srid": "3",
+                    "amount": "2735493.032364974"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28a07326eceaa52025b"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "88",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "6.313142000064298"
+                },
+                {
+                    "srid": "2",
+                    "amount": "6.31314200005882"
+                },
+                {
+                    "srid": "4",
+                    "amount": "358575.15657319163"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28c07326eceaa52025e"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "89",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "1074646.4792320058"
+                },
+                {
+                    "srid": "4",
+                    "amount": "1719437.2188479826"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28f07326eceaa520260"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "90",
+            "ores": [
+                {
+                    "srid": "4",
+                    "amount": "2227447.825336019"
+                },
+                {
+                    "srid": "5",
+                    "amount": "573144.4563340022"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe29007326eceaa520263"
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "sdid": "91",
+            "ores": [
+                {
+                    "srid": "3",
+                    "amount": "10.466480000495729"
+                },
+                {
+                    "srid": "4",
+                    "amount": "6.879888000598095"
+                },
+                {
+                    "srid": "5",
+                    "amount": "80859.58659204216"
+                }
+            ],
+            "rate": 7.199999999999999,
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe29107326eceaa520265"
+        }
+    ],
+    "shuttles": [
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "122",
+            "did": "656b2449fed77e1821654cdb",
+            "power": 21.49908479999999,
+            "capacity": 22,
+            "position": {
+                "x": 0,
+                "y": 3.01566212365078
+            },
+            "isReturned": false,
+            "load": [],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656b2449fed77e1821654cdc",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "123",
+            "did": "656fe28007326eceaa520252",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 3.198950001001358
+            },
+            "isReturned": false,
+            "load": [],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28007326eceaa520253",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "124",
+            "did": "656fe28507326eceaa520254",
+            "power": 10.367999999999999,
+            "capacity": 12,
+            "position": {
+                "x": 0,
+                "y": 3.9943817393188352
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "1",
+                    "amount": "12"
+                }
+            ],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28507326eceaa520255",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "125",
+            "did": "656fe28707326eceaa520257",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 31.801574999093994
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "2",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28707326eceaa520258",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "126",
+            "did": "656fe28807326eceaa520259",
+            "power": 17.915903999999994,
+            "capacity": 22,
+            "position": {
+                "x": 0,
+                "y": 14.410211348021479
+            },
+            "isReturned": false,
+            "load": [],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28807326eceaa52025a",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "127",
+            "did": "656fe28a07326eceaa52025b",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 33.03236500144
+            },
+            "isReturned": false,
+            "load": [],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28a07326eceaa52025c",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "128",
+            "did": "656fe28c07326eceaa52025e",
+            "power": 25.79890175999999,
+            "capacity": 19,
+            "position": {
+                "x": 0,
+                "y": 21.888438840303742
+            },
+            "isReturned": false,
+            "load": [],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28d07326eceaa52025f",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "129",
+            "did": "656fe28f07326eceaa520260",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 71.30191999912267
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "1",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe28f07326eceaa520261",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "130",
+            "did": "656fe29007326eceaa520263",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 2.281670001149177
+            },
+            "isReturned": false,
+            "load": [],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe29007326eceaa520264",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        },
+        {
+            "pid": "656b243afed77e1821654cd9",
+            "ssid": "131",
+            "did": "656fe29107326eceaa520265",
+            "power": 77.0351078729318,
+            "capacity": 22,
+            "position": {
+                "x": 0,
+                "y": 102.17438977787647
+            },
+            "isReturned": false,
+            "load": [],
+            "syncedAt": 884014024.8820002,
+            "updatedAt": "2023-12-12T18:07:34.336Z",
+            "id": "656fe29107326eceaa520266",
+            "StaticShuttle": null,
+            "Planet": null,
+            "Deposit": null
+        }
+    ],
+    "machines": [],
+    "recipes": [],
+    "User": null
 }

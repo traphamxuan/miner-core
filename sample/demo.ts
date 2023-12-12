@@ -9,12 +9,15 @@ const game = new Game()
 
 function main() {
 	game.load(gameData)
-	const currentTs = new Date().getTime()
-	game.start(currentTs)
+	let tick = 0
+	game.start(tick)
 	console.log('Re-Calculate the game...')
-	game.run(currentTs)
+	game.run(tick)
 	console.log('Finish')
-	const timer = setInterval(() => game.run(new Date().getTime()), 100)
+	const timer = setInterval(() => {
+		tick += 100;
+		game.run(tick)
+	}, 100)
 
 	showMain()
 	new Promise((ok) => {

@@ -47,13 +47,18 @@ export class Game {
   }
 
   start(current: number) {
-    const elapseTs = new Date(this.component.service.planet.planet?.updatedAt || 0).getTime()
-    this.engine.loop.start(current - elapseTs, current)
+    const planet = this.component.service.planet.planet
+    if (!planet) {
+      throw new Error('Planet has not loaded yet')
+    }
+    const elapse = planet.updatedAt.getTime() - planet.startedAt
+    console.log(elapse)
+    this.engine.loop.start(elapse, current)
   }
   run(ts: number) {
     this.engine.loop.run(ts)
   }
-  
+
   load(rawData: GameData): Error | null {
     const pService = this.component.service.planet
     const wService = this.component.service.warehouse
@@ -83,7 +88,6 @@ export class Game {
   }
   
   unload() {
-    // TODO: Do the last looping
     this.engine.loop.reset()
     this.component.service.miner.reset()
     this.component.service.factory.reset()

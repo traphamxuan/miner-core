@@ -29,7 +29,7 @@ export function handleInputMain(game: Game, end?: (value: unknown) => void) {
 				return
 			case 'q':
 				console.log('Goodbye!');
-				// reader.close();
+				reader.close();
 				onExit && onExit(0)
 				return;
 			default:
