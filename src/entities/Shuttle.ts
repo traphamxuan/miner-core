@@ -92,10 +92,10 @@ export class Shuttle {
     }
   }
 
-  sync(ts: number) {
-    if (ts < this.syncedAt) return
+  sync(ts: number): Shuttle {
+    if (ts < this.syncedAt) return this
     const distance = this.deposit?.base.position.y || 0
-    if (distance <= 0) return
+    if (distance <= 0) return this
 
     const timeDiff = (ts - this.syncedAt) / 1000
     const totalMovement = timeDiff * this.speed
@@ -120,6 +120,7 @@ export class Shuttle {
     this.isReturned = isReturned
     this.position = position
     this.syncedAt = ts
+    return this
   }
 }
 

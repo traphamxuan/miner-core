@@ -76,8 +76,8 @@ export class Machine {
     }, [], sMachine)
   }
 
-  sync(ts: number) {
-    if (ts < this.syncedAt) return
+  sync(ts: number): Machine {
+    if (ts < this.syncedAt) return this
     if (this.recipe && this.isRun) {
       this.progress -= this.power * (ts - this.syncedAt) / 1000
       while (this.progress < 0) this.progress += this.recipe.cost
@@ -85,6 +85,7 @@ export class Machine {
       this.progress = this.recipe?.cost || 0
     }
     this.syncedAt = ts
+    return this
   }
 }
 

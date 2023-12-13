@@ -81,15 +81,15 @@ export class Deposit {
   }
 
 
-  sync(ts: number) {
-    if (ts <= this.syncedAt) return
+  sync(ts: number): Deposit {
+    if (ts <= this.syncedAt) return this
     const timeDiff = (ts - this.syncedAt)/1000
     let totalOres = 0
     this.oreStorages.forEach(ore => {
       const bOre = this.base.ores.find(bo => bo.resource.id == ore.base.id)
       if (!bOre) {
         console.error('Cannot find base Ore. Skip sync', ore)
-        return
+        return this
       }
       const changes = timeDiff * bOre.ratio * this.rate / 100
       ore.amount += changes
@@ -97,6 +97,7 @@ export class Deposit {
     })
     this.totalOres += totalOres
     this.syncedAt = ts
+    return this
   }
 
   withdrawOres(capacity: number): ResourceAmount[] {
