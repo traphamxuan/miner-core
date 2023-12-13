@@ -75,6 +75,7 @@ export class FactoryInputManagement extends BaseInputEvent {
         failed(err)
         return
       }
+      machine.sync(ts)
       machine.power *= 1.2
       machine.syncedAt = ts
       machine.recipe && this.factoryInternal.publishMachineEvent(machine as MachineR)
@@ -96,6 +97,7 @@ export class FactoryInputManagement extends BaseInputEvent {
         failed(err)
         return
       }
+      machine.sync(ts)
       if (machine.recipe?.base.id === recipe?.base.id) {
         return
       }

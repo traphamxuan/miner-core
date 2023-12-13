@@ -27,6 +27,8 @@ export class MinerInputManagement extends BaseInputEvent {
         failed(err)
         return
       }
+      shuttle.sync(ts)
+      deposit?.sync(ts)
       shuttle.deposit = deposit
       deposit && this.minerInternal.publishShuttleEvent(shuttle as ShuttleD)
       ok(shuttle)
@@ -83,6 +85,7 @@ export class MinerInputManagement extends BaseInputEvent {
         failed(err)
         return
       }
+      deposit.sync(ts)
       deposit.rate *= 1.2
       ok(deposit)
     })
@@ -98,6 +101,7 @@ export class MinerInputManagement extends BaseInputEvent {
         failed(err)
         return
       }
+      shuttle.sync(ts)
       shuttle.speed *= 1.2
       shuttle.deposit && this.minerInternal.publishShuttleEvent(shuttle as ShuttleD)
       ok(shuttle)
@@ -113,6 +117,7 @@ export class MinerInputManagement extends BaseInputEvent {
         failed(err)
         return
       }
+      shuttle.sync(ts)
       shuttle.capacity = Math.floor(shuttle.capacity * 1.2)
       shuttle.deposit && this.minerInternal.publishShuttleEvent(shuttle as ShuttleD)
       ok(shuttle)
