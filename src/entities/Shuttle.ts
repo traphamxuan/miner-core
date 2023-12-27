@@ -7,7 +7,7 @@ export type RawShuttle = {
   id          :string
   pid     :string
   ssid   :string
-  did?  :string
+  sdid?  :string
 
   power       :number
   capacity    :number
@@ -26,7 +26,7 @@ export type TShuttle = {
   isReturned  :boolean
   speed       :number
   load        :ResourceAmount[]
-  syncedAt   :number
+  syncedAt    :number
   deposit?    :TDeposit
   base        : TStaticShuttle
 }
@@ -50,7 +50,7 @@ export class Shuttle {
     this.base = sShuttle
     this.id = data.id
     this.planetId = data.pid
-    this.deposit = data.did ? userDeposits.find(d => d.id == data.did) : undefined
+    this.deposit = data.sdid ? userDeposits.find(d => d.base.id == data.sdid) : undefined
 
     this.capacity = data.capacity
     this.position = data.position.y
@@ -65,7 +65,7 @@ export class Shuttle {
       id: Math.ceil(performance.now() * 1_000_000).toString(32),
       pid: planetId,
       ssid   :sShuttle.id,
-      did   :undefined,
+      sdid   :undefined,
     
       capacity    :sShuttle.capacity,
       position    :{ y: 0, x: 0 },
@@ -81,7 +81,7 @@ export class Shuttle {
       id          : this.id,
       pid     : this.planetId,
       ssid   : this.base.id,
-      did   : this.deposit?.id,
+      sdid   : this.deposit?.base.id,
     
       capacity    : this.capacity,
       position: { x: 0, y: this.position },

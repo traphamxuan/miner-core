@@ -7,7 +7,7 @@ export type RawMachine = {
   id: string
   pid: string
   smid: string
-  reid?: string
+  sreid?: string
 
   progress: number
   isRun: boolean
@@ -42,7 +42,7 @@ export class Machine {
     this.id = data.id
     this.planetId = data.pid
     this.base = sMachine
-    this.recipe = data.reid ? userRecipes.find(r => r.id == data.reid) : undefined
+    this.recipe = data.sreid ? userRecipes.find(r => r.base.id == data.sreid) : undefined
 
     this.isRun = data.isRun
     this.power = data.power
@@ -56,7 +56,7 @@ export class Machine {
       pid: this.planetId,
 
       smid: this.base.id,
-      reid: this.recipe?.id,
+      sreid: this.recipe?.base.id,
       isRun: this.isRun,
       power: this.power,
       progress: this.progress,
