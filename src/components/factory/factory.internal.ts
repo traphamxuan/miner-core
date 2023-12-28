@@ -92,8 +92,4 @@ export class FactoryInternalEvent extends BaseInternalEvent{
     const uid = this.getWaitingRecipeUID(machine.base.id)
     recipe.base.ingredients.forEach(unIngre => this.warehouseService.unregisterChanges(unIngre.id, uid))
   }
-
-  updateMachineID(id: string, machineID: string) {
-    this.updateRequest(id, machineID)
-  }
 }

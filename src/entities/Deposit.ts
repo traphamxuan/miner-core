@@ -5,7 +5,6 @@ import { StaticDeposit } from './static'
 import { TStaticDeposit } from './static/Deposit'
 
 export type RawDeposit = {
-  id          :string
   pid    :string
   sdid   :string
 
@@ -15,7 +14,6 @@ export type RawDeposit = {
 }
 
 export type TDeposit = {
-  id          :string
   pid     :string
   oreStorages :Ore[]
   rate        :number
@@ -25,7 +23,6 @@ export type TDeposit = {
 }
 
 export class Deposit {
-  id          :string
   planetId     :string
   oreStorages :Ore[]
   rate        :number
@@ -37,7 +34,6 @@ export class Deposit {
     const base = sDeposit || StaticDeposit.DEPOSITS.getOne(data.sdid)
     if (!base) throw new Error(`Unable to create new Deposit`)
     this.base = base
-    this.id = data.id
     this.planetId = data.pid
     this.totalOres = 0
 
@@ -52,7 +48,6 @@ export class Deposit {
 
   static initFromStatic(planetId: string, base: StaticDeposit, syncedAt: number): Deposit {
     return new Deposit({
-      id: new Date().getTime().toString(32),
       pid: planetId,
       rate: base.rate,
       sdid: base.id,
@@ -66,7 +61,6 @@ export class Deposit {
 
   toRaw(): RawDeposit {
     return {
-      id: this.id,
       ores: this.oreStorages.map(ore => ({
         srid: ore.id,
         amount: ore.amount.toString()

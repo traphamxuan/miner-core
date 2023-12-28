@@ -1,7 +1,7 @@
 import * as readline from 'readline';
 import { stdin as input, stdout as output } from 'process';
 import { registerContinuousShow, showFactoryView, showMain, showMinerView, showResourceView, unregisterContinuousShow } from './view';
-import { Game } from '../src';
+import { Game, StaticMachine } from '../src';
 
 const reader = readline.createInterface({ input, output });
 let onExit: (value: unknown) => void
@@ -66,6 +66,15 @@ export function handleInputFactoryView(game: Game) {
   reader.question('Enter your select: ', answer => {
     const [command, ...args] = answer.split(' ')
 		switch (command) {
+			case 'a':
+				if (args[0] == 'm'){
+					game.getInput('factory').requestNewMachine(args[1])
+						.catch(err => console.error(err))
+				} else if (args[0] == 'r') {
+					game.getInput('factory').requestNewRecipe(args[1])
+						.catch(err => console.error(err))
+				}
+				break
 			case 's':
 				game.getInput('factory').setMachineRecipe(args[0], args[1])
 					.catch(err => console.error(err))

@@ -24,6 +24,8 @@ export function showFactoryView(game: Game) {
   const machines = game.getService('factory').Machines()
   console.log(`This is all machines in the factory
 ${machines.map(m => `${m.base.id}\t${m.base.name}\t${m.progress}\t${m.recipe?.base.target.name || ''}`).join('\n')}
+  - a m <machineID> <Name> to buy a machine
+  - a r <recipeID> <Name> to buy a recipe
 	- s <machineID> <Name> to set a recipe for a machine
 	- d <machineID> to remove a receipe of a machine
 	- b to back

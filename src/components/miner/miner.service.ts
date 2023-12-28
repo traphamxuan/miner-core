@@ -22,17 +22,6 @@ export class MinerService {
   Shuttles() { return this.shuttles.getStores() }
   Shuttle(id: string) { return this.shuttles.getOne(id) }
 
-  updateMinerID(oldShuttleID: string, shuttleId: string, oldDepositId: string, depositId: string) {
-    const shuttle = this.shuttles.replaceKey(oldShuttleID, shuttleId)
-    if (shuttle) {
-      shuttle.id = shuttleId
-    }
-    const deposit = this.deposits.replaceKey(oldDepositId, depositId)
-    if (deposit) {
-      deposit.id = depositId
-    }
-  }
-
   addDeposit(deposit: Deposit): Deposit {
     this.deposits.add(deposit, [deposit.base.id, deposit.base.name])
     return deposit

@@ -36,7 +36,6 @@ export class WarehouseService {
     let existed = this.resources.getOne(sResourceId)
     if (!existed) {
       existed = new Resource({
-        id: new Date().getTime().toString(32),
         pid: this.planetService.planet.id,
         srid: sResourceId,
         amount: '0',

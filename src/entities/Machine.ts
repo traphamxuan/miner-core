@@ -4,7 +4,6 @@ import { Recipe, TRecipe } from "./Recipe"
 import { TStaticMachine } from "./static/Machine"
 
 export type RawMachine = {
-  id: string
   pid: string
   smid: string
   sreid?: string
@@ -16,7 +15,6 @@ export type RawMachine = {
 }
 
 export type TMachine = {
-  id: string
   pid: string
   isRun: boolean
   power: number
@@ -27,7 +25,6 @@ export type TMachine = {
 }
 
 export class Machine {
-  id: string
   planetId: string
   isRun: boolean
   power: number
@@ -39,7 +36,6 @@ export class Machine {
   constructor(data: RawMachine, userRecipes: Recipe[], staticMachine?: StaticMachine) {
     const sMachine = staticMachine || StaticMachine.MACHINES.getOne(data.smid)
     if (!sMachine) throw new Error('Cannot create new machine')
-    this.id = data.id
     this.planetId = data.pid
     this.base = sMachine
     this.recipe = data.sreid ? userRecipes.find(r => r.base.id == data.sreid) : undefined
@@ -52,7 +48,6 @@ export class Machine {
 
   toRaw(): RawMachine {
     return {
-      id: this.id,
       pid: this.planetId,
 
       smid: this.base.id,
@@ -66,7 +61,6 @@ export class Machine {
 
   static initFromStatic(pid: string, sMachine: StaticMachine, syncedAt: number): Machine {
     return new Machine({
-      id: Math.ceil(performance.now() * 1_000_000).toString(32),
       pid,
       smid: sMachine.id,
       isRun: false,

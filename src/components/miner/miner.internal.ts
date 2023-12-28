@@ -13,10 +13,6 @@ export class MinerInternalEvent extends BaseInternalEvent{
 
   get id(): string { return this.minerService.id + '-internal' }
 
-  updateMinerID(shuttleID: string, newShuttleID: string) {
-    this.updateRequest(shuttleID, newShuttleID)
-  }
-
   publishShuttleEvent(shuttle: ShuttleD): Promise<ShuttleD> {
     let ts: number
     if (shuttle.isReturned) {

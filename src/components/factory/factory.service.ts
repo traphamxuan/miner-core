@@ -104,7 +104,7 @@ export class FactoryService {
   // }
 
   setMachineRecipe(machine: Machine, ts: number, recipe?: Recipe): Machine {
-    if (machine.recipe?.id == recipe?.id) return machine
+    if (machine.recipe?.base.id == recipe?.base.id) return machine
     this.unsetRecipe(machine, ts)
     if (recipe) {
       this.setRecipe(machine, recipe, ts)

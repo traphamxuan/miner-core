@@ -85,7 +85,7 @@ export class FactoryInputManagement extends BaseInputEvent {
   setMachineRecipe(sMachineId: string, sRecipeId?: string): Promise<Machine> {
     const machine = this.factoryService.Machine(sMachineId)
     if (!machine) {
-      throw new Error('Invalid static machine ID')
+      throw new Error('Invalid static machine ID: ' + sMachineId)
     }
     const recipe = sRecipeId ? this.factoryService.Recipe(sRecipeId) : undefined
     return this.makeRequest((ok, failed) => (err, ts, isSkip) => {

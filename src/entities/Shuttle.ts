@@ -4,7 +4,6 @@ import { TStaticShuttle } from "./static/Shuttle";
 import { RawResourceAmount, ResourceAmount } from "./common/ResourceAmount";
 
 export type RawShuttle = {
-  id          :string
   pid     :string
   ssid   :string
   sdid?  :string
@@ -18,7 +17,6 @@ export type RawShuttle = {
 }
 
 export type TShuttle = {
-  id          :string
   planetId     :string
 
   capacity    :number
@@ -32,7 +30,6 @@ export type TShuttle = {
 }
 
 export class Shuttle {
-  id          :string
   planetId     :string
 
   capacity    :number
@@ -48,7 +45,6 @@ export class Shuttle {
     const sShuttle = StaticShuttle.SHUTTLES.getOne(data.ssid)
     if (!sShuttle) { throw new Error(`Cannot find static shuttle`) }
     this.base = sShuttle
-    this.id = data.id
     this.planetId = data.pid
     this.deposit = data.sdid ? userDeposits.find(d => d.base.id == data.sdid) : undefined
 
@@ -62,7 +58,6 @@ export class Shuttle {
 
   static initFromStatic(planetId: string, sShuttle: StaticShuttle, lastedUpdatedAt: number): Shuttle {
     return new Shuttle({
-      id: Math.ceil(performance.now() * 1_000_000).toString(32),
       pid: planetId,
       ssid   :sShuttle.id,
       sdid   :undefined,
@@ -78,7 +73,6 @@ export class Shuttle {
 
   toRaw(): RawShuttle {
     return {
-      id          : this.id,
       pid     : this.planetId,
       ssid   : this.base.id,
       sdid   : this.deposit?.base.id,
