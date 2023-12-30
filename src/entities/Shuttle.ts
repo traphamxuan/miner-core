@@ -4,10 +4,9 @@ import { TStaticShuttle } from "./static/Shuttle";
 import { RawResourceAmount, ResourceAmount } from "./common/ResourceAmount";
 
 export type RawShuttle = {
-  id          :string
   pid     :string
   ssid   :string
-  did?  :string
+  sdid?  :string
 
   power       :number
   capacity    :number
@@ -18,7 +17,6 @@ export type RawShuttle = {
 }
 
 export type TShuttle = {
-  id          :string
   planetId     :string
 
   capacity    :number
@@ -26,13 +24,12 @@ export type TShuttle = {
   isReturned  :boolean
   speed       :number
   load        :ResourceAmount[]
-  syncedAt   :number
+  syncedAt    :number
   deposit?    :TDeposit
   base        : TStaticShuttle
 }
 
 export class Shuttle {
-  id          :string
   planetId     :string
 
   capacity    :number
@@ -44,13 +41,11 @@ export class Shuttle {
   deposit?    :Deposit
   base        : StaticShuttle
 
-  constructor(data: RawShuttle, userDeposits: Deposit[]) {
-    const sShuttle = StaticShuttle.SHUTTLES.getOne(data.ssid)
+  constructor(data: RawShuttle, deposit?: Deposit, sShuttle?: StaticShuttle) {
+    sShuttle = sShuttle || StaticShuttle.SHUTTLES.getOne(data.ssid)
     if (!sShuttle) { throw new Error(`Cannot find static shuttle`) }
     this.base = sShuttle
-    this.id = data.id
     this.planetId = data.pid
-    this.deposit = data.did ? userDeposits.find(d => d.id == data.did) : undefined
 
     this.capacity = data.capacity
     this.position = data.position.y
@@ -58,14 +53,14 @@ export class Shuttle {
     this.speed = data.power
     this.load = !data.load ? [] : data.load.map(res => new ResourceAmount(res))
     this.syncedAt = data.syncedAt
+
+    this.deposit = (data.sdid && data.sdid == deposit?.base.id) ? deposit : undefined
   }
 
   static initFromStatic(planetId: string, sShuttle: StaticShuttle, lastedUpdatedAt: number): Shuttle {
     return new Shuttle({
-      id: Math.ceil(performance.now() * 1_000_000).toString(32),
       pid: planetId,
       ssid   :sShuttle.id,
-      did   :undefined,
     
       capacity    :sShuttle.capacity,
       position    :{ y: 0, x: 0 },
@@ -73,15 +68,14 @@ export class Shuttle {
       power       :sShuttle.power,
       load        :[],
       syncedAt   :lastedUpdatedAt
-    }, [])
+    }, undefined, sShuttle)
   }
 
   toRaw(): RawShuttle {
     return {
-      id          : this.id,
       pid     : this.planetId,
       ssid   : this.base.id,
-      did   : this.deposit?.id,
+      sdid   : this.deposit?.base.id,
     
       capacity    : this.capacity,
       position: { x: 0, y: this.position },
@@ -92,10 +86,10 @@ export class Shuttle {
     }
   }
 
-  sync(ts: number) {
-    if (ts < this.syncedAt) return
+  sync(ts: number): Shuttle {
+    if (ts < this.syncedAt) return this
     const distance = this.deposit?.base.position.y || 0
-    if (distance <= 0) return
+    if (distance <= 0) return this
 
     const timeDiff = (ts - this.syncedAt) / 1000
     const totalMovement = timeDiff * this.speed
@@ -120,6 +114,7 @@ export class Shuttle {
     this.isReturned = isReturned
     this.position = position
     this.syncedAt = ts
+    return this
   }
 }
 

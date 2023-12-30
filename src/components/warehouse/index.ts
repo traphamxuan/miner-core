@@ -1,4 +1,5 @@
-import { pService } from '../planet'
+import { Engine, InputProcessor, SyncProcessor } from '../../core'
+import { PlanetService } from '../planet/planet.service'
 import { WarehouseInputManagement } from './warehouse.input'
 import { WarehouseRender } from './warehouse.render'
 import { WarehouseService } from './warehouse.service'
@@ -6,8 +7,21 @@ import { WarehouseService } from './warehouse.service'
 export type { WarehouseService } from './warehouse.service'
 export type { WarehouseInputManagement } from './warehouse.input'
 
-const wService = new WarehouseService(pService)
-const wInput = new WarehouseInputManagement(pService, wService)
-const wRender = new WarehouseRender(wService)
+export function createWarehouse(
+  engine: Engine,
+  pService: PlanetService,
+): {
+  service: WarehouseService,
+  input: WarehouseInputManagement,
+  render: WarehouseRender,
+} {
+  const service = new WarehouseService(pService)
+  const input = new WarehouseInputManagement(engine, pService, service)
+  const render = new WarehouseRender(engine, service)
 
-export { wService, wInput, wRender }
+  return {
+    service,
+    input,
+    render,
+  }
+}

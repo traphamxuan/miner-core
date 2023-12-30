@@ -10,6 +10,5 @@ export class MinerExternal extends BaseExternalEvent {
     super()
   }
   onCreateMiner(oldDepositId: string, depositId: string, oldShuttleId: string, shuttleId: string) {
-    this.minerInternal.updateMinerID(oldShuttleId, shuttleId)
   }
 }

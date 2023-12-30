@@ -2,15 +2,17 @@ import { MachineR } from "../../entities";
 import { WarehouseService } from "../warehouse";
 import { FactoryService } from "./factory.service";
 import { BaseInternalEvent } from "../../common/interfaces/BaseInternalEvent";
-import { GlobalTick } from "../../core";
+import { Engine, InternalProcessor } from "../../core";
 
 export class FactoryInternalEvent extends BaseInternalEvent{
-  private idx = 0
+  private getTick: () => number
   constructor(
+    engine: Pick<Engine, 'loop' | 'internal'>,
     private factoryService: FactoryService,
     private warehouseService: WarehouseService,
   ) {
-    super()
+    super(engine.internal)
+    this.getTick = () => engine.loop.Tick
   }
 
   get id(): string { return this.factoryService.id + '-internal' }
@@ -26,7 +28,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
     if (machine.isRun) {
       const nextTs = machine.syncedAt + machine.progress / machine.power * 1_000
       // console.log('nextTs', nextTs, machine)
-      // const result = this.makeRequest<MachineR>('run-' + machine.id, nextTs, (ok, failed) => (err: Error, ts: number, isSkip: boolean) => {
+      // const result = this.makeRequest<MachineR>('run-' + machine.base.id, nextTs, (ok, failed) => (err: Error, ts: number, isSkip: boolean) => {
       //   if (isSkip) {
       //     console.warn('Skip process')
       //     ok(machine)
@@ -43,7 +45,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
       //   ok(machine)
       // })
 
-      this.makeEvent('run-' + machine.id, nextTs, (err, ts, isSkip) => {
+      this.makeEvent('run-' + machine.base.id, nextTs, (err, ts, isSkip) => {
         // console.log(`In process`, err, ts, isSkip, machine)
         if (isSkip) {
           console.warn('Skip process')
@@ -58,7 +60,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
         this.publishMachineEvent(machine)
       })
     } else {
-      const recipeUID = this.getWaitingRecipeUID(machine.id)
+      const recipeUID = this.getWaitingRecipeUID(machine.base.id)
       recipe.base.ingredients.forEach(ingre => {
         this.warehouseService.registerChange(ingre.id, recipeUID, {
           onIncrease: (resourceId, _, resource) => {
@@ -68,7 +70,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
             }
             if (resource.amount >= ingre.amount) {
               machine.isRun = this.warehouseService.take(recipe.base.ingredients)
-              machine.syncedAt = GlobalTick()
+              machine.syncedAt = this.getTick()
               if (machine.isRun) {
                 this.publishMachineEvent(machine)
                 this.stopWaitingRecipeRequirements(machine)
@@ -82,16 +84,12 @@ export class FactoryInternalEvent extends BaseInternalEvent{
 
   unpublishMachineEvent(machine: MachineR) {
     this.stopWaitingRecipeRequirements(machine)
-    this.removeRequest(machine.id)
+    this.removeRequest(machine.base.id)
   }
 
   private stopWaitingRecipeRequirements(machine: MachineR) {
     const recipe = machine.recipe
-    const uid = this.getWaitingRecipeUID(machine.id)
+    const uid = this.getWaitingRecipeUID(machine.base.id)
     recipe.base.ingredients.forEach(unIngre => this.warehouseService.unregisterChanges(unIngre.id, uid))
-  }
-
-  updateMachineID(id: string, machineID: string) {
-    this.updateRequest(id, machineID)
   }
 }

@@ -5,6 +5,7 @@ import { StaticResource, TStaticResource } from "./Resource";
 export type RawStaticDeposit = {
   id: string
   name: string
+  icon?: string
   rate: number
   price: string
   position: Position
@@ -14,6 +15,7 @@ export type RawStaticDeposit = {
 export type TStaticDeposit = {
   id: string
   name: string
+  icon?: string
   rate: number
   price: bigint
   position: Position
@@ -24,6 +26,7 @@ export class StaticDeposit {
   static readonly DEPOSITS: QuickAccessStore<StaticDeposit> = new QuickAccessStore()
   readonly id: string
   readonly name: string
+  readonly icon?: string
   readonly rate: number
   readonly price: bigint
   readonly position: Position
@@ -32,6 +35,7 @@ export class StaticDeposit {
   constructor(rawData: RawStaticDeposit) {
     this.id = rawData.id
     this.name = rawData.name
+    this.icon = rawData.icon
     this.rate = rawData.rate
     this.price = BigInt(rawData.price)
     this.position = rawData.position
@@ -42,20 +46,5 @@ export class StaticDeposit {
       }
       return acc
     }, [])
-  }
-  
-  toRaw(): RawStaticDeposit {
-    return {
-      id: this.id,
-      name: this.name,
-      rate: this.rate,
-      position: this.position,
-      price: this.price.toString(),
-      ores: this.ores.map(ore => ({
-        srid: ore.resource.id,
-        srName: ore.resource.name,
-        ratio: ore.ratio
-      }))
-    }
   }
 }

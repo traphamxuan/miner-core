@@ -30,14 +30,4 @@ export class StaticMachine implements TStaticMachine {
     this.power = data.power
     this.price = BigInt(data.price)
   }
-
-  toRaw(): RawStaticMachine {
-    return {
-      id: this.id,
-      name: this.name,
-      power: this.power,
-      price: this.price.toString()
-    }
-  }
-
 }

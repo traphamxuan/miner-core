@@ -1,5 +1,6 @@
-import { pService } from '../planet'
-import { wService } from '../warehouse'
+import { Engine, InputProcessor, InternalProcessor, SyncProcessor } from '../../core'
+import { PlanetService } from '../planet/planet.service'
+import { WarehouseService } from '../warehouse'
 import { MinerInputManagement } from './miner.input'
 import { MinerInternalEvent } from './miner.internal'
 import { MinerRender } from './miner.render'
@@ -11,9 +12,24 @@ export type { MinerRender } from './miner.render'
 export type { MinerExternal } from './miner.external'
 export type { MinerInternalEvent } from './miner.internal'
 
-const mService = new MinerService(pService, wService)
-const mInternal = new MinerInternalEvent(mService)
-const mInput = new MinerInputManagement(mService, mInternal)
-const mRender = new MinerRender(mService)
-
-export { mService, mInternal, mInput, mRender }
+export function createMiner(
+  engine: Engine,
+  pService: PlanetService,
+  wService: WarehouseService,
+): {
+  service: MinerService,
+  internal: MinerInternalEvent,
+  input: MinerInputManagement,
+  render: MinerRender
+} {
+  const service = new MinerService(pService, wService)
+  const internal = new MinerInternalEvent(engine, service)
+  const input = new MinerInputManagement(engine, service, internal)
+  const render = new MinerRender(engine, service)
+  return {
+    service,
+    internal,
+    input,
+    render,
+  }
+}

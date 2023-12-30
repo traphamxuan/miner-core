@@ -1,6 +1,4 @@
-import { Shuttle } from "../../entities"
-
-export class QuickAccessStore<T extends { id: string }> {
+export class QuickAccessStore<T> {
   private oData: Record<string, T>
   private aData: T[]
   constructor() {
@@ -13,7 +11,6 @@ export class QuickAccessStore<T extends { id: string }> {
   reset() { this.oData = {}; this.aData = [] }
 
   add(data: T, keys: string[] = []) {
-    this.oData[data.id] = data
     keys.forEach(key => this.oData[key] = data)
     this.aData.push(data)
   }

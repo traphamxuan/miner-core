@@ -1,6 +1,6 @@
-import { SubEvent } from '../common/services/SubEvent.js'
-import { GameProcessor } from '../common/interfaces/GameProcessor.js'
-import { isEmptyObject } from '../common/utils/index.js'
+import { SubEvent } from '../common/services/SubEvent'
+import { GameProcessor } from '../common/interfaces/GameProcessor'
+import { isEmptyObject } from '../common/utils'
 
 export interface SyncService {
   id: string
@@ -35,9 +35,9 @@ export class SyncProcessor implements GameProcessor {
   }
 
 
-  register(service: SyncService, action: TRenderAction, uid = 'default') {
+  register(service: SyncService, action: TRenderAction, uid?: string) {
     this.syncQueue[service.id] = { service }
-    this.subEvent.registerChange(service.id, uid, action)
+    return this.subEvent.registerChange(service.id, uid, action)
   }
   unregister(service: SyncService, uid?: string) {
     this.subEvent.unregisterChange(service.id, uid)

@@ -24,7 +24,7 @@ export class WarehouseService {
   Resource(id: string) { return this.resources.getOne(id) }
 
   addResource(resource: Resource): Resource {
-    this.resources.add(resource, [resource.id, resource.base.id, resource.base.name])
+    this.resources.add(resource, [resource.base.id, resource.base.name])
     this.resources.getStores().sort((a, b) => a.base.weight - b.base.weight)
     return resource
   }
@@ -36,7 +36,6 @@ export class WarehouseService {
     let existed = this.resources.getOne(sResourceId)
     if (!existed) {
       existed = new Resource({
-        id: new Date().getTime().toString(32),
         pid: this.planetService.planet.id,
         srid: sResourceId,
         amount: '0',
@@ -52,10 +51,10 @@ export class WarehouseService {
     this.resources.reset()
   }
 
-  put(resAmounts: Pick<TResourceAmount, 'id' | 'amount'>[]) {
+  put(resAmounts: TResourceAmount[]) {
     const resources: Resource[] = []
     for (const res of resAmounts) {
-      let resource = this.resources.getOne(res.id)
+      let resource = this.resources.getOne(res.base.id)
       if (!resource) {
         resource = this.addNew(res.id)
         resources.push(resource)
@@ -65,14 +64,14 @@ export class WarehouseService {
     resAmounts.forEach((res, idx) => {
       const resource = resources[idx]
       resource.amount += res.amount
-      this.subEvent.dispatchEvent(res.id, 'onIncrease', res.amount, resource)
+      this.subEvent.dispatchEvent(res.base.id, 'onIncrease', res.amount, resource)
     })
   }
 
-  take(resAmounts: Pick<TResourceAmount, 'id' | 'amount'>[]): boolean {
+  take(resAmounts: TResourceAmount[]): boolean {
     const resources: Resource[] = []
     for (const res of resAmounts) {
-      const resource = this.resources.getOne(res.id)
+      const resource = this.resources.getOne(res.base.id)
       if (!resource) return false
       if (res.amount > resource.amount) {
         return false
@@ -83,14 +82,10 @@ export class WarehouseService {
     return true
   }
 
-  peakAmount(resourceId: string): bigint {
-    return this.resources.getOne(resourceId)?.amount || 0n
-  }
-
-  sell(resourceId: string, ts: number, amount?: bigint): bigint {
+  sell(sResourceId: string, ts: number, amount?: bigint): bigint {
     const planet = this.planetService.planet
     if (!planet) { return 0n }
-    const resource = this.resources.getOne(resourceId)
+    const resource = this.resources.getOne(sResourceId)
     if (!resource) { return 0n }
     const amountExist = resource.amount
     let amountToSell = amountExist
@@ -105,7 +100,7 @@ export class WarehouseService {
   }
 
   registerChange(resPackOrPlanetId: string, uId: string, action: TWarehouseAction) {
-    this.subEvent.registerChange(resPackOrPlanetId, uId, action)
+    return this.subEvent.registerChange(resPackOrPlanetId, uId, action)
   }
 
   unregisterChanges(resPackOrPlanetId: string, uId?: string) {

@@ -23,22 +23,10 @@ export class FactoryService {
   Machine(id: string) { return this.machines.getOne(id) }
 
   addRecipe(recipe: Recipe) {
-    this.recipes.add(recipe, [recipe.id, recipe.base.id, recipe.base.target.name])
+    this.recipes.add(recipe, [recipe.base.id, recipe.base.target.name])
   }
   addMachine(machine: Machine) {
-    this.machines.add(machine, [machine.id, machine.base.id, machine.base.name])
-  }
-  updateRecipeID(oldId: string, newId: string) {
-    const recipe = this.recipes.replaceKey(oldId, newId)
-    if (recipe) {
-      recipe.id = newId
-    }
-  }
-  updateMachineID(oldId: string, newId: string) {
-    const machine = this.machines.replaceKey(oldId, newId)
-    if (machine) {
-      machine.id = newId
-    }
+    this.machines.add(machine, [machine.base.id, machine.base.name])
   }
 
   addNewRecipe(sRecipe: StaticRecipe): Recipe | Error {
@@ -91,7 +79,8 @@ export class FactoryService {
       const resource: TResourceAmount = { id: sRes.id, base: sRes, amount: 1n }
       this.warehouseService.put([{
         id: sRes.id,
-        amount: 1n
+        amount: 1n,
+        base: sRes,
       }])
       machine.isRun = false
       machine.progress = machine.recipe.cost
@@ -115,7 +104,7 @@ export class FactoryService {
   // }
 
   setMachineRecipe(machine: Machine, ts: number, recipe?: Recipe): Machine {
-    if (machine.recipe?.id == recipe?.id) return machine
+    if (machine.recipe?.base.id == recipe?.base.id) return machine
     this.unsetRecipe(machine, ts)
     if (recipe) {
       this.setRecipe(machine, recipe, ts)

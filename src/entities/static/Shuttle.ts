@@ -29,17 +29,6 @@ export class StaticShuttle {
   readonly deposit?: StaticDeposit
   readonly ores: any;
 
-  toRaw(): RawStaticShuttle {
-    return {
-      id: this.id,
-      name: this.name,
-      power: this.power,
-      capacity: this.capacity,
-      price: this.price.toString(),
-      deposit: this.deposit?.name
-    }
-  }
-
   constructor(data: RawStaticShuttle) {
     this.id = data.id
     this.name = data.name
