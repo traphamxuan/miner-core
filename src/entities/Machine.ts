@@ -33,12 +33,12 @@ export class Machine {
   syncedAt: number
   base: StaticMachine
 
-  constructor(data: RawMachine, userRecipes: Recipe[], staticMachine?: StaticMachine) {
+  constructor(data: RawMachine, recipe?: Recipe, staticMachine?: StaticMachine) {
     const sMachine = staticMachine || StaticMachine.MACHINES.getOne(data.smid)
     if (!sMachine) throw new Error('Cannot create new machine')
     this.planetId = data.pid
     this.base = sMachine
-    this.recipe = data.sreid ? userRecipes.find(r => r.base.id == data.sreid) : undefined
+    this.recipe = (data.sreid && data.sreid == recipe?.base.id) ? recipe : undefined
 
     this.isRun = data.isRun
     this.power = data.power
@@ -67,7 +67,7 @@ export class Machine {
       power: sMachine.power,
       progress: 0,
       syncedAt
-    }, [], sMachine)
+    }, undefined, sMachine)
   }
 
   sync(ts: number): Machine {

@@ -10,8 +10,8 @@ export class MinerRender implements SyncService {
     this.syncProcessor = engine.sync
   }
   sync(ts: number) {
-    this.minerService.Deposits().forEach(deposit => deposit.syncedAt < ts && deposit.sync(ts))
-    this.minerService.Shuttles().forEach(shuttle => shuttle.syncedAt < ts && shuttle.sync(ts))
+    this.minerService.Deposits().forEach(deposit => deposit.sync(ts))
+    this.minerService.Shuttles().forEach(shuttle => shuttle.sync(ts))
   }
 
   register(callback: TRenderAction, uid?: string) { return this.syncProcessor.register(this, callback, uid) }

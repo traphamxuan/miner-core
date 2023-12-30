@@ -18,12 +18,12 @@ import {
 } from "./entities"
 
 export type GameData = {
-  planet: RawPlanet,
-  deposits: RawDeposit[],
-  shuttles: RawShuttle[],
-  resources: RawResource[],
-  machines: RawMachine[],
-  recipes: RawRecipe[],
+  planet: RawPlanet
+  deposits: RawDeposit[]
+  shuttles: RawShuttle[]
+  resources: RawResource[]
+  machines: RawMachine[]
+  recipes: RawRecipe[]
 }
 
 export class Game {
@@ -46,14 +46,6 @@ export class Game {
     return this.component.input[type]
   }
 
-  start(current: number) {
-    const planet = this.component.service.planet.planet
-    if (!planet) {
-      throw new Error('Planet has not loaded yet')
-    }
-    const elapse = planet.updatedAt.getTime() - planet.startedAt
-    this.engine.loop.start(elapse, current)
-  }
   run(ts: number) {
     this.engine.loop.run(ts)
   }
@@ -77,9 +69,9 @@ export class Game {
    
     rawData.resources.forEach(r => wService.addResource(new Resource(r)))
     rawData.deposits.forEach(d => mService.addDeposit(new Deposit(d)))
-    rawData.shuttles.forEach(s => mService.addShuttle(new Shuttle(s, mService.Deposits())))
+    rawData.shuttles.forEach(s => mService.addShuttle(new Shuttle(s, s.sdid ? mService.Deposit(s.sdid) : undefined)))
     rawData.recipes.forEach(r => fService.addRecipe(new Recipe(r)))
-    rawData.machines.forEach(m => fService.addMachine(new Machine(m, fService.Recipes())))
+    rawData.machines.forEach(m => fService.addMachine(new Machine(m, m.sreid ? fService.Recipe(m.sreid) : undefined)))
   
     mService.Shuttles().forEach(shuttle => shuttle.deposit && mInternal.publishShuttleEvent(shuttle as ShuttleD))
     fService.Machines().forEach(machine => machine.recipe && fInternal.publishMachineEvent(machine as MachineR))

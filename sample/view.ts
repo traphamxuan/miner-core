@@ -35,7 +35,7 @@ ${machines.map(m => `${m.base.id}\t${m.base.name}\t${m.progress}\t${m.recipe?.ba
 export function showMinerView(game: Game) {
   const shuttles = game.getService('miner').Shuttles()
   console.log(`This is all mines with shuttles using for transportation
-${shuttles.map(s => `${s.base.id}\t${s.base.name}\t${s.position}\t${s.load.map(l => `${l.base.name}:${l.amount}`).join(',')}`).join('\n')}
+${shuttles.map(s => `${s.base.id}\t${s.base.name}\t${s.position}\t${s.syncedAt}\t${s.load.map(l => `${l.base.name}:${l.amount}`).join(',')}`).join('\n')}
 - a <Name/ID> to add a mine to your planet
 - m <mineID> to upgrade mine capacity
 - s <shuttleID> <power/capacity> to upgrade power or capacity of the shuttle

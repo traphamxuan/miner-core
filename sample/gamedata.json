@@ -249,7 +249,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "122",
-            "did": "656b2449fed77e1821654cdb",
+            "sdid": "82",
             "power": 21.49908479999999,
             "capacity": 22,
             "position": {
@@ -268,7 +268,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "123",
-            "did": "656fe28007326eceaa520252",
+            "sdid": "83",
             "power": 5,
             "capacity": 5,
             "position": {
@@ -287,7 +287,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "124",
-            "did": "656fe28507326eceaa520254",
+            "sdid": "84",
             "power": 10.367999999999999,
             "capacity": 12,
             "position": {
@@ -311,7 +311,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "125",
-            "did": "656fe28707326eceaa520257",
+            "sdid": "85",
             "power": 5,
             "capacity": 5,
             "position": {
@@ -335,7 +335,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "126",
-            "did": "656fe28807326eceaa520259",
+            "sdid": "86",
             "power": 17.915903999999994,
             "capacity": 22,
             "position": {
@@ -354,7 +354,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "127",
-            "did": "656fe28a07326eceaa52025b",
+            "sdid": "87",
             "power": 5,
             "capacity": 5,
             "position": {
@@ -373,7 +373,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "128",
-            "did": "656fe28c07326eceaa52025e",
+            "sdid": "88",
             "power": 25.79890175999999,
             "capacity": 19,
             "position": {
@@ -392,7 +392,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "129",
-            "did": "656fe28f07326eceaa520260",
+            "sdid": "89",
             "power": 5,
             "capacity": 5,
             "position": {
@@ -416,7 +416,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "130",
-            "did": "656fe29007326eceaa520263",
+            "sdid": "90",
             "power": 5,
             "capacity": 5,
             "position": {
@@ -435,7 +435,7 @@
         {
             "pid": "656b243afed77e1821654cd9",
             "ssid": "131",
-            "did": "656fe29107326eceaa520265",
+            "sdid": "91",
             "power": 77.0351078729318,
             "capacity": 22,
             "position": {
