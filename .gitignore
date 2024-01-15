@@ -1,4 +1,2 @@
-dist/
-node_modules/
-.npmrc
-*.tgz
+target/
+pkg/
