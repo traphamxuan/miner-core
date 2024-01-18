@@ -1,82 +1,72 @@
-use wasm_bindgen::prelude::*;
 use crate::entities::common::Position;
 
-#[wasm_bindgen]
+impl Ore {}
 pub struct Ore {
-  srid: String,
-  srName: String,
+  pub srid: String,
+  pub sr_name: String,
   pub ratio: f64,
 }
 
-#[wasm_bindgen]
+impl RawBaseDeposit {}
 pub struct RawBaseDeposit {
-  id: String,
-  name: String,
-  icon: Option<String>,
-  rate: f64,
-  price: String,
-  position: Position,
-  ores: Vec<Ore>,
+  pub id: String,
+  pub name: String,
+  pub icon: Option<String>,
+  pub rate: f64,
+  pub price: String,
+  pub position: Position,
+  pub ores: Vec<Ore>,
 }
 
-impl RawBaseDeposit {
-    pub fn find_ore(&self, ore_id: &str) -> Option<&Ore> {
-        self.ores.iter().find(|o| o.srid == ore_id)
-    }
-    pub fn len_ores(&self) -> usize {
-        self.ores.len()
-    }
-}
-
-#[wasm_bindgen]
+impl RawBaseShuttle {}
 pub struct RawBaseShuttle {
-  id: String,
-  name: String,
-  power: f64,
-  capacity: f64,
-  price: String,
-  deposit: Option<String>,
+  pub id: String,
+  pub name: String,
+  pub power: f64,
+  pub capacity: f64,
+  pub price: String,
+  pub deposit: Option<String>,
 }
 
-#[wasm_bindgen]
+impl RawBaseMachine {}
 pub struct RawBaseMachine {
-  id: String,
-  name: String,
-  power: f64,
-  price: String,
+  pub id: String,
+  pub name: String,
+  pub power: f64,
+  pub price: String,
 }
 
-#[wasm_bindgen]
+impl RawBaseRecipe {}
 pub struct RawBaseRecipe {
-  id: String,
-  name: String,
-  cost: f64,
-  price: String,
-  ingredients: Vec<Ingredient>,
+  pub id: String,
+  pub name: String,
+  pub cost: f64,
+  pub price: String,
+  pub ingredients: Vec<Ingredient>,
 }
 
-#[wasm_bindgen]
+impl Ingredient {}
 pub struct Ingredient {
-  srid: String,
-  srName: String,
-  amount: String,
+  pub srid: String,
+  pub sr_name: String,
+  pub amount: String,
 }
 
-#[wasm_bindgen]
-pub struct RawBaseResource {
-  id: String,
-  name: String,
-  icon: Option<String>,
-  category: String,
-  value: String,
-  weight: f64,
+impl RawBaseProduct {}
+pub struct RawBaseProduct {
+  pub id: String,
+  pub name: String,
+  pub icon: Option<String>,
+  pub category: String,
+  pub value: String,
+  pub weight: f64,
 }
 
-#[wasm_bindgen]
+impl RawBase {}
 pub struct RawBase {
-  deposits: Vec<RawBaseDeposit>,
-  shuttles: Vec<RawBaseShuttle>,
-  machines: Vec<RawBaseMachine>,
-  recipes: Vec<RawBaseRecipe>,
-  resources: Vec<RawBaseResource>,
+  pub deposits: Vec<RawBaseDeposit>,
+  pub shuttles: Vec<RawBaseShuttle>,
+  pub machines: Vec<RawBaseMachine>,
+  pub recipes: Vec<RawBaseRecipe>,
+  pub products: Vec<RawBaseProduct>,
 }

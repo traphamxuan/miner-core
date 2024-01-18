@@ -1,94 +1,73 @@
-use wasm_bindgen::prelude::*;
-
 use super::common::Position;
 
-#[wasm_bindgen]
 pub struct RawPlanet {
-  id: String,
-  name: String,
-  money: String,
-  uid: String,
-  // isFactory: boolean
-  startedAt: f64,
-  updatedAt: String
+  pub id: String,
+  pub name: String,
+  pub money: String,
+  pub uid: String,
+  pub started_at: f64,
+  pub updated_at: String
 }
 
-#[wasm_bindgen]
 pub struct RawOre {
-  srid: String,
-  amount: String,
+  pub srid: String,
+  pub amount: String,
 }
 
-#[wasm_bindgen]
 pub struct RawDeposit {
-  pid:String,
-  sdid:String,
-  ores:Vec<RawOre>,
-  rate:f64,
-  syncedAt:f64,
+  pub pid: String,
+  pub sdid: String,
+  pub ores: Vec<RawOre>,
+  pub rate: f64,
+  pub synced_at: f64,
 }
 
-#[wasm_bindgen]
-pub struct RawResourceAmount {
-  srid: String,
-  amount: String,
+pub struct RawProductAmount {
+  pub srid: String,
+  pub amount: String,
 }
 
-impl RawResourceAmount {
-    fn new(srid: String, amount: String) -> RawResourceAmount {
-        RawResourceAmount {
-            srid,
-            amount,
-        }
-    }
-}
-
-#[wasm_bindgen]
 pub struct RawShuttle {
-  pid: String,
-  ssid: String,
-  sdid: Option<String>,
-  power: f64,
-  capacity: f64,
-  position: Position,
-  isReturned: bool,
-  load: Vec<RawResourceAmount>,
-  syncedAt: f64,
+  pub pid: String,
+  pub ssid: String,
+  pub sdid: Option<String>,
+  pub power: f64,
+  pub capacity: f64,
+  pub position: Position,
+  pub is_returned: bool,
+  pub load: Vec<RawProductAmount>,
+  pub synced_at: f64,
 }
 
-#[wasm_bindgen]
-pub struct RawResource {
-  pid: String,
-  srid: String,
-  amount: String,
-  syncedAt: f64,
+pub struct RawProduct {
+  pub pid: String,
+  pub srid: String,
+  pub amount: String,
+  pub synced_at: f64,
 }
 
-#[wasm_bindgen]
 pub struct RawRecipe {
-  pid: String,
-  sreid: String,
-  cost: f64,
-  syncedAt: f64,
+  pub pid: String,
+  pub sreid: String,
+  pub cost: f64,
+  pub synced_at: f64,
 }
 
-#[wasm_bindgen]
 pub struct RawMachine {
-  pid: String,
-  smid: String,
-  sreid: Option<String>,
-  progress: f64,
-  isRun: bool,
-  power: f64,
-  syncedAt: f64,
+  pub pid: String,
+  pub smid: String,
+  pub sreid: Option<String>,
+  pub progress: f64,
+  pub is_run: bool,
+  pub power: f64,
+  pub synced_at: f64,
 }
 
-#[wasm_bindgen]
-pub struct GameData {
-    planet: RawPlanet,
-    deposits: Vec<RawDeposit>,
-    shuttles: Vec<RawShuttle>,
-    resources: Vec<RawResource>,
-    machines: Vec<RawMachine>,
-    recipes: Vec<RawRecipe>,
+pub struct RawGameData {
+    pub planet: RawPlanet,
+    pub deposits: Vec<RawDeposit>,
+    pub shuttles: Vec<RawShuttle>,
+    pub products: Vec<RawProduct>,
+    pub machines: Vec<RawMachine>,
+    pub recipes: Vec<RawRecipe>,
 }

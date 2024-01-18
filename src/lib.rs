@@ -2,11 +2,12 @@ mod utils;
 mod components;
 mod engine;
 mod entities;
+mod dsa;
 
 use wasm_bindgen::prelude::*;
 use components::Component;
 use engine::Engine;
-use entities::{raw::GameData, base::RawBase};
+use entities::{raw::RawGameData, base::RawBase};
 
 #[wasm_bindgen]
 extern "C" {
@@ -46,9 +47,15 @@ pub struct Game {
 }
 
 #[wasm_bindgen]
+pub struct GameData(RawGameData);
+
+#[wasm_bindgen]
+pub struct BaseGame(RawBase);
+
+#[wasm_bindgen]
 impl Game {
     #[wasm_bindgen(constructor)]
-    pub fn new(_base_data: RawBase) -> Game {
+    pub fn new(_base_data: BaseGame) -> Game {
         let engine = Engine::new();
         let component = Component::new();
 
