@@ -16,10 +16,9 @@ export class InternalProcessor implements GameProcessor {
     this.queue = new Heap((a, b) => a.ts - b.ts)
     this.queue.init([])
   }
-  process(ts: number, moveTick: (ts: number) => void): void {
+  process(ts: number, moveTick: (ts: number) => boolean): void {
     let req = this.queue.peek()
-    for (; req && req.ts <= ts; req=this.queue.peek()) {
-      moveTick(req.ts)
+    for (; req && req.ts <= ts && moveTick(req.ts); req=this.queue.peek()) {
       req.update(null, req.ts, req.isDone)
       req.isDone = true
       this.queue.pop()

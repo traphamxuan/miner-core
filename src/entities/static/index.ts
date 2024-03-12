@@ -1,9 +1,10 @@
-export * from './Accelerator'
-export * from './Machine'
-export * from './Resource'
-export * from './Shuttle'
-export * from './Deposit'
-export * from './Recipe'
+
+
+import { StaticDeposit, RawStaticDeposit } from "./Deposit"
+import { StaticMachine, RawStaticMachine } from './Machine'
+import { StaticRecipe, RawStaticRecipe } from './Recipe'
+import { StaticResource, RawStaticResource } from './Resource'
+import { StaticShuttle, RawStaticShuttle } from './Shuttle'
 
 export type TStaticData = {
   resources: RawStaticResource[]
@@ -12,19 +13,6 @@ export type TStaticData = {
   recipes: RawStaticRecipe[]
   machines: RawStaticMachine[]
 }
-
-import {
-  StaticDeposit,
-  StaticMachine,
-  StaticRecipe,
-  StaticResource,
-  StaticShuttle,
-  RawStaticDeposit,
-  RawStaticMachine,
-  RawStaticRecipe,
-  RawStaticResource,
-  RawStaticShuttle
-} from "../../entities/static";
 
 export function initStatic(staticData: TStaticData) {
   staticData.resources.forEach(raw => {
@@ -56,3 +44,10 @@ export function deinitStatic() {
   StaticRecipe.RECIPES.reset()
   StaticMachine.MACHINES.reset()
 }
+
+export * from './Accelerator'
+export * from './Machine'
+export * from './Resource'
+export * from './Shuttle'
+export * from './Deposit'
+export * from './Recipe'

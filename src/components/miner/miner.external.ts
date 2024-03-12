@@ -1,4 +1,6 @@
-import { MinerInputManagement, MinerInternalEvent, MinerService } from ".";
+import { MinerInputManagement } from "./miner.input";
+import { MinerInternalEvent } from "./miner.internal";
+import { MinerService } from "./miner.service";
 import { BaseExternalEvent } from "../../common/interfaces/BaseExternalEvent";
 
 export class MinerExternal extends BaseExternalEvent {

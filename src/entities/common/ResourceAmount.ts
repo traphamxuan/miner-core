@@ -1,4 +1,4 @@
-import { StaticResource } from "../static"
+import { StaticResource } from "../static/Resource"
 
 export type RawResourceAmount = {
   srid: string

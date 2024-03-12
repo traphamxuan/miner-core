@@ -12,7 +12,6 @@ export class GameLoop {
   }
 
   get Tick() { return this.tick }
-  private setTick(ts: number) { this.tick = ts }
 
   reset() {
     this.internal.reset()
@@ -20,12 +19,28 @@ export class GameLoop {
     this.sync.reset()
   }
 
-  run(ts: number) {
+  run(ts: number, limit = 20): number {
     this.tick = ts
-    const setTick = (ts: number) => this.setTick(ts)
-    this.external.process(ts, setTick)
-    this.internal.process(ts, setTick)
+    let stopAt = Date.now() + limit
+    let step = 0
+    const moveTick = (ts: number) => {
+      if (step < 1000) {
+        step++
+      } else {
+        if (Date.now() > stopAt) {
+          return false
+        } else {
+          step = 0
+        }
+      }
+      this.tick = ts
+      return true
+    }
+    this.external.process(ts, moveTick)
+    this.internal.process(ts, moveTick)
+    ts = this.tick
     this.sync.process(ts)
     this.input.process(ts)
+    return ts
   }
 }
