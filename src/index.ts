@@ -46,8 +46,8 @@ export class Game {
     return this.component.input[type]
   }
 
-  run(ts: number) {
-    this.engine.loop.run(ts)
+  run(ts: number, limit?: number): number {
+    return this.engine.loop.run(ts, limit)
   }
 
   load(rawData: GameData): Error | null {
