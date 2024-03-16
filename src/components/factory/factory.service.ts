@@ -1,7 +1,7 @@
 import { Machine, Recipe, TResourceAmount } from "../../entities"
 import { WarehouseService } from "../warehouse/warehouse.service"
 import { QuickAccessStore } from "../../common/services/QuickAccessStore"
-import { StaticMachine, StaticRecipe } from "../../entities/static"
+import type { StaticMachine, StaticRecipe } from "../../entities/static"
 import { PlanetService } from "../planet/planet.service"
 
 export class FactoryService {
@@ -29,7 +29,7 @@ export class FactoryService {
     this.machines.add(machine, [machine.base.id, machine.base.name])
   }
 
-  addNewRecipe(sRecipe: StaticRecipe): Recipe | Error {
+  addNewRecipe(sRecipe: StaticRecipe, ts: number): Recipe | Error {
     const planet = this.planetService.planet
     if (!planet) {
       return new Error('Planet is not loaded')
@@ -42,7 +42,7 @@ export class FactoryService {
       return new Error('Not enough money')
     }
     planet.withdrawMoney(sRecipe.price)
-    recipe = Recipe.initFromStatic(planet.id, sRecipe)
+    recipe = Recipe.initFromStatic(planet.id, sRecipe, ts)
 
     this.addRecipe(recipe)
     recipe.base.ingredients.forEach(ingre => this.warehouseService.addNew(ingre.id))

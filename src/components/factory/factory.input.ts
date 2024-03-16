@@ -1,114 +1,91 @@
-import { Recipe, Machine, MachineR } from '../../entities'
-import { StaticRecipe, StaticMachine } from '../../entities/static'
+import { Recipe, Machine } from '../../entities'
 import { FactoryInternalEvent } from './factory.internal'
-import { FactoryService } from './factory.service'
 import { BaseInputEvent } from '../../common/interfaces/BaseInputEvent'
 import { Engine } from '../../core'
+import { StaticService } from '../static/static.service'
 
 export class FactoryInputManagement extends BaseInputEvent {
 
   constructor(
     engine: Engine,
-    private factoryService: FactoryService,
+    private sService: StaticService,
     private factoryInternal: FactoryInternalEvent
   ) {
     super(engine.input)
   }
 
-  requestNewMachine(sMachineId: string): Promise<Machine> {
-    const sMachine = StaticMachine.MACHINES.getOne(sMachineId)
+  requestNewMachine(sMachineId: string, timestamp?: number): Promise<Machine> {
+    const sMachine = this.sService.getOne('machine', sMachineId)
     if (!sMachine) {
-      throw new Error('Invalid static machine ID')
+      throw new Error(`Invalid static machine ID ${sMachineId}`)
     }
-    return this.makeRequest((ok, failed) => (err, ts, isSkip) => {
+    return timestamp ? this.factoryInternal.createMachine(sMachine, timestamp)
+    : this.makeRequest((ok, failed) => (err, ts, isSkip) => {
       if (isSkip) {
-        failed(new Error('Request is skipped'))
+        failed(new Error(`Skip createMachine ${sMachineId}`))
         return
       }
       if (err) {
         failed(err)
         return
       }
-      const result = this.factoryService.addNewMachine(sMachine, ts)
-      if (result instanceof Error) {
-        failed(result)
-        return
-      }
-      ok(result)
+      this.factoryInternal.createMachine(sMachine, ts)
+        .then(machine => ok(machine))
+        .catch(err => failed(err))
     })
   }
 
-  requestNewRecipe(sRecipeId: string): Promise<Recipe> {
-    const sRecipe = StaticRecipe.RECIPES.getOne(sRecipeId)
+  requestNewRecipe(sRecipeId: string, timestamp?: number): Promise<Recipe> {
+    const sRecipe = this.sService.getOne('recipe', sRecipeId)
     if (!sRecipe) {
-      throw new Error('Invalid static machine ID')
+      throw new Error(`Invalid static recipe ID ${sRecipeId}`)
     }
-    return this.makeRequest((ok, failed) => (err, _, isSkip) => {
+    return timestamp ? this.factoryInternal.createRecipe(sRecipe, timestamp)
+    : this.makeRequest((ok, failed) => (err, ts, isSkip) => {
       if (isSkip) {
-        failed(new Error('Request is skipped'))
+        failed(new Error(`Skip createRecipe ${sRecipeId}`))
         return
       }
       if (err) {
         failed(err)
         return
       }
-      const result = this.factoryService.addNewRecipe(sRecipe)
-      if (result instanceof Error) {
-        failed(result)
-        return
-      }
-      ok(result)
+      this.factoryInternal.createRecipe(sRecipe, ts)
+        .then(recipe => ok(recipe))
+        .catch(err => failed(err))
     })
   }
 
-  upMachinePower(sMachineId: string): Promise<Machine> {
-    const machine = this.factoryService.Machine(sMachineId)
-    if (!machine) {
-      throw new Error('Invalid static machine ID')
-    }
-    return this.makeRequest((ok, failed) => (err, ts, isSkip) => {
+  upMachinePower(sMachineId: string, timestamp?: number): Promise<Machine> {
+    return timestamp ? this.factoryInternal.upMachinePower(sMachineId, timestamp)
+    : this.makeRequest((ok, failed) => (err, ts, isSkip) => {
       if (isSkip) {
-        failed(new Error('Request is skipped'))
+        failed(new Error(`Skip upMachinePower ${sMachineId}`))
         return
       }
       if (err) {
         failed(err)
         return
       }
-      machine.sync(ts)
-      machine.power *= 1.2
-      machine.syncedAt = ts
-      machine.recipe && this.factoryInternal.publishMachineEvent(machine as MachineR)
-      ok(machine)
+      this.factoryInternal.upMachinePower(sMachineId, ts)
+        .then(machine => ok(machine))
+        .catch(err => failed(err))
     })
   }
-  setMachineRecipe(sMachineId: string, sRecipeId?: string): Promise<Machine> {
-    const machine = this.factoryService.Machine(sMachineId)
-    if (!machine) {
-      throw new Error('Invalid static machine ID: ' + sMachineId)
-    }
-    const recipe = sRecipeId ? this.factoryService.Recipe(sRecipeId) : undefined
-    return this.makeRequest((ok, failed) => (err, ts, isSkip) => {
+  setMachineRecipe(sMachineId: string, sRecipeId?: string, timestamp?: number): Promise<Machine> {
+    return timestamp ? this.factoryInternal.setMachineRecipe(sMachineId, timestamp, sRecipeId)
+    : this.makeRequest((ok, failed) => (err, ts, isSkip) => {
       if (isSkip) {
-        failed(new Error('Request is skipped'))
+        failed(new Error(`Skip setMachineRecipe ${sMachineId}`))
         return
       }
       if (err) {
         failed(err)
         return
       }
-      machine.sync(ts)
-      if (machine.recipe?.base.id === recipe?.base.id) {
-        return
-      }
-      if (machine.recipe) {
-        this.factoryInternal.unpublishMachineEvent(machine as MachineR)
-      }
-      this.factoryService.setMachineRecipe(machine, ts, recipe)
-      if (machine.recipe) {
-        this.factoryInternal.publishMachineEvent(machine as MachineR)
-      }
-      ok(machine)
+      this.factoryInternal.setMachineRecipe(sMachineId, ts, sRecipeId)
+        .then(machine => ok(machine))
+        .catch(err => failed(err))
     })
   }
 }

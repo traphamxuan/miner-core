@@ -19,15 +19,22 @@ export abstract class BaseInternalEvent {
     delete this.preMsgQueue[oldId]
   }
 
-  protected makeRequest<T>(id: string, ts: number, func: (
-    ok: (value: T | PromiseLike<T>) => void,
-    failed: (reason?: Error) => void,
-    ) => (err: Error | null, ts: number, isSkip: boolean) => void, isReplace = true) {
+  protected makeRequest<T>(
+    id: string,
+    ts: number,
+    func: (
+      ok: (value: T | PromiseLike<T>) => void,
+      failed: (reason?: Error) => void,
+      ) => (err: Error | null, ts: number, isSkip: boolean) => void,
+    isReplace = false,
+  ) {
+    // console.log('makeRequest', id, ts, isReplace, this.preMsgQueue)
     return new Promise<T>((ok, failed) => {
       const msg: TInternalRequest = {
         id,
         isDone: false,
         ts,
+        nonce: 0,
         update: func(ok, failed)
       }
       if (isReplace) {
@@ -45,26 +52,6 @@ export abstract class BaseInternalEvent {
     msg.isDone = true
     msg.update && msg.update(null, 0, true)
     delete this.preMsgQueue[id]
-  }
-
-  makeEvent(
-    id: string,
-    ts: number,
-    executor: (err: Error | null, ts: number, isSkip: boolean) => void,
-    isReplace = true,
-  ) {
-    const msg: TInternalRequest = {
-      id,
-      isDone: false,
-      ts,
-      update: executor
-    }
-    if (isReplace) {
-      const oldMsg = this.preMsgQueue[id]
-      oldMsg && (oldMsg.isDone = true)
-    }
-    this.preMsgQueue[id] = msg
-    this.internalProc.request(msg)
-  }
-    
+    // console.log(`removeRequest`, id, msg.ts, msg.isDone)
+  }   
 }

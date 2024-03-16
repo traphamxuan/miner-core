@@ -1,59 +1,97 @@
+import readline from 'readline';
+
+import * as inputs from './inputs.json'
 import * as gameData from './gamedata.json'
 import * as gameStatic from './static.json'
-import { Game, initStatic } from '../src'
-import { showMain } from './view';
-import { handleInputMain } from './input';
+import { Action, Game, initStatic } from '../src'
+import { registerContinuousShow, showMain, unregisterContinuousShow } from './view';
+import { ActionCommand } from '../src/components';
+import { writeFileSync } from 'fs';
 
 initStatic(gameStatic)
 const game = new Game()
+let inputText = ''
+const userInputs: Action[] = inputs.actions.map((action: Omit<Action, 'command'> & { command: string }) => ({
+	...action,
+	command: ActionCommand[action.command as keyof typeof ActionCommand],
+}))
 
 function main() {
+	game.init(gameStatic)
 	game.load(gameData)
+	game.loadInput(userInputs)
+	registerContinuousShow(game)
 	let tick = new Date().getTime() - gameData.planet.startedAt
 	console.log(`Re-Calculate the game to ${tick}...`)
-	game.run(tick)
+	let currentTick = 0;
+	while (currentTick < tick) {
+		currentTick = game.run(tick, 1000)
+		console.log(`Progress ${currentTick}/${tick} (${(currentTick / tick * 100).toFixed(3)}%)...`)
+	}
 	console.log('Finish')
+	const period = 30
 	const timer = setInterval(() => {
-		tick += 100;
+		showMain(game)
+		console.log('Commands:', inputText)
+		tick += period;
 		game.run(tick)
-	}, 100)
+	}, period)
 
-	showMain()
-	new Promise((ok) => {
-		handleInputMain(game, ok)
-	})
-		.then(() => {
-			clearInterval(timer)
-			game.unload()
-		})
+	showMain(game)
+
+	// Read every character via reader
+	readline.emitKeypressEvents(process.stdin as NodeJS.ReadableStream);
+	process.stdin.setRawMode(true);
+
+	// Read every character
+	process.stdin.on('keypress', (str, key) => {
+		if (key.ctrl && key.name === 'c') {
+			clearInterval(timer);
+			unregisterContinuousShow(game);
+			game.unload();
+			writeFileSync(`${__dirname}/inputs.json`, JSON.stringify({ actions: userInputs }, null, 2))
+			process.exit(); // Exit the process if Ctrl+C is pressed
+		}
+		if (key.name === 'backspace') {
+			inputText = inputText.slice(0, -1)
+			return
+		}
+		if (key.name === 'return') {
+			inputText.trim()
+			console.log('Process command', inputText)
+			const inputs = inputText.split(';')
+			const loadInputs: Action[] = []
+			for (const input of inputs) {
+				const [target, command, ...args] = input.trim().split(' ')
+				if (target === '' || command === '') {
+					continue
+				}
+				const action: Action = {
+					target,
+					command: ActionCommand[command as keyof typeof ActionCommand],
+					createdAt: 0,
+					params: args,
+				}
+				loadInputs.push(action)
+			}
+			inputText = ''
+			Promise.all(game.loadInput(loadInputs)).then((results) => {
+				if (results.length === 0) {
+					console.log('Invalid command')
+					return
+				}
+				results.forEach((result, index) => {
+					loadInputs[index].createdAt = result.syncedAt
+					userInputs.push(loadInputs[index])
+				})
+			}).catch(err => {
+				console.error(err)
+			})
+			inputText = ''
+			return
+		}
+		inputText += str
+	});
 }
 
 main();
-/*
- * Welcome to ExoMiner in console version
- * Main menu:
- * - w: show warehouse's properties
- * - f: show factory's machines
- * - t: show transportation vehicles
- * - q: exit the game
- * 
- * W --> 
- * This is all resources in warehouse
- * - s <Name> <number> to sell a resource in warehouse
- * - b to back
- * 
- * F -->
- * This is all machines in the factory
- * - s <machineID> <Name> to set a recipe for a machine
- * - d <machineID> to remove a receipe of a machine
- * - b to back
- * 
- * T -->
- * This is all mines with shuttles using for transportation
- * - a <Name> to add a mine to your planet
- * - m <mineID> to upgrade mine capacity
- * - s <shuttleID> <power/capacity> to upgrade power or capacity 
- * of the shuttle
- * - b to back
- * 
- */

@@ -1,4 +1,4 @@
-import { Component, createComponents } from "./components"
+import { ActionCommand, Component, createComponents } from "./components"
 import { Engine, createCoreEngine } from "./core"
 import {
   RawPlanet,
@@ -15,6 +15,7 @@ import {
   ShuttleD,
   MachineR,
   TStaticData,
+  initStatic,
 } from "./entities"
 
 export type GameData = {
@@ -26,12 +27,23 @@ export type GameData = {
   recipes: RawRecipe[]
 }
 
+export type Action = {
+  target: string
+  command: ActionCommand
+  params: string[]
+  createdAt: number
+}
+
 export class Game {
   private readonly engine: Engine
   private readonly component: Component
   constructor() {
     this.engine = createCoreEngine()
     this.component = createComponents(this.engine)
+  }
+
+  init(data: TStaticData) {
+    this.getService('static').init(data)
   }
 
   getService<T extends keyof Component['service']>(type: T): Component['service'][T] {
@@ -64,20 +76,67 @@ export class Game {
       }
       return null
     }
-  
+
     const p = pService.load(rawData.planet)
-   
+
     rawData.resources.forEach(r => wService.addResource(new Resource(r)))
     rawData.deposits.forEach(d => mService.addDeposit(new Deposit(d)))
     rawData.shuttles.forEach(s => mService.addShuttle(new Shuttle(s, s.sdid ? mService.Deposit(s.sdid) : undefined)))
     rawData.recipes.forEach(r => fService.addRecipe(new Recipe(r)))
     rawData.machines.forEach(m => fService.addMachine(new Machine(m, m.sreid ? fService.Recipe(m.sreid) : undefined)))
-  
+
     mService.Shuttles().forEach(shuttle => shuttle.deposit && mInternal.publishShuttleEvent(shuttle as ShuttleD))
     fService.Machines().forEach(machine => machine.recipe && fInternal.publishMachineEvent(machine as MachineR))
     return null
   }
-  
+
+  loadInput(inputs: Action[]): Promise<Resource | Deposit | Shuttle | Recipe | Machine>[] {
+    const promises: Promise<Resource | Deposit | Shuttle | Recipe | Machine>[] = []
+    const { factory, miner, warehouse } = this.component.input
+    for (const act of inputs) {
+      switch (act.target) {
+        case 'resource':
+          if (act.command == ActionCommand.SELL && act.params.length == 2) {
+            promises.push(warehouse.requestSellResource(act.params[0], BigInt(act.params[1]), act.createdAt))
+          }
+          break;
+        case 'deposit':
+          if (act.command == ActionCommand.BUY && act.params.length == 1) {
+            promises.push(miner.requestNewDeposit(act.params[0], act.createdAt))
+          } else if (act.command == ActionCommand.UP_POW && act.params.length == 1) {
+            promises.push(miner.upDepositRate(act.params[0], act.createdAt))
+          }
+          break;
+        case 'shuttle':
+          if (act.command == ActionCommand.BUY && act.params.length == 1) {
+            promises.push(miner.requestNewShuttle(act.params[0], act.createdAt))
+          } else if (act.command == ActionCommand.SET && act.params.length == 2) {
+            promises.push(miner.requestSetDeposit(act.params[0], act.params[1], act.createdAt))
+          } else if (act.command == ActionCommand.UP_CAP && act.params.length == 1) {
+            promises.push(miner.upShuttleCapacity(act.params[0], act.createdAt))
+          } else if (act.command == ActionCommand.UP_POW && act.params.length == 1) {
+            promises.push(miner.upShuttleSpeed(act.params[0], act.createdAt))
+          }
+          break;
+        case 'recipe':
+          if (act.command == ActionCommand.BUY && act.params.length == 1) {
+            promises.push(factory.requestNewRecipe(act.params[0], act.createdAt))
+          }
+          break;
+        case 'machine':
+          if (act.command == ActionCommand.SET && act.params.length == 2) {
+            promises.push(factory.setMachineRecipe(act.params[0], act.params[1], act.createdAt))
+          } else if (act.command == ActionCommand.UP_POW && act.params.length == 1) {
+            promises.push(factory.upMachinePower(act.params[0], act.createdAt))
+          } else if (act.command == ActionCommand.BUY && act.params.length == 1) {
+            promises.push(factory.requestNewMachine(act.params[0], act.createdAt))
+          }
+          break;
+      }
+    }
+    return promises
+  }
+
   unload() {
     this.engine.loop.reset()
     this.component.service.miner.reset()

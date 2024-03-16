@@ -1,6 +1,6 @@
 export class QuickAccessStore<T> {
   private oData: Record<string, T>
-  private aData: T[]
+  aData: T[]
   constructor() {
     this.oData = {}
     this.aData = []

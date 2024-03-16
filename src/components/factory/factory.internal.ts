@@ -1,8 +1,8 @@
-import { MachineR } from "../../entities";
+import { Machine, MachineR, Recipe, StaticMachine, StaticRecipe } from "../../entities";
 import { WarehouseService } from "../warehouse";
 import { FactoryService } from "./factory.service";
 import { BaseInternalEvent } from "../../common/interfaces/BaseInternalEvent";
-import { Engine, InternalProcessor } from "../../core";
+import { Engine } from "../../core";
 
 export class FactoryInternalEvent extends BaseInternalEvent{
   private getTick: () => number
@@ -19,7 +19,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
   private getWaitingRecipeUID(machineId: string) { return `internal-${this.id}-${machineId}` }
 
   // FOR PUBLIC CALL
-  publishMachineEvent(machine: MachineR) {
+  publishMachineEvent(machine: MachineR): Promise<Machine> {
     const recipe = machine.recipe
     if (!machine.isRun) {
       machine.isRun = this.warehouseService.take(recipe.base.ingredients)
@@ -27,69 +27,163 @@ export class FactoryInternalEvent extends BaseInternalEvent{
   
     if (machine.isRun) {
       const nextTs = machine.syncedAt + machine.progress / machine.power * 1_000
-      // console.log('nextTs', nextTs, machine)
-      // const result = this.makeRequest<MachineR>('run-' + machine.base.id, nextTs, (ok, failed) => (err: Error, ts: number, isSkip: boolean) => {
-      //   if (isSkip) {
-      //     console.warn('Skip process')
-      //     ok(machine)
-      //     return
-      //   }
-      //   if (err) {
-      //     failed(err)
-      //     return
-      //   }
-      //   // console.log(`Process at ${ts} / ${machine.syncedAt} ${this.idx++}`, machine)
-      //   machine.sync(ts)
-      //   this.factoryService.completeProduct(machine)
-      //   this.publishMachineEvent(machine)
-      //   ok(machine)
-      // })
 
-      this.makeEvent('run-' + machine.base.id, nextTs, (err, ts, isSkip) => {
-        // console.log(`In process`, err, ts, isSkip, machine)
+      return this.makeRequest('run-' + machine.base.id, nextTs, (ok, failed) => (err, ts, isSkip) => {
         if (isSkip) {
-          console.warn('Skip process')
+          failed(new Error(`Skip publishMachineEvent ${machine.base.id}`))
           return
         }
         if (err) {
+          failed(err)
           return
         }
-        // console.log(`Process at ${ts} / ${machine.syncedAt} ${this.idx++}`, machine)
         machine.sync(ts)
         this.factoryService.completeProduct(machine)
         this.publishMachineEvent(machine)
-      })
+        ok(machine)
+      }, true)
     } else {
-      const recipeUID = this.getWaitingRecipeUID(machine.base.id)
-      recipe.base.ingredients.forEach(ingre => {
-        this.warehouseService.registerChange(ingre.id, recipeUID, {
-          onIncrease: (resourceId, _, resource) => {
-            if (machine.isRun) {
-              this.stopWaitingRecipeRequirements(machine)
-              return
-            }
-            if (resource.amount >= ingre.amount) {
-              machine.isRun = this.warehouseService.take(recipe.base.ingredients)
-              machine.syncedAt = this.getTick()
+      return new Promise<Machine>(ok => {
+        const recipeUID = this.getWaitingRecipeUID(machine.base.id)
+        recipe.base.ingredients.forEach(ingre => {
+          this.warehouseService.registerChange(ingre.id, recipeUID, {
+            onIncrease: (resourceId, _, resource) => {
               if (machine.isRun) {
-                this.publishMachineEvent(machine)
                 this.stopWaitingRecipeRequirements(machine)
+                return
+              }
+              if (resource.amount >= ingre.amount) {
+                machine.isRun = this.warehouseService.take(recipe.base.ingredients)
+                machine.syncedAt = this.getTick()
+                if (machine.isRun) {
+                  ok(this.publishMachineEvent(machine))
+                  this.stopWaitingRecipeRequirements(machine)
+                }
               }
             }
-          }
+          })
         })
       })
     }
   }
 
-  unpublishMachineEvent(machine: MachineR) {
+  unpublishMachineEvent(machine: Machine) {
     this.stopWaitingRecipeRequirements(machine)
-    this.removeRequest(machine.base.id)
+    this.removeRequest(`run-${machine.base.id}`)
   }
 
-  private stopWaitingRecipeRequirements(machine: MachineR) {
+  // FOR INTERNAL CALL
+  async createMachine(sMachine: StaticMachine, timestamp: number): Promise<Machine> {
+    const machine = this.factoryService.Machine(sMachine.id)
+    if (machine) {
+      return machine
+    }
+    return this.makeRequest('create-machine-' + sMachine.id, timestamp, (ok, failed) => (err, ts, isSkip) => {
+      if (err) {
+        failed(err)
+        return
+      }
+      if (isSkip) {
+        failed(new Error(`Skip createMachine ${sMachine.id}`))
+        return
+      }
+      ts = ts < timestamp ? timestamp : ts
+      const machine = this.factoryService.addNewMachine(sMachine, ts)
+      if (machine instanceof Error) {
+        failed(machine)
+        return
+      }
+      ok(machine)
+    })
+  }
+
+  async createRecipe(sRecipe: StaticRecipe, timestamp: number): Promise<Recipe> {
+    const recipe = this.factoryService.Recipe(sRecipe.id)
+    if (recipe) {
+      console.warn(`Recipe ${sRecipe.id} already exists`)
+      return recipe
+    }
+    return this.makeRequest('create-recipe-' + sRecipe.id, timestamp, (ok, failed) => (err, ts, isSkip) => {
+      if (isSkip) {
+        failed(new Error(`Skip createRecipe ${sRecipe.id}`))
+        return
+      }
+      if (err) {
+        failed(err)
+        return
+      }
+      ts = ts < timestamp ? timestamp : ts
+      const recipe = this.factoryService.addNewRecipe(sRecipe, ts)
+      if (recipe instanceof Error) {
+        failed(recipe)
+        return
+      }
+      ok(recipe)
+    })
+  }
+
+  async setMachineRecipe(sMachineId: string, timestamp: number, sRecipeId?: string): Promise<Machine> {
+    return this.makeRequest('set-recipe-' + sMachineId, timestamp, (ok, failed) => (err, ts, isSkip) => {
+      if (isSkip) {
+        failed(new Error(`Skip setMachineRecipe ${sMachineId}`))
+        return
+      }
+      if (err) {
+        failed(err)
+        return
+      }
+      const machine = this.factoryService.Machine(sMachineId)
+      if (!machine) {
+        failed(new Error(`Invalid machine ID ${sMachineId}`))
+        return
+      }
+      const recipe = sRecipeId ? this.factoryService.Recipe(sRecipeId) : undefined
+      ts = ts < timestamp ? timestamp : ts
+      machine.sync(ts)
+      if (machine.recipe?.base.id === recipe?.base.id) {
+        ok(machine)
+        return
+      }
+      if (machine.recipe) {
+        this.unpublishMachineEvent(machine)
+      }
+      this.factoryService.setMachineRecipe(machine, ts, recipe)
+      if (machine.recipe) {
+        this.publishMachineEvent(machine as MachineR)
+      }
+      ok(machine)
+    })
+  }
+
+  async upMachinePower(sMachineId: string, timestamp: number): Promise<Machine> {
+    return this.makeRequest('up-power-' + sMachineId, timestamp, (ok, failed) => (err, ts, isSkip) => {
+      if (isSkip) {
+        failed(new Error(`Skip upMachinePower ${sMachineId}`))
+        return
+      }
+      if (err) {
+        failed(err)
+        return
+      }
+      const machine = this.factoryService.Machine(sMachineId)
+      if (!machine) {
+        failed(new Error(`Invalid machine ID ${sMachineId}`))
+        return
+      }
+      machine.sync(ts)
+      if (machine.recipe) {
+        this.unpublishMachineEvent(machine)
+      }
+      machine.power *= 1.2
+      machine.syncedAt = ts
+      machine.recipe && this.publishMachineEvent(machine as MachineR)
+      ok(machine)
+    })
+  }
+
+  private stopWaitingRecipeRequirements(machine: Machine) {
     const recipe = machine.recipe
     const uid = this.getWaitingRecipeUID(machine.base.id)
-    recipe.base.ingredients.forEach(unIngre => this.warehouseService.unregisterChanges(unIngre.id, uid))
+    recipe?.base.ingredients.forEach(unIngre => this.warehouseService.unregisterChanges(unIngre.id, uid))
   }
 }

@@ -1,7 +1,7 @@
 import { Deposit, Shuttle, TResource, TResourceAmount } from "../../entities";
 import { QuickAccessStore } from "../../common/services/QuickAccessStore";
 import { WarehouseService } from "../warehouse";
-import { StaticShuttle, StaticDeposit } from "../../entities/static";
+import type { StaticShuttle, StaticDeposit } from "../../entities/static";
 import { PlanetService } from "../planet/planet.service";
 
 export class MinerService {

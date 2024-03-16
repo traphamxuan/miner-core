@@ -1,5 +1,6 @@
 import { Engine, GameLoop, InputProcessor, InternalProcessor, SyncProcessor } from '../../core'
 import { PlanetService } from '../planet/planet.service'
+import { StaticService } from '../static/static.service'
 import { WarehouseService } from '../warehouse'
 import { FactoryInputManagement } from './factory.input'
 import { FactoryInternalEvent } from './factory.internal'
@@ -16,6 +17,7 @@ export function createFactory(
   engine: Engine,
   pService: PlanetService,
   wService: WarehouseService,
+  sService: StaticService,
 ): {
   service: FactoryService,
   internal: FactoryInternalEvent,
@@ -24,7 +26,7 @@ export function createFactory(
 } {
   const service = new FactoryService(pService, wService)
   const internal = new FactoryInternalEvent(engine, service, wService)
-  const input = new FactoryInputManagement(engine, service, internal)
+  const input = new FactoryInputManagement(engine, sService, internal)
   const render = new FactoryRender(engine, service)
   return {
     service,

@@ -1,35 +1,33 @@
-import { Engine, InputProcessor } from '../../core'
-import { TResource } from '../../entities'
-import { PlanetService } from '../planet/planet.service'
+import { BaseInputEvent } from '../../common/interfaces/BaseInputEvent'
+import { Engine } from '../../core'
+import { Resource } from '../../entities'
+import { WarehouseInternalEvent } from './warehouse.internal'
 import { WarehouseService } from './warehouse.service'
 
-export class WarehouseInputManagement {
-  private identity: string
-  private inputProcessor: InputProcessor
+export class WarehouseInputManagement extends BaseInputEvent {
   constructor(
     engine: Engine,
-    private planetService: PlanetService,
     private warehouseService: WarehouseService,
+    private warehouseInternal: WarehouseInternalEvent,
   ) {
-    this.identity = `warehouse-${this.planetService.planet?.id}`
-    this.inputProcessor = engine.input
+    super(engine.input)
   }
-  get id(): string { return this.identity }
+  get id(): string { return this.warehouseService.id + '-input' }
 
-  private makeRequest<T>(func: (ok: (value: T | PromiseLike<T>) => void, failed: (reason?: Error) => void) => (err: Error | null, ts: number) => void) {
-    return new Promise<T>((ok, failed) => {
-      this.inputProcessor.request({ action: func(ok, failed) })
-    })
-  }
-
-  requestSellResource(sResourceId: string, amount: bigint) {
-    return this.makeRequest((ok, failed) => (err, ts) => {
+  requestSellResource(sResourceId: string, amount: bigint, timestamp?: number): Promise<Resource> {
+    return timestamp ? this.warehouseInternal.sellResource(sResourceId, amount, timestamp)
+    : this.makeRequest((ok, failed) => (err, ts, isSkip) => {
+      if (isSkip) {
+        failed(new Error(`Skip requestSellResource ${sResourceId}`))
+        return
+      }
       if (err) {
         failed(err)
         return
       }
-      this.warehouseService.sell(sResourceId, ts, amount)
-      ok(undefined)
+      this.warehouseInternal.sellResource(sResourceId, amount, ts)
+        .then(resource => ok(resource))
+        .catch(err => failed(err))
     })
   }
 }

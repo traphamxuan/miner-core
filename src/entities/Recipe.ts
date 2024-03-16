@@ -29,12 +29,12 @@ export class Recipe {
     this.cost = data.cost
     this.syncedAt = data.syncedAt
   }
-  static initFromStatic(planetId: string, sRecipe: StaticRecipe): Recipe {
+  static initFromStatic(planetId: string, sRecipe: StaticRecipe, ts: number): Recipe {
     return new Recipe({
       pid: planetId,
       sreid: sRecipe.id,
       cost: sRecipe.cost,
-      syncedAt: 0,
+      syncedAt: ts,
     }, sRecipe)
   }
   toRaw(): RawRecipe {
