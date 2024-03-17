@@ -9,9 +9,11 @@ build:
   script:
     - npm install
     - npm run build
-  artifacts:
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
     paths:
       - dist/
+      - node_modules/
 
 test:
   dependencies:
@@ -20,6 +22,11 @@ test:
   stage: test
   script:
     - npm test
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - dist/
+      - node_modules/
 
 publish:
   dependencies:
@@ -32,3 +39,8 @@ publish:
     # If no .npmrc is included in the repo, generate a temporary one that is configured to publish to GitLab's NPM registry
     - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
     - npm publish
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - dist/
+      - node_modules/
