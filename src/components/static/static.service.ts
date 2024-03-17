@@ -1,14 +1,6 @@
 import { QuickAccessStore } from "../../common/services/QuickAccessStore";
 import { ResourceAmount, StaticDeposit, StaticMachine, StaticRecipe, StaticResource, StaticShuttle, TStaticData } from "../../entities";
 
-type StaticObject = {
-  resource: QuickAccessStore<StaticResource>
-  deposit: QuickAccessStore<StaticDeposit>
-  shuttle: QuickAccessStore<StaticShuttle>
-  recipe: QuickAccessStore<StaticRecipe>
-  machine: QuickAccessStore<StaticMachine>
-}
-
 export class StaticService {
   private data: StaticObject
   constructor() {

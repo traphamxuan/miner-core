@@ -32,14 +32,6 @@ export type Component = {
   }
 }
 
-export enum ActionCommand {
-  BUY = "BUY",
-  SELL = "SELL",
-  UP_POW = "UP_POW",
-  UP_CAP = "UP_CAP",
-  SET = "SET",
-}
-
 export function createComponents(engine: Engine): Component {
   const pService = new PlanetService()
   const sService = new StaticService()

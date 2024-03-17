@@ -5,8 +5,8 @@ import * as gameData from './gamedata.json'
 import * as gameStatic from './static.json'
 import { Action, Game } from '../src'
 import { registerContinuousShow, showMain, unregisterContinuousShow } from './view';
-import { ActionCommand } from '../src/components';
 import { writeFileSync } from 'fs';
+import { ActionCommand } from '../src/common/enum';
 
 const game = new Game()
 let inputText = ''

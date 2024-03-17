@@ -1,4 +1,5 @@
-import { ActionCommand, Component, createComponents } from "./components"
+import { ActionCommand } from "./common/enum"
+import { Component, createComponents } from "./components"
 import { Engine, createCoreEngine } from "./core"
 import {
   RawPlanet,
@@ -15,7 +16,6 @@ import {
   ShuttleD,
   MachineR,
   TStaticData,
-  Ore,
   ResourceAmount,
 } from "./entities"
 
@@ -34,7 +34,6 @@ export type Action = {
   params: string[]
   createdAt: number
 }
-
 export class Game {
   private readonly engine: Engine
   private readonly component: Component
@@ -146,7 +145,7 @@ export class Game {
     const promises: Promise<Resource | Deposit | Shuttle | Recipe | Machine>[] = []
     const { factory, miner, warehouse } = this.component.input
     for (const act of inputs) {
-      switch (act.target) {
+      switch (act.target as keyof StaticObject) {
         case 'resource':
           if (act.command == ActionCommand.SELL && act.params.length == 2) {
             promises.push(warehouse.requestSellResource(act.params[0], BigInt(act.params[1]), act.createdAt))
@@ -213,4 +212,4 @@ export class Game {
 }
 
 export * from './entities'
-export { Component, TStaticData }
+export { Component, TStaticData, ActionCommand }
