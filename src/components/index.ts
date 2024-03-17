@@ -44,7 +44,7 @@ export function createComponents(engine: Engine): Component {
   const pService = new PlanetService()
   const sService = new StaticService()
   const warehouse = createWarehouse(engine, pService, sService)
-  const miner = createMiner(engine, pService, warehouse.service)
+  const miner = createMiner(engine, pService, warehouse.service, sService)
   const factory = createFactory(engine, pService, warehouse.service, sService)
   return {
     service: {
