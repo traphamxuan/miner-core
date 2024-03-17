@@ -65,22 +65,14 @@ export class Game {
     return this.engine.loop.run(ts, limit)
   }
 
-  async runAsync(ts: number, period: number, onProgress: (ts: number) => boolean): Promise<number> {
-    let deadline = Date.now() + period
-    const loop = (ok: (value: number) => void) => () => {
-      const tick = this.engine.loop.run(ts, period * 1000)
-      if (!onProgress(tick)) {
-        return ok(tick)
-      }
-      if (tick === ts) {
-        ok(tick)
-      }
-    }
-    let tick = ts
-    while (Date.now() < deadline) {
-      tick = await new Promise(ok => setTimeout(loop(ok), 10))
-      if (tick === ts) {
-        break
+  async runAsync(ts: number, msPeriod = 100, onProgress?: (ts: number) => boolean): Promise<number> {
+    let tick = 0
+    while (tick < ts) {
+      tick = await new Promise(ok => setTimeout(() => {
+        ok(this.engine.loop.run(ts, msPeriod * 1000))
+      }, msPeriod))
+      if (onProgress && !onProgress(tick)) {
+        return tick
       }
     }
     return tick
