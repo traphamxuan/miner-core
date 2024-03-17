@@ -15,7 +15,8 @@ import {
   ShuttleD,
   MachineR,
   TStaticData,
-  initStatic,
+  Ore,
+  ResourceAmount,
 } from "./entities"
 
 export type GameData = {
@@ -45,6 +46,9 @@ export class Game {
   init(data: TStaticData) {
     this.getService('static').init(data)
   }
+  deinit() {
+    this.getService('static').deinit()
+  }
 
   getService<T extends keyof Component['service']>(type: T): Component['service'][T] {
     return this.component.service[type]
@@ -62,32 +66,59 @@ export class Game {
     return this.engine.loop.run(ts, limit)
   }
 
-  load(rawData: GameData): Error | null {
-    const pService = this.component.service.planet
-    const wService = this.component.service.warehouse
-    const mService = this.component.service.miner
-    const fService = this.component.service.factory
+  load(rawData: GameData) {
+    const pService = this.getService('planet')
+    const wService = this.getService('warehouse')
+    const mService = this.getService('miner')
+    const fService = this.getService('factory')
+    const sService = this.getService('static')
     const mInternal = this.component.internal.miner
     const fInternal = this.component.internal.factory
 
     if (pService.planet) {
       if (pService.planet.id != rawData.planet.id) {
-        return new Error('Exist planet is working. Remove the old one first!!!')
+        throw new Error('Exist planet is working. Remove the old one first!!!')
       }
-      return null
+      return
     }
 
     const p = pService.load(rawData.planet)
 
-    rawData.resources.forEach(r => wService.addResource(new Resource(r)))
-    rawData.deposits.forEach(d => mService.addDeposit(new Deposit(d)))
-    rawData.shuttles.forEach(s => mService.addShuttle(new Shuttle(s, s.sdid ? mService.Deposit(s.sdid) : undefined)))
-    rawData.recipes.forEach(r => fService.addRecipe(new Recipe(r)))
-    rawData.machines.forEach(m => fService.addMachine(new Machine(m, m.sreid ? fService.Recipe(m.sreid) : undefined)))
+    rawData.resources.forEach(r => {
+      const sResource = sService.getOne('resource', r.srid)
+      if (!sResource) throw new Error(`Resource ${r.srid} not found`)
+      wService.addResource(new Resource(r, sResource))
+    })
+    rawData.deposits.forEach(d => {
+      const sDeposit = sService.getOne('deposit', d.sdid)
+      if (!sDeposit) throw new Error(`Deposit ${d.sdid} not found`)
+      mService.addDeposit(new Deposit(d, sDeposit))
+    })
+    rawData.shuttles.forEach(s => {
+      const sShuttle = sService.getOne('shuttle', s.ssid)
+      if (!sShuttle) throw new Error(`Shuttle ${s.ssid} not found`)
+      const load = s.load.map(res => {
+        const sResource = sService.getOne('resource', res.srid)
+        if (!sResource) throw new Error(`Resource ${res.srid} not found`)
+        return new ResourceAmount(res, sResource)
+      })
+      const deposit = s.sdid ? mService.Deposit(s.sdid) : undefined
+      mService.addShuttle(new Shuttle(s, sShuttle, load, deposit))
+    })
+    rawData.recipes.forEach(r => {
+      const sRecipe = sService.getOne('recipe', r.sreid)
+      if (!sRecipe) throw new Error(`Recipe ${r.sreid} not found`)
+      fService.addRecipe(new Recipe(r, sRecipe))
+    })
+    rawData.machines.forEach(m => {
+      const sMachine = sService.getOne('machine', m.smid)
+      if (!sMachine) throw new Error(`Machine ${m.smid} not found`)
+      const recipe = m.sreid ? fService.Recipe(m.sreid) : undefined
+      fService.addMachine(new Machine(m, sMachine, recipe))
+    })
 
-    mService.Shuttles().forEach(shuttle => shuttle.deposit && mInternal.publishShuttleEvent(shuttle as ShuttleD))
-    fService.Machines().forEach(machine => machine.recipe && fInternal.publishMachineEvent(machine as MachineR))
-    return null
+    mService.Shuttles().forEach(shuttle => shuttle.deposit && mInternal.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.error(err)))
+    fService.Machines().forEach(machine => machine.recipe && fInternal.publishMachineEvent(machine as MachineR).catch(err => console.error(err)))
   }
 
   loadInput(inputs: Action[]): Promise<Resource | Deposit | Shuttle | Recipe | Machine>[] {

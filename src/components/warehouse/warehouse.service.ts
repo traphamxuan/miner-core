@@ -2,6 +2,7 @@ import { TResource, Resource, TResourceAmount } from '../../entities'
 import { QuickAccessStore } from '../../common/services/QuickAccessStore'
 import { SubEvent } from '../../common/services/SubEvent'
 import { PlanetService } from '../planet/planet.service'
+import { StaticService } from '../static/static.service'
 
 type TWarehouseAction = {
   onIncrease?: (resPackId: string, amount: bigint, resSet: TResource) => void
@@ -14,7 +15,8 @@ export class WarehouseService {
   private resources: QuickAccessStore<Resource>
   private subEvent: SubEvent<TWarehouseAction>
   constructor(
-    private planetService: PlanetService
+    private planetService: PlanetService,
+    private sService: StaticService,
   ) {
     this.resources = new QuickAccessStore()
     this.subEvent = new SubEvent()
@@ -33,14 +35,18 @@ export class WarehouseService {
     if (!this.planetService.planet) {
       throw new Error('Planet not found')
     }
-    let existed = this.resources.getOne(sResourceId)
+    let existed = this.Resource(sResourceId)
     if (!existed) {
+      const sResource = this.sService.getOne('resource', sResourceId)
+      if (!sResource) {
+        throw new Error(`Resource ${sResourceId} not found`)
+      }
       existed = new Resource({
         pid: this.planetService.planet.id,
         srid: sResourceId,
         amount: '0',
         syncedAt: 0,
-      })
+      }, sResource)
       this.addResource(existed)
     }
     return existed

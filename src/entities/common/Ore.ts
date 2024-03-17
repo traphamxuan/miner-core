@@ -10,10 +10,9 @@ export class Ore {
   amount: number
   readonly base: StaticResource
 
-  constructor(raw: RawOre, sRes?: StaticResource) {
+  constructor(raw: RawOre, base: StaticResource) {
     this.id = raw.srid
     this.amount = Number(raw.amount) || 0
-    const base = sRes || StaticResource.RESOURCES.getOne(raw.srid)
     if (!base) throw new Error(`Cannot create Ore`)
     this.base = base
   }

@@ -1,5 +1,5 @@
-import { QuickAccessStore } from "src/common/services/QuickAccessStore";
-import { StaticDeposit, StaticMachine, StaticRecipe, StaticResource, StaticShuttle, TStaticData } from "../../entities";
+import { QuickAccessStore } from "../../common/services/QuickAccessStore";
+import { ResourceAmount, StaticDeposit, StaticMachine, StaticRecipe, StaticResource, StaticShuttle, TStaticData } from "../../entities";
 
 type StaticObject = {
   resource: QuickAccessStore<StaticResource>
@@ -29,7 +29,12 @@ export class StaticService {
       this.data.resource.add(staticData, [raw.id, raw.name])
     })
     staticData.deposits.forEach(raw => {
-      const staticData = new StaticDeposit(raw)
+      const ores = raw.ores.map(ore => {
+        const resource = this.data.resource.getOne(ore.srid)
+        if (!resource) throw new Error(`Resource ${ore.srid} not found`)
+        return { resource, ratio: ore.ratio }
+      })
+      const staticData = new StaticDeposit(raw, ores)
       this.data.deposit.add(staticData, [raw.id, raw.name])
     })
     staticData.shuttles.forEach(raw => {
@@ -37,7 +42,14 @@ export class StaticService {
       this.data.shuttle.add(staticData, [raw.id, raw.name])
     })
     staticData.recipes.forEach(raw => {
-      const staticData = new StaticRecipe(raw)
+      const target = this.data.resource.getOne(raw.name)
+      if (!target) throw new Error(`Resource ${raw.name} not found`)
+      const ingredients = raw.ingredients.map(ingredient => {
+        const resource = this.data.resource.getOne(ingredient.srid)
+        if (!resource) throw new Error(`Resource ${ingredient.srid} not found`)
+        return new ResourceAmount({ srid: ingredient.srid, amount: ingredient.amount }, resource)
+      })
+      const staticData = new StaticRecipe(raw, target, ingredients)
       this.data.recipe.add(staticData, [raw.id, raw.name])
     })
     staticData.machines.forEach(raw => {
@@ -46,11 +58,11 @@ export class StaticService {
     })
   }
 
-  getOne<T extends keyof StaticObject>(target: T, key: string): StaticObject[T]['aData'][0] | undefined {
+  getOne<T extends keyof StaticObject>(target: T, key: string): StaticObject[T]['Type'] | undefined {
     return this.data[target].getOne(key);
   }
 
-  getMany<T extends keyof StaticObject>(target: T): StaticObject[T]['aData'] {
+  getMany<T extends keyof StaticObject>(target: T): StaticObject[T]['Type'][] {
     return this.data[target].getStores();
   }
 

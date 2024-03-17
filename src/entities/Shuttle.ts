@@ -41,8 +41,7 @@ export class Shuttle {
   deposit?    :Deposit
   base        : StaticShuttle
 
-  constructor(data: RawShuttle, deposit?: Deposit, sShuttle?: StaticShuttle) {
-    sShuttle = sShuttle || StaticShuttle.SHUTTLES.getOne(data.ssid)
+  constructor(data: RawShuttle, sShuttle: StaticShuttle, load: ResourceAmount[], deposit?: Deposit) {
     if (!sShuttle) { throw new Error(`Cannot find static shuttle`) }
     this.base = sShuttle
     this.planetId = data.pid
@@ -51,7 +50,7 @@ export class Shuttle {
     this.position = data.position.y
     this.isReturned = data.isReturned
     this.speed = data.power
-    this.load = !data.load ? [] : data.load.map(res => new ResourceAmount(res))
+    this.load = load
     this.syncedAt = data.syncedAt
 
     this.deposit = (data.sdid && data.sdid == deposit?.base.id) ? deposit : undefined
@@ -68,7 +67,7 @@ export class Shuttle {
       power       :sShuttle.power,
       load        :[],
       syncedAt   :lastedUpdatedAt
-    }, undefined, sShuttle)
+    }, sShuttle, [])
   }
 
   toRaw(): RawShuttle {

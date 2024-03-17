@@ -21,9 +21,7 @@ export class Recipe {
   syncedAt: number
   base: StaticRecipe
 
-  constructor(data: RawRecipe, staticRecipe?: StaticRecipe) {
-    const sRecipe = staticRecipe || StaticRecipe.RECIPES.getOne(data.sreid)
-    if (!sRecipe) throw new Error(`Cannot create new Recipe`)
+  constructor(data: RawRecipe, sRecipe: StaticRecipe) {
     this.base = sRecipe
     this.planetId = data.pid
     this.cost = data.cost

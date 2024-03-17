@@ -82,7 +82,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       shuttle.deposit = deposit
       if (shuttle.deposit) {
         shuttle.deposit.sync(ts)
-        this.publishShuttleEvent(shuttle as ShuttleD)
+        this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.error(err))
       } else {
         this.unPublishShuttleEvent(shuttle.base.id)
       }
@@ -128,7 +128,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       }
       shuttle.sync(ts)
       shuttle.speed *= 1.2
-      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD)
+      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.error(err))
       ok(shuttle)
     })
   }
@@ -150,7 +150,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       }
       shuttle.sync(ts)
       shuttle.capacity = Math.floor(shuttle.capacity * 1.2)
-      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD)
+      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.error(err))
       ok(shuttle)
     })
   }
@@ -162,6 +162,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       ts = shuttle.syncedAt + shuttle.position / shuttle.speed * 1000
       return this.makeRequest('unload-' + shuttle.base.id, ts, (ok, failed) => (err, _, isSkip) => {
         if (isSkip) {
+          failed(new Error(`Skip unload ${shuttle.base.id}`))
           return
         }
         if (err) {
@@ -172,6 +173,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
         shuttle.sync(ts)
         this.minerService.unloadShuttleResources(shuttle)
         this.publishShuttleEvent(shuttle)
+          .catch(err => console.error(err))
         ok(shuttle)
       }, true)
     }
@@ -179,6 +181,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
     ts = shuttle.syncedAt + (shuttle.deposit.base.position.y - shuttle.position) / shuttle.speed * 1000
     return this.makeRequest('load-' + shuttle.base.id, ts, (ok, failed) => (err, _, isSkip) => {
       if (isSkip) {
+        failed(new Error(`Skip load ${shuttle.base.id}`))
         return
       }
       if (err) {
@@ -189,6 +192,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       shuttle.sync(ts)
       this.minerService.loadShuttleResources(shuttle)
       this.publishShuttleEvent(shuttle)
+        .catch(err => console.error(err))
       ok(shuttle)
     })
   }

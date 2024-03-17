@@ -30,20 +30,18 @@ export class Deposit {
   base       : StaticDeposit
   totalOres   : number
 
-  constructor(data: RawDeposit, sDeposit?: StaticDeposit) {
-    const base = sDeposit || StaticDeposit.DEPOSITS.getOne(data.sdid)
-    if (!base) throw new Error(`Unable to create new Deposit`)
-    this.base = base
+  constructor(data: RawDeposit, sDeposit: StaticDeposit) {
+    this.base = sDeposit
     this.planetId = data.pid
     this.totalOres = 0
 
-    this.oreStorages = data.ores.map(ore => {
-      const nore = new Ore(ore)
-      this.totalOres += nore.amount
-      return nore
-  }) || []
+    this.oreStorages = sDeposit.ores.map(bOre => {
+      const rOre = data.ores.find(ore => ore.srid == bOre.resource.id)
+      return new Ore(rOre || { srid: bOre.resource.id, amount: '0' }, bOre.resource)
+    })
     this.rate = data.rate
     this.syncedAt = data.syncedAt
+    this.totalOres = this.oreStorages.reduce((acc, ore) => acc + ore.amount, 0)
   }
 
   static initFromStatic(planetId: string, base: StaticDeposit, syncedAt: number): Deposit {

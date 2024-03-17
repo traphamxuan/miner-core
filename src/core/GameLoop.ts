@@ -16,7 +16,6 @@ export class GameLoop {
   reset() {
     this.internal.reset()
     this.input.reset()
-    this.sync.reset()
   }
 
   run(ts: number, limit = 20): number {

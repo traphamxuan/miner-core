@@ -40,6 +40,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
         machine.sync(ts)
         this.factoryService.completeProduct(machine)
         this.publishMachineEvent(machine)
+          .catch(err => console.error(err))
         ok(machine)
       }, true)
     } else {
@@ -56,7 +57,9 @@ export class FactoryInternalEvent extends BaseInternalEvent{
                 machine.isRun = this.warehouseService.take(recipe.base.ingredients)
                 machine.syncedAt = this.getTick()
                 if (machine.isRun) {
-                  ok(this.publishMachineEvent(machine))
+                  this.publishMachineEvent(machine)
+                    .catch(err => console.error(err))
+                  ok(machine)
                   this.stopWaitingRecipeRequirements(machine)
                 }
               }
@@ -79,12 +82,12 @@ export class FactoryInternalEvent extends BaseInternalEvent{
       return machine
     }
     return this.makeRequest('create-machine-' + sMachine.id, timestamp, (ok, failed) => (err, ts, isSkip) => {
-      if (err) {
-        failed(err)
-        return
-      }
       if (isSkip) {
         failed(new Error(`Skip createMachine ${sMachine.id}`))
+        return
+      }
+      if (err) {
+        failed(err)
         return
       }
       ts = ts < timestamp ? timestamp : ts
@@ -150,6 +153,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
       this.factoryService.setMachineRecipe(machine, ts, recipe)
       if (machine.recipe) {
         this.publishMachineEvent(machine as MachineR)
+          .catch(err => console.error(err))
       }
       ok(machine)
     })
@@ -176,7 +180,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
       }
       machine.power *= 1.2
       machine.syncedAt = ts
-      machine.recipe && this.publishMachineEvent(machine as MachineR)
+      machine.recipe && this.publishMachineEvent(machine as MachineR).catch(err => console.error(err))
       ok(machine)
     })
   }

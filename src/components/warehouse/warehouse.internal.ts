@@ -15,12 +15,12 @@ export class WarehouseInternalEvent extends BaseInternalEvent{
 
   async sellResource(sResourceId: string, amount: bigint, timestamp: number): Promise<Resource> {
     return this.makeRequest('sell-resource-' + sResourceId, timestamp, (ok, failed) => (err, ts, isSkip) => {
-      if (err) {
-        failed(err)
-        return
-      }
       if (isSkip) {
         failed(new Error(`Skip sellResource ${sResourceId}`))
+        return
+      }
+      if (err) {
+        failed(err)
         return
       }
       const resource = this.warehouseService.Resource(sResourceId)

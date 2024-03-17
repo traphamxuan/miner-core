@@ -1,12 +1,13 @@
 export class QuickAccessStore<T> {
   private oData: Record<string, T>
-  aData: T[]
+  private aData: T[]
   constructor() {
     this.oData = {}
     this.aData = []
   }
 
   get length(): number { return this.aData.length }
+  get Type(): T { return this.aData[0] }
 
   reset() { this.oData = {}; this.aData = [] }
 

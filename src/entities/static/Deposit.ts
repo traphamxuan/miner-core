@@ -1,4 +1,3 @@
-import { QuickAccessStore } from "../../common/services/QuickAccessStore";
 import { Position } from "../common";
 import { StaticResource, TStaticResource } from "./Resource";
 
@@ -23,7 +22,6 @@ export type TStaticDeposit = {
 }
 
 export class StaticDeposit {
-  static readonly DEPOSITS: QuickAccessStore<StaticDeposit> = new QuickAccessStore()
   readonly id: string
   readonly name: string
   readonly icon?: string
@@ -32,19 +30,13 @@ export class StaticDeposit {
   readonly position: Position
   readonly ores: { resource: StaticResource, ratio: number }[]
 
-  constructor(rawData: RawStaticDeposit) {
+  constructor(rawData: RawStaticDeposit, ores: StaticDeposit['ores']) {
     this.id = rawData.id
     this.name = rawData.name
     this.icon = rawData.icon
     this.rate = rawData.rate
     this.price = BigInt(rawData.price)
     this.position = rawData.position
-    this.ores = rawData.ores.reduce<{ resource: StaticResource, ratio: number }[]>((acc, cur) => {
-      const resource = StaticResource.RESOURCES.getOne(cur.srid)
-      if (resource) {
-        acc.push({ resource, ratio: cur.ratio })
-      }
-      return acc
-    }, [])
+    this.ores = ores
   }
 }

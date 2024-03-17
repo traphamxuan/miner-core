@@ -20,11 +20,7 @@ export class Resource implements TResource {
   syncedAt: number
   base: TStaticResource
 
-  constructor(raw: RawResource, sResource?: TStaticResource) {
-    const base = sResource || StaticResource.RESOURCES.getOne(raw.srid)
-    if (!base) {
-      throw new Error(`Cannot create Resource`)
-    }
+  constructor(raw: RawResource, base: TStaticResource) {
     this.planetId = raw.pid
     this.base = base
     this.amount = BigInt(raw.amount)

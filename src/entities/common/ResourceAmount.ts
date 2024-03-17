@@ -16,10 +16,9 @@ export class ResourceAmount implements TResourceAmount {
   amount: bigint
   readonly base: StaticResource
 
-  constructor(raw: RawResourceAmount, sRes?: StaticResource) {
+  constructor(raw: RawResourceAmount, base: StaticResource) {
     this.id = raw.srid
     this.amount = BigInt(raw.amount) || 0n
-    const base = sRes || StaticResource.RESOURCES.getOne(raw.srid)
     if (!base) throw new Error(`Cannot create ResourceAmount`)
     this.base = base
   }
