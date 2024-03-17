@@ -82,7 +82,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       shuttle.deposit = deposit
       if (shuttle.deposit) {
         shuttle.deposit.sync(ts)
-        this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.error(err))
+        this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.warn(err.message))
       } else {
         this.unPublishShuttleEvent(shuttle.base.id)
       }
@@ -128,7 +128,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       }
       shuttle.sync(ts)
       shuttle.speed *= 1.2
-      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.error(err))
+      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.warn(err.message))
       ok(shuttle)
     })
   }
@@ -150,7 +150,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       }
       shuttle.sync(ts)
       shuttle.capacity = Math.floor(shuttle.capacity * 1.2)
-      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.error(err))
+      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.warn(err.message))
       ok(shuttle)
     })
   }
@@ -171,9 +171,9 @@ export class MinerInternalEvent extends BaseInternalEvent{
         }
         shuttle.deposit.sync(ts)
         shuttle.sync(ts)
-        this.minerService.unloadShuttleResources(shuttle)
+        this.minerService.unloadShuttleResources(shuttle, ts)
         this.publishShuttleEvent(shuttle)
-          .catch(err => console.error(err))
+          .catch(err => console.warn(err.message))
         ok(shuttle)
       }, true)
     }
@@ -192,7 +192,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       shuttle.sync(ts)
       this.minerService.loadShuttleResources(shuttle)
       this.publishShuttleEvent(shuttle)
-        .catch(err => console.error(err))
+        .catch(err => console.warn(err.message))
       ok(shuttle)
     })
   }

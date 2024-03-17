@@ -109,6 +109,9 @@ export class Shuttle {
         position = 2 * distance - position
       }
     }
+    if (this.base.id == '122') {
+      console.log(`Sync shuttle ${this.base.id} from ${this.position} to ${position} at ${ts}ms`)
+    }
 
     this.isReturned = isReturned
     this.position = position

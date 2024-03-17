@@ -12,6 +12,7 @@ export type TRenderAction = {
 }
 
 export class SyncProcessor implements GameProcessor {
+  readonly Name = SyncProcessor.name
   private subEvent: SubEvent<TRenderAction>
 
   private syncQueue: Record<string, {
@@ -22,17 +23,16 @@ export class SyncProcessor implements GameProcessor {
     this.subEvent = new SubEvent()
   }
 
-  process(ts: number): void {
+  process(ts: number, _?: number): number {
     const syncList = Object.values(this.syncQueue)
     syncList.forEach(q => {
       q.service.sync(ts)
       this.subEvent.dispatchEvent(q.service.id, 'onSync', ts)
     })
+    return ts
   }
 
-  reset(): void {
-    this.syncQueue = {}
-  }
+  reset(): void {}
 
 
   register(service: SyncService, action: TRenderAction, uid?: string) {

@@ -11,17 +11,17 @@ export type TInputRequest<T> = {
 }
 
 export class InputProcessor implements GameProcessor {
+  readonly Name = InputProcessor.name
   private execQueue: TInputRequest<any>[]
   private submitQueue: TInputRequest<any>[]
   private isSubmiting: boolean
-
   constructor() {
     this.execQueue = []
     this.submitQueue = []
     this.isSubmiting = false
   }
 
-  process(timestamp: number) {
+  process(timestamp: number, _?: number): number {
     this.execQueue.forEach(act => {
       if (act.isDisable) return
       act.action(null, timestamp, false)
@@ -30,6 +30,7 @@ export class InputProcessor implements GameProcessor {
 
     // submit
     this.execQueue = []
+    return timestamp
   }
 
   request<T>(msg: TInputRequest<T>) {

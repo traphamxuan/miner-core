@@ -73,7 +73,7 @@ export class FactoryService {
     this.recipes.reset()
   }
 
-  completeProduct(machine: Machine): TResourceAmount | null {
+  completeProduct(machine: Machine, timestamp: number): TResourceAmount | null {
     if (machine.recipe) {
       const sRes = machine.recipe.base.target
       const resource: TResourceAmount = { id: sRes.id, base: sRes, amount: 1n }
@@ -81,7 +81,7 @@ export class FactoryService {
         id: sRes.id,
         amount: 1n,
         base: sRes,
-      }])
+      }], timestamp)
       machine.isRun = false
       machine.progress = machine.recipe.cost
       return resource
@@ -126,7 +126,7 @@ export class FactoryService {
     if (!machine.recipe) return machine
     const recipe = machine.recipe
     if (machine.isRun) {
-      this.warehouseService.put(recipe.base.ingredients)
+      this.warehouseService.put(recipe.base.ingredients, ts)
       machine.isRun = false
     }
     machine.recipe = undefined

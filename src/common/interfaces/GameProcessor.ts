@@ -1,4 +1,5 @@
 export interface GameProcessor {
-  process(ts: number, moveTick?: (ts: number) => void): void
+  readonly Name: string
+  process(ts: number, stepLimit?: number): number
   reset(): void
 }

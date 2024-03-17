@@ -42,12 +42,12 @@ export class MinerService {
     this.Shuttles().forEach(shuttle => shuttle.sync(ts))
   }
 
-  unloadShuttleResources(shuttle: Shuttle): TResourceAmount[] {
+  unloadShuttleResources(shuttle: Shuttle, timestamp: number): TResourceAmount[] {
     if (!shuttle.deposit) {
       return []
     }
     const result = shuttle.load
-    this.warehouseService.put(result)
+    this.warehouseService.put(result, timestamp)
     // result.forEach(res => ((res.amount > 0) && this.warehouseService.put(res)))
     shuttle.load = []
     shuttle.position = 0
@@ -87,7 +87,7 @@ export class MinerService {
           id: ore.base.id,
           amount: 0n,
           base: ore.base,
-        }])
+        }], ts)
       })
     }
     return deposit

@@ -12,6 +12,7 @@ export type TInternalRequest = {
 }
 
 export class InternalProcessor implements GameProcessor {
+  readonly Name = InternalProcessor.name
   private queue: Heap<TInternalRequest>
   private nonce: number
   constructor() {
@@ -19,15 +20,28 @@ export class InternalProcessor implements GameProcessor {
     this.queue.init([])
     this.nonce = 0
   }
-  process(ts: number, moveTick: (ts: number) => boolean): void {
+  process(ts: number, limitStep?: number): number {
     let req = this.queue.peek()
-    for (; req && req.ts <= ts && moveTick(req.ts); req=this.queue.peek()) {
-      // console.log(`process internal request`, req.id, req.ts, req.nonce, req.isDone)
+    let tick = ts
+    for (; req; req=this.queue.peek()) {
+      if (req.ts > ts) {
+        return ts
+      }
       req.update(null, req.ts, req.isDone)
       req.isDone = true
+      tick = req.ts
       this.queue.pop()
+      if (limitStep) {
+        limitStep--
+      }
+      if (limitStep === 0) {
+        break
+      }
     }
-    // new Promise((ok, failed) => setTimeout(() => {failed('Stop here')}, 3))
+    if (this.queue.length == 0) {
+      return ts
+    }
+    return tick
   }
 
   reset(): void {

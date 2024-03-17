@@ -1,4 +1,3 @@
-import { ExternalProcessor } from './ExternalProcessor'
 import { GameLoop } from './GameLoop'
 import { InputProcessor, TInputRequest } from './InputProcessor'
 import { InternalProcessor, TInternalRequest } from './InternalProcessor'
@@ -9,7 +8,6 @@ export type { InternalProcessor, TInternalRequest }
 export type { InputProcessor, TInputRequest }
 export type { GameLoop }
 export type Engine = {
-  external: ExternalProcessor,
   sync: SyncProcessor,
   internal: InternalProcessor,
   input: InputProcessor,
@@ -17,13 +15,11 @@ export type Engine = {
 }
 
 export function createCoreEngine(): Engine {
-  const external = new ExternalProcessor()
-  const sync = new SyncProcessor()
   const internal = new InternalProcessor()
   const input = new InputProcessor()
-  const loop = new GameLoop(external, internal, input, sync)
+  const sync = new SyncProcessor()
+  const loop = new GameLoop(internal, input, sync)
   return {
-    external,
     sync,
     internal,
     input,

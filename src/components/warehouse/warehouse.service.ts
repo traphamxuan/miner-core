@@ -5,7 +5,7 @@ import { PlanetService } from '../planet/planet.service'
 import { StaticService } from '../static/static.service'
 
 type TWarehouseAction = {
-  onIncrease?: (resPackId: string, amount: bigint, resSet: TResource) => void
+  onIncrease?: (resPackId: string, amount: bigint, resSet: TResource, ts: number) => void
   // onUpdate?: (planetId: string, resources: TResource[]) => void
   // onNewResource?: (planetId: string, resSet: TResource) => void
   // onMoneyChange?: (planetId: string, money: bigint, planet: Planet) => void
@@ -57,7 +57,7 @@ export class WarehouseService {
     this.resources.reset()
   }
 
-  put(resAmounts: TResourceAmount[]) {
+  put(resAmounts: TResourceAmount[], timestamp: number) {
     const resources: Resource[] = []
     for (const res of resAmounts) {
       let resource = this.resources.getOne(res.base.id)
@@ -70,7 +70,7 @@ export class WarehouseService {
     resAmounts.forEach((res, idx) => {
       const resource = resources[idx]
       resource.amount += res.amount
-      this.subEvent.dispatchEvent(res.base.id, 'onIncrease', res.amount, resource)
+      this.subEvent.dispatchEvent(res.base.id, 'onIncrease', res.amount, resource, timestamp)
     })
   }
 
