@@ -16,7 +16,6 @@ export class GameLoop {
     for (const processor of this.processors) {
       let tick = processor.process(ts, stepLimit)
       if (tick < ts) {
-        console.warn(`stop at`, processor.Name)
         return tick;
       }
     }
