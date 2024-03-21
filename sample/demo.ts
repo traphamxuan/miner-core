@@ -4,7 +4,7 @@ import * as inputs from './inputs.json'
 import * as gameData from './gamedata.json'
 import * as gameStatic from './static.json'
 import { Action, Game } from '../src'
-import { registerContinuousShow, showMain, unregisterContinuousShow } from './view';
+import { registerContinuousShow, showMain, toTimeAmount, unregisterContinuousShow } from './view';
 import { writeFileSync } from 'fs';
 import { ActionCommand } from '../src/common/enum';
 
@@ -17,15 +17,38 @@ const userInputs: Action[] = inputs.actions.map((action: Omit<Action, 'command'>
 
 function main() {
 	game.init(gameStatic)
-	game.load(gameData)
+	game.load({
+		...gameData,
+		deposits: gameData.deposits.map((deposit) => ({
+			...deposit,
+			pid: gameData.id,
+		})),
+		shuttles: gameData.shuttles.map((shuttle) => ({
+			...shuttle,
+			load: shuttle.load || [],
+			pid: gameData.id,
+		})),
+		resources: gameData.resources.map((resource) => ({
+			...resource,
+			pid: gameData.id,
+		})),
+		machines: gameData.machines.map((machine) => ({
+			...machine,
+			pid: gameData.id,
+		})),
+		recipes: gameData.recipes.map((recipe) => ({
+			...recipe,
+			pid: gameData.id,
+		})),
+	})
 	game.loadInput(userInputs)
 	registerContinuousShow(game)
-	let tick = new Date().getTime() - gameData.planet.startedAt
+	let tick = new Date().getTime() - gameData.startedAt
 	console.log(`Re-Calculate the game to ${tick}...`)
 	let currentTick = 0;
 	while (currentTick < tick) {
 		currentTick = game.run(tick, 1000)
-		console.log(`Progress ${currentTick}/${tick} (${(currentTick / tick * 100).toFixed(3)}%)...`)
+		console.log(`Progress ${toTimeAmount(currentTick).timeString}\t/${toTimeAmount(tick).timeString} \t(${(currentTick / tick * 100).toFixed(3)}%)...`)
 	}
 	console.log('Finish')
 	const period = 30

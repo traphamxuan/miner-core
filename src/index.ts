@@ -19,8 +19,7 @@ import {
   ResourceAmount,
 } from "./entities"
 
-export type GameData = {
-  planet: RawPlanet
+export type GameData = RawPlanet & {
   deposits: RawDeposit[]
   shuttles: RawShuttle[]
   resources: RawResource[]
@@ -88,13 +87,13 @@ export class Game {
     const fInternal = this.component.internal.factory
 
     if (pService.planet) {
-      if (pService.planet.id != rawData.planet.id) {
+      if (pService.planet.id != rawData.id) {
         throw new Error('Exist planet is working. Remove the old one first!!!')
       }
       return
     }
 
-    const p = pService.load(rawData.planet)
+    pService.load(rawData)
 
     rawData.resources.forEach(r => {
       const sResource = sService.getOne('resource', r.srid)
@@ -193,7 +192,7 @@ export class Game {
       return undefined
     }
     return {
-      planet: this.component.service.planet.planet.toRaw(),
+      ...this.component.service.planet.planet.toRaw(),
       deposits: this.component.service.miner.Deposits().map(m => m.toRaw()),
       shuttles: this.component.service.miner.Shuttles().map(m => m.toRaw()),
       resources: this.component.service.warehouse.Resources().map(r => r.toRaw()),

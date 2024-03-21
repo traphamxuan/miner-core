@@ -65,7 +65,7 @@ export function unregisterContinuousShow(game: Game): void {
   game.getRender('miner').unregister('miner-rendering')
 }
 
-const toTimeAmount = (timestamp: number): {
+export const toTimeAmount = (timestamp: number): {
   year: number
   month: number
   day: number

@@ -1,17 +1,707 @@
 {
-    "planet": {
-        "name": "Tra Pham",
-        "money": "22870",
-        "uid": "656b2417fed77e1821654cd8",
-        "startedAt": 1701520442646,
-        "updatedAt": "2023-12-12T18:07:34.336Z",
-        "id": "656b243afed77e1821654cd9"
-    },
-    "resources": [],
-    "deposits": [],
-    "shuttles": [],
-    "machines": [],
-    "recipes": [],
-    "actions": [],
-    "User": null
+    "name": "planet 3",
+    "money": "4135260",
+    "uid": "656b2417fed77e1821654cd8",
+    "startedAt": 1703783363265,
+    "updatedAt": "2024-03-15T17:54:52.732Z",
+    "resources": [
+        {
+            "srid": "1",
+            "amount": "147",
+            "syncedAt": 4926864101.991
+        },
+        {
+            "srid": "2",
+            "amount": "4456463",
+            "syncedAt": 0
+        },
+        {
+            "srid": "3",
+            "amount": "599725",
+            "syncedAt": 0
+        },
+        {
+            "srid": "4",
+            "amount": "318110",
+            "syncedAt": 0
+        },
+        {
+            "srid": "5",
+            "amount": "98015",
+            "syncedAt": 0
+        },
+        {
+            "srid": "6",
+            "amount": "79345",
+            "syncedAt": 0
+        },
+        {
+            "srid": "7",
+            "amount": "127810",
+            "syncedAt": 0
+        },
+        {
+            "srid": "8",
+            "amount": "0",
+            "syncedAt": 0
+        },
+        {
+            "srid": "9",
+            "amount": "0",
+            "syncedAt": 0
+        },
+        {
+            "srid": "23",
+            "amount": "153805",
+            "syncedAt": 0
+        }
+    ],
+    "deposits": [
+        {
+            "sdid": "82",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "0.20445768268942288"
+                }
+            ],
+            "rate": 30.958682111999984,
+            "syncedAt": 6260153478.3611145
+        },
+        {
+            "sdid": "83",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "0.5068479782518693"
+                },
+                {
+                    "srid": "2",
+                    "amount": "0.8767119945631947"
+                }
+            ],
+            "rate": 14.929919999999996,
+            "syncedAt": 6260153809.114841
+        },
+        {
+            "sdid": "84",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "5221233.146817771"
+                },
+                {
+                    "srid": "2",
+                    "amount": "8292462.146814603"
+                }
+            ],
+            "rate": 12.441599999999998,
+            "syncedAt": 6260152595.485106
+        },
+        {
+            "sdid": "85",
+            "ores": [
+                {
+                    "srid": "2",
+                    "amount": "4856243"
+                },
+                {
+                    "srid": "3",
+                    "amount": "1333087"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260153504.3220005
+        },
+        {
+            "sdid": "86",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "999810"
+                },
+                {
+                    "srid": "2",
+                    "amount": "1999620"
+                },
+                {
+                    "srid": "3",
+                    "amount": "3332700"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260147071.586
+        },
+        {
+            "sdid": "87",
+            "ores": [
+                {
+                    "srid": "3",
+                    "amount": "6362420"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260146622.104001
+        },
+        {
+            "sdid": "88",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "2368594.999994688"
+                },
+                {
+                    "srid": "2",
+                    "amount": "2666159.999994044"
+                },
+                {
+                    "srid": "4",
+                    "amount": "1333079.999997022"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260148272.745001
+        },
+        {
+            "sdid": "89",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "2499485"
+                },
+                {
+                    "srid": "4",
+                    "amount": "3999180"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260138816.602001
+        },
+        {
+            "sdid": "90",
+            "ores": [
+                {
+                    "srid": "4",
+                    "amount": "5180787"
+                },
+                {
+                    "srid": "5",
+                    "amount": "1333068"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260147250.374001
+        },
+        {
+            "sdid": "91",
+            "ores": [
+                {
+                    "srid": "3",
+                    "amount": "3193780"
+                },
+                {
+                    "srid": "4",
+                    "amount": "1999584"
+                },
+                {
+                    "srid": "5",
+                    "amount": "1333056"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260135817.561001
+        },
+        {
+            "sdid": "92",
+            "ores": [
+                {
+                    "srid": "4",
+                    "amount": "6554160"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260130368.152
+        },
+        {
+            "sdid": "93",
+            "ores": [
+                {
+                    "srid": "3",
+                    "amount": "1228911"
+                },
+                {
+                    "srid": "4",
+                    "amount": "1999584"
+                },
+                {
+                    "srid": "5",
+                    "amount": "3332640"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260136985.420001
+        },
+        {
+            "sdid": "94",
+            "ores": [
+                {
+                    "srid": "5",
+                    "amount": "1235018"
+                },
+                {
+                    "srid": "6",
+                    "amount": "5332152"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260120587.017001
+        },
+        {
+            "sdid": "95",
+            "ores": [
+                {
+                    "srid": "1",
+                    "amount": "2582765"
+                },
+                {
+                    "srid": "2",
+                    "amount": "2666080"
+                },
+                {
+                    "srid": "7",
+                    "amount": "1333040"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260123104.189001
+        },
+        {
+            "sdid": "96",
+            "ores": [
+                {
+                    "srid": "6",
+                    "amount": "3253245"
+                },
+                {
+                    "srid": "7",
+                    "amount": "3332595"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260121554.616001
+        },
+        {
+            "sdid": "97",
+            "ores": [
+                {
+                    "srid": "7",
+                    "amount": "6589595"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260152322.0460005
+        },
+        {
+            "sdid": "98",
+            "ores": [
+                {
+                    "srid": "4",
+                    "amount": "2277240"
+                },
+                {
+                    "srid": "5",
+                    "amount": "2666040"
+                },
+                {
+                    "srid": "8",
+                    "amount": "1666275"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260104905.967001
+        },
+        {
+            "sdid": "99",
+            "ores": [
+                {
+                    "srid": "3",
+                    "amount": "1279307"
+                },
+                {
+                    "srid": "8",
+                    "amount": "5332248"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260150593.011001
+        },
+        {
+            "sdid": "100",
+            "ores": [
+                {
+                    "srid": "7",
+                    "amount": "4613621"
+                },
+                {
+                    "srid": "9",
+                    "amount": "1999584"
+                }
+            ],
+            "rate": 5,
+            "syncedAt": 6260145610.700001
+        }
+    ],
+    "shuttles": [
+        {
+            "ssid": "122",
+            "sdid": "82",
+            "power": 25.79890175999999,
+            "capacity": 644,
+            "position": {
+                "x": 0,
+                "y": 20
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "1",
+                    "amount": "48"
+                }
+            ],
+            "syncedAt": 6260153478.3611145
+        },
+        {
+            "ssid": "123",
+            "sdid": "83",
+            "power": 8.639999999999999,
+            "capacity": 105,
+            "position": {
+                "x": 0,
+                "y": 25
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "1",
+                    "amount": "69"
+                },
+                {
+                    "srid": "2",
+                    "amount": "17"
+                }
+            ],
+            "syncedAt": 6260153809.114841
+        },
+        {
+            "ssid": "124",
+            "sdid": "84",
+            "power": 8.639999999999999,
+            "capacity": 16,
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "isReturned": false,
+            "load": null,
+            "syncedAt": 6260152595.485106
+        },
+        {
+            "ssid": "125",
+            "sdid": "85",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 35
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "2",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260153504.3220005
+        },
+        {
+            "ssid": "126",
+            "sdid": "86",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "isReturned": false,
+            "load": null,
+            "syncedAt": 6260147071.586
+        },
+        {
+            "ssid": "127",
+            "sdid": "87",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 55
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "3",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260146622.104001
+        },
+        {
+            "ssid": "128",
+            "sdid": "88",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 56
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "1",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260148272.745001
+        },
+        {
+            "ssid": "129",
+            "sdid": "89",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 100
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "1",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260138816.602001
+        },
+        {
+            "ssid": "130",
+            "sdid": "90",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "isReturned": false,
+            "load": null,
+            "syncedAt": 6260147250.374001
+        },
+        {
+            "ssid": "131",
+            "sdid": "91",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "isReturned": false,
+            "load": null,
+            "syncedAt": 6260135817.561001
+        },
+        {
+            "ssid": "132",
+            "sdid": "92",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 150
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "4",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260130368.152
+        },
+        {
+            "ssid": "133",
+            "sdid": "93",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "isReturned": false,
+            "load": null,
+            "syncedAt": 6260136985.420001
+        },
+        {
+            "ssid": "134",
+            "sdid": "94",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 170
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "5",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260120587.017001
+        },
+        {
+            "ssid": "135",
+            "sdid": "95",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "isReturned": false,
+            "load": null,
+            "syncedAt": 6260123104.189001
+        },
+        {
+            "ssid": "136",
+            "sdid": "96",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 210
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "6",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260121554.616001
+        },
+        {
+            "ssid": "137",
+            "sdid": "97",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 220
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "7",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260152322.0460005
+        },
+        {
+            "ssid": "138",
+            "sdid": "98",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 300
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "4",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260104905.967001
+        },
+        {
+            "ssid": "139",
+            "sdid": "99",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 310
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "3",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260150593.011001
+        },
+        {
+            "ssid": "140",
+            "sdid": "100",
+            "power": 5,
+            "capacity": 5,
+            "position": {
+                "x": 0,
+                "y": 320
+            },
+            "isReturned": true,
+            "load": [
+                {
+                    "srid": "7",
+                    "amount": "5"
+                }
+            ],
+            "syncedAt": 6260145610.700001
+        }
+    ],
+    "recipes": [
+        {
+            "sreid": "162",
+            "cost": 3,
+            "syncedAt": 0
+        }
+    ],
+    "machines": [
+        {
+            "smid": "221",
+            "sreid": "162",
+            "progress": 3,
+            "power": 1,
+            "isRun": false,
+            "syncedAt": 6260153915.596323
+        },
+        {
+            "smid": "222",
+            "sreid": "162",
+            "progress": 3,
+            "power": 1,
+            "isRun": false,
+            "syncedAt": 6260130895.876779
+        },
+        {
+            "smid": "223",
+            "sreid": "162",
+            "progress": 3,
+            "power": 1,
+            "isRun": false,
+            "syncedAt": 6260109189.526433
+        }
+    ],
+    "id": "658dabc3d89c6f0e6414b8ff"
 }
+
