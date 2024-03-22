@@ -128,8 +128,8 @@ export class Game {
       fService.addMachine(new Machine(m, sMachine, recipe))
     })
 
-    mService.Shuttles().forEach(shuttle => shuttle.deposit && mInternal.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.warn(err.message)))
-    fService.Machines().forEach(machine => machine.recipe && fInternal.publishMachineEvent(machine as MachineR).catch(err => console.warn(err.message)))
+    mService.Shuttles().forEach(shuttle => shuttle.deposit && mInternal.publishShuttleEvent(shuttle.base.id).catch(err => console.warn(err.message)))
+    fService.Machines().forEach(machine => machine.recipe && fInternal.publishMachineEvent(machine.base.id).catch(err => console.warn(err.message)))
   }
 
   loadInput(inputs: Action[]): Promise<Resource | Deposit | Shuttle | Recipe | Machine>[] {

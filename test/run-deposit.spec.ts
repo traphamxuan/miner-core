@@ -35,14 +35,12 @@ describe('run deposit', () => {
 
   test('run 1 deposit', async () => {
     const rawData: GameData = {
-      planet: {
-        id: 'planet-1',
-        name: 'Planet 1',
-        money: '0',
-        uid: '123',
-        startedAt: 0,
-        updatedAt: ''
-      },
+      id: 'planet-1',
+      name: 'Planet 1',
+      money: '0',
+      uid: '123',
+      startedAt: 0,
+      updatedAt: '',
       deposits: [
         {
           pid: 'planet-1',
@@ -74,14 +72,12 @@ describe('run deposit', () => {
 
   test('run 2 deposits', async () => {
     const rawData: GameData = {
-      planet: {
-        id: 'planet-1',
-        name: 'Planet 1',
-        money: '0',
-        uid: '123',
-        startedAt: 0,
-        updatedAt: ''
-      },
+      id: 'planet-1',
+      name: 'Planet 1',
+      money: '0',
+      uid: '123',
+      startedAt: 0,
+      updatedAt: '',
       deposits: [
         {
           pid: 'planet-1',

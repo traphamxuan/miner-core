@@ -99,18 +99,15 @@ export class Shuttle {
     if (isReturned) {
       position -= diffMove
       if (position <= 0) {
-        isReturned = false
         position = -position
       }
     } else {
       position += diffMove
       if (position >= distance) {
-        isReturned = true
         position = 2 * distance - position
       }
     }
 
-    this.isReturned = isReturned
     this.position = position
     this.syncedAt = ts
     return this

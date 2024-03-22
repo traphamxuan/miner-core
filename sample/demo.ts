@@ -47,7 +47,7 @@ function main() {
 	console.log(`Re-Calculate the game to ${tick}...`)
 	let currentTick = 0;
 	while (currentTick < tick) {
-		currentTick = game.run(tick, 1000)
+		currentTick = game.run(tick, 10000)
 		console.log(`Progress ${toTimeAmount(currentTick).timeString}\t/${toTimeAmount(tick).timeString} \t(${(currentTick / tick * 100).toFixed(3)}%)...`)
 	}
 	console.log('Finish')

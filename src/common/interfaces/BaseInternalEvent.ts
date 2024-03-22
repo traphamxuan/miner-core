@@ -1,4 +1,4 @@
-import { InternalProcessor, TInternalRequest } from "../../core"
+import { InternalProcessor, TInternalRequest, InternalUpdateFn } from "../../core"
 
 export abstract class BaseInternalEvent {
   private preMsgQueue: Record<string, TInternalRequest>
@@ -25,8 +25,8 @@ export abstract class BaseInternalEvent {
     func: (
       ok: (value: T | PromiseLike<T>) => void,
       failed: (reason?: Error) => void,
-      ) => (err: Error | null, ts: number, isSkip: boolean) => void,
-    isReplace = false,
+      ) => InternalUpdateFn,
+    type: 'oneshot' | 'continuous' = 'oneshot',
   ) {
     // console.log('makeRequest', id, ts, isReplace, this.preMsgQueue)
     return new Promise<T>((ok, failed) => {
@@ -34,10 +34,11 @@ export abstract class BaseInternalEvent {
         id,
         isDone: false,
         ts,
+        type,
         nonce: 0,
         update: func(ok, failed)
       }
-      if (isReplace) {
+      if (type == 'continuous') {
         const oldMsg = this.preMsgQueue[id]
         oldMsg && (oldMsg.isDone = true)
       }
@@ -50,7 +51,7 @@ export abstract class BaseInternalEvent {
     const msg = this.preMsgQueue[id]
     if (!msg) return
     msg.isDone = true
-    msg.update && msg.update(null, 0, true)
+    msg.update && msg.update(0, true)
     delete this.preMsgQueue[id]
     // console.log(`removeRequest`, id, msg.ts, msg.isDone)
   }   

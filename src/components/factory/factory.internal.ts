@@ -17,7 +17,14 @@ export class FactoryInternalEvent extends BaseInternalEvent{
   private getWaitingRecipeUID(machineId: string) { return `internal-${this.id}-${machineId}` }
 
   // FOR PUBLIC CALL
-  publishMachineEvent(machine: MachineR): Promise<Machine> {
+  publishMachineEvent(machineId: string): Promise<Machine> {
+    const machine = this.factoryService.Machine(machineId)
+    if (!machine) {
+      throw new Error(`Invalid machine ID ${machineId}`)
+    }
+    if (!machine.recipe) {
+      throw new Error(`Machine ${machineId} has no recipe`)
+    }
     const recipe = machine.recipe
     if (!machine.isRun) {
       machine.isRun = this.warehouseService.take(recipe.base.ingredients)
@@ -26,21 +33,29 @@ export class FactoryInternalEvent extends BaseInternalEvent{
     if (machine.isRun) {
       const nextTs = machine.syncedAt + machine.progress / machine.power * 1_000
 
-      return this.makeRequest('run-' + machine.base.id, nextTs, (ok, failed) => (err, ts, isSkip) => {
+      return this.makeRequest('run-' + machineId, nextTs, (ok, failed) => (ts, isSkip) => {
         if (isSkip) {
-          failed(new Error(`Skip publishMachineEvent ${machine.base.id}`))
-          return
+          failed(new Error(`Skip publishMachineEvent ${machineId}`))
+          return -1
         }
-        if (err) {
-          failed(err)
-          return
+        const machine = this.factoryService.Machine(machineId)
+        if (!machine) {
+          failed(new Error(`Invalid machine ID ${machineId}`))
+          return -1
+        }
+        if (!machine.recipe) {
+          failed(new Error(`Machine ${machineId} has no recipe`))
+          return -1
         }
         machine.sync(ts)
         this.factoryService.completeProduct(machine, ts)
-        this.publishMachineEvent(machine)
-          .catch(err => console.warn(err.message))
+        machine.isRun = this.warehouseService.take(recipe.base.ingredients)
         ok(machine)
-      }, true)
+        if (machine.isRun) {
+          return ts + machine.progress / machine.power * 1_000
+        }
+        return 0
+      }, 'continuous')
     } else {
       return new Promise<Machine>(ok => {
         const recipeUID = this.getWaitingRecipeUID(machine.base.id)
@@ -55,7 +70,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
                 machine.isRun = this.warehouseService.take(recipe.base.ingredients)
                 machine.syncedAt = ts
                 if (machine.isRun) {
-                  this.publishMachineEvent(machine)
+                  this.publishMachineEvent(machineId)
                     .catch(err => console.warn(err.message))
                   ok(machine)
                   this.stopWaitingRecipeRequirements(machine)
@@ -79,22 +94,19 @@ export class FactoryInternalEvent extends BaseInternalEvent{
     if (machine) {
       return machine
     }
-    return this.makeRequest('create-machine-' + sMachine.id, timestamp, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('create-machine-' + sMachine.id, timestamp, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip createMachine ${sMachine.id}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return -1
       }
       ts = ts < timestamp ? timestamp : ts
       const machine = this.factoryService.addNewMachine(sMachine, ts)
       if (machine instanceof Error) {
         failed(machine)
-        return
+        return -1
       }
       ok(machine)
+      return 0
     })
   }
 
@@ -104,73 +116,63 @@ export class FactoryInternalEvent extends BaseInternalEvent{
       console.warn(`Recipe ${sRecipe.id} already exists`)
       return recipe
     }
-    return this.makeRequest('create-recipe-' + sRecipe.id, timestamp, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('create-recipe-' + sRecipe.id, timestamp, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip createRecipe ${sRecipe.id}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return -1
       }
       ts = ts < timestamp ? timestamp : ts
       const recipe = this.factoryService.addNewRecipe(sRecipe, ts)
       if (recipe instanceof Error) {
         failed(recipe)
-        return
+        return -1
       }
       ok(recipe)
+      return 0
     })
   }
 
   async setMachineRecipe(sMachineId: string, timestamp: number, sRecipeId?: string): Promise<Machine> {
-    return this.makeRequest('set-recipe-' + sMachineId, timestamp, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('set-recipe-' + sMachineId, timestamp, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip setMachineRecipe ${sMachineId}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return -1
       }
       const machine = this.factoryService.Machine(sMachineId)
       if (!machine) {
         failed(new Error(`Invalid machine ID ${sMachineId}`))
-        return
+        return -1
       }
       const recipe = sRecipeId ? this.factoryService.Recipe(sRecipeId) : undefined
       ts = ts < timestamp ? timestamp : ts
       machine.sync(ts)
       if (machine.recipe?.base.id === recipe?.base.id) {
         ok(machine)
-        return
+        return 0
       }
       if (machine.recipe) {
         this.unpublishMachineEvent(machine)
       }
       this.factoryService.setMachineRecipe(machine, ts, recipe)
       if (machine.recipe) {
-        this.publishMachineEvent(machine as MachineR)
+        this.publishMachineEvent(sMachineId)
           .catch(err => console.warn(err.message))
       }
       ok(machine)
+      return 0
     })
   }
 
   async upMachinePower(sMachineId: string, timestamp: number): Promise<Machine> {
-    return this.makeRequest('up-power-' + sMachineId, timestamp, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('up-power-' + sMachineId, timestamp, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip upMachinePower ${sMachineId}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return -1
       }
       const machine = this.factoryService.Machine(sMachineId)
       if (!machine) {
         failed(new Error(`Invalid machine ID ${sMachineId}`))
-        return
+        return -1
       }
       machine.sync(ts)
       if (machine.recipe) {
@@ -178,8 +180,9 @@ export class FactoryInternalEvent extends BaseInternalEvent{
       }
       machine.power *= 1.2
       machine.syncedAt = ts
-      machine.recipe && this.publishMachineEvent(machine as MachineR).catch(err => console.warn(err.message))
+      machine.recipe && this.publishMachineEvent(sMachineId).catch(err => console.warn(err.message))
       ok(machine)
+      return 0
     })
   }
 

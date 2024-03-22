@@ -24,14 +24,12 @@ describe('load game', () => {
 
   test('load game with empty data', async () => {
     const rawData: GameData = {
-      planet: {
-        id: 'planet-1',
-        name: 'Planet 1',
-        money: '0',
-        uid: '123',
-        startedAt: 0,
-        updatedAt: ''
-      },
+      id: 'planet-1',
+      name: 'Planet 1',
+      money: '0',
+      uid: '123',
+      startedAt: 0,
+      updatedAt: '',
       deposits: [],
       shuttles: [],
       resources: [],
@@ -52,14 +50,12 @@ describe('load game', () => {
 
   test('load game with full data', async () => {
     const rawData: GameData = {
-      planet: {
-        id: 'planet-1',
-        name: 'Planet 1',
-        money: '0',
-        uid: '123',
-        startedAt: 0,
-        updatedAt: ''
-      },
+      id: 'planet-1',
+      name: 'Planet 1',
+      money: '0',
+      uid: '123',
+      startedAt: 0,
+      updatedAt: '',
       deposits: [
         {
           pid: 'planet-1',

@@ -18,22 +18,19 @@ export class MinerInternalEvent extends BaseInternalEvent{
     if (shuttle) {
       return shuttle
     }
-    return this.makeRequest('create-shuttle-' + sShuttle.id, createdAt, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('create-shuttle-' + sShuttle.id, createdAt, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip createShuttle ${sShuttle.id}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return -1
       }
       ts = ts < createdAt ? createdAt : ts
       const shuttle = this.minerService.addNewShuttle(sShuttle, ts)
       if (shuttle instanceof Error) {
         failed(shuttle)
-        return
+        return -1
       }
       ok(shuttle)
+      return -1
     })
   }
 
@@ -42,39 +39,32 @@ export class MinerInternalEvent extends BaseInternalEvent{
     if (deposit) {
       return deposit
     }
-    return this.makeRequest('create-deposit-' + sDeposit.id, timestamp, (ok, failed) => (err, ts, isSKip) => {
+    return this.makeRequest('create-deposit-' + sDeposit.id, timestamp, (ok, failed) => (ts, isSKip) => {
       if (isSKip) {
         failed(new Error(`Skip createDeposit ${sDeposit.id}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return -1
       }
       ts = ts < timestamp ? timestamp : ts
       const deposit = this.minerService.addNewDeposit(sDeposit, ts)
       if (deposit instanceof Error) {
         failed(deposit)
-        return
+        return -1
       }
       ok(deposit)
+      return 0
     })
   }
 
   async setShuttleDeposit(sShuttleId: string, timestamp: number, sDepositId?: string): Promise<Shuttle> {
-    return this.makeRequest('set-deposit-' + sShuttleId + sDepositId, timestamp, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('set-deposit-' + sShuttleId + sDepositId, timestamp, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip setShuttleDeposit ${sShuttleId}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return -1 
       }
       const shuttle = this.minerService.Shuttle(sShuttleId)
       if (!shuttle) {
         failed(new Error(`Invalid shuttle ID ${sShuttleId}`))
-        return
+        return -1 
       }
       const deposit = sDepositId ? this.minerService.Deposit(sDepositId) : undefined
       ts = ts < timestamp ? timestamp : ts
@@ -82,119 +72,109 @@ export class MinerInternalEvent extends BaseInternalEvent{
       shuttle.deposit = deposit
       if (shuttle.deposit) {
         shuttle.deposit.sync(ts)
-        this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.warn(err.message))
+        this.publishShuttleEvent(sShuttleId).catch(err => console.warn(err.message))
       } else {
         this.unPublishShuttleEvent(shuttle.base.id)
       }
       ok(shuttle)
+      return 0
     })
   }
 
   async upDepositRate(sDepositId: string, timestamp: number): Promise<Deposit> {
-    return this.makeRequest('up-deposit-rate-' + sDepositId, timestamp, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('up-deposit-rate-' + sDepositId, timestamp, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip upDepositRate ${sDepositId}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return 0
       }
       const deposit = this.minerService.Deposit(sDepositId)
       if (!deposit) {
         failed(new Error(`Invalid deposit ID ${sDepositId}`))
-        return
+        return 0
       }
       deposit.sync(ts)
       deposit.rate *= 1.2
       ok(deposit)
+      return 0 
     })
   }
 
   async upShuttleSpeed(sShuttleId: string, timestamp: number): Promise<Shuttle> {
-    return this.makeRequest('up-shuttle-speed-' + sShuttleId, timestamp, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('up-shuttle-speed-' + sShuttleId, timestamp, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip upShuttleSpeed ${sShuttleId}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return 0
       }
       const shuttle = this.minerService.Shuttle(sShuttleId)
       if (!shuttle) {
         failed(new Error(`Invalid shuttle ID ${sShuttleId}`))
-        return
+        return 0
       }
       shuttle.sync(ts)
       shuttle.speed *= 1.2
-      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.warn(err.message))
+      shuttle.deposit && this.publishShuttleEvent(sShuttleId).catch(err => console.warn(err.message))
       ok(shuttle)
+      return 0
     })
   }
 
   async upShuttleCapacity(sShuttleId: string, timestamp: number): Promise<Shuttle> {
-    return this.makeRequest('up-shuttle-capacity-' + sShuttleId, timestamp, (ok, failed) => (err, ts, isSkip) => {
+    return this.makeRequest('up-shuttle-capacity-' + sShuttleId, timestamp, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
         failed(new Error(`Skip upShuttleCapacity ${sShuttleId}`))
-        return
-      }
-      if (err) {
-        failed(err)
-        return
+        return 0
       }
       const shuttle = this.minerService.Shuttle(sShuttleId)
       if (!shuttle) {
         failed(new Error(`Invalid shuttle ID ${sShuttleId}`))
-        return
+        return 0
       }
       shuttle.sync(ts)
       shuttle.capacity = Math.floor(shuttle.capacity * 1.2)
-      shuttle.deposit && this.publishShuttleEvent(shuttle as ShuttleD).catch(err => console.warn(err.message))
+      shuttle.deposit && this.publishShuttleEvent(sShuttleId).catch(err => console.warn(err.message))
       ok(shuttle)
+      return 0
     })
   }
 
-  publishShuttleEvent(shuttle: ShuttleD): Promise<ShuttleD> {
-    let ts: number
-    this.unPublishShuttleEvent(shuttle.base.id)
-    if (shuttle.isReturned) {
-      ts = shuttle.syncedAt + shuttle.position / shuttle.speed * 1000
-      return this.makeRequest('unload-' + shuttle.base.id, ts, (ok, failed) => (err, _, isSkip) => {
-        if (isSkip) {
-          failed(new Error(`Skip unload ${shuttle.base.id}`))
-          return
-        }
-        if (err) {
-          failed(err)
-          return
-        }
-        shuttle.deposit.sync(ts)
-        shuttle.sync(ts)
-        this.minerService.unloadShuttleResources(shuttle, ts)
-        this.publishShuttleEvent(shuttle)
-          .catch(err => console.warn(err.message))
-        ok(shuttle)
-      }, true)
+  publishShuttleEvent(sShuttleId: string): Promise<ShuttleD> {
+    this.unPublishShuttleEvent(sShuttleId)
+    const shuttle = this.minerService.Shuttle(sShuttleId)
+    if (!shuttle) {
+      throw new Error(`Invalid shuttle ID ${sShuttleId}`)
     }
+    if (!shuttle.deposit) {
+      throw new Error(`Invalid shuttle deposit ${sShuttleId}`)
+    }
+    const nextTs = shuttle.isReturned ?
+       shuttle.syncedAt + shuttle.position / shuttle.speed * 1000 :
+        shuttle.syncedAt + (shuttle.deposit.base.position.y - shuttle.position) / shuttle.speed * 1000
 
-    ts = shuttle.syncedAt + (shuttle.deposit.base.position.y - shuttle.position) / shuttle.speed * 1000
-    return this.makeRequest('load-' + shuttle.base.id, ts, (ok, failed) => (err, _, isSkip) => {
+    return this.makeRequest('shuttle-touch-' + sShuttleId, nextTs, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
-        failed(new Error(`Skip load ${shuttle.base.id}`))
-        return
+        failed(new Error(`Skip unload ${sShuttleId}`))
+        return -1
       }
-      if (err) {
-        failed(err)
-        return
+      const shuttle = this.minerService.Shuttle(sShuttleId)
+      if (!shuttle) {
+        failed(new Error(`Invalid shuttle ID ${sShuttleId}`))
+        return -1
+      }
+      if (!shuttle.deposit) {
+        failed(new Error(`Invalid shuttle deposit ${sShuttleId}`))
+        return -1
       }
       shuttle.deposit.sync(ts)
       shuttle.sync(ts)
-      this.minerService.loadShuttleResources(shuttle)
-      this.publishShuttleEvent(shuttle)
-        .catch(err => console.warn(err.message))
-      ok(shuttle)
-    })
+      const nextTs = shuttle.syncedAt + shuttle.deposit.base.position.y / shuttle.speed * 1000
+      if (shuttle.isReturned) {
+        this.minerService.unloadShuttleResources(shuttle, ts)
+      } else {
+        this.minerService.loadShuttleResources(shuttle)
+      }
+      ok(shuttle as ShuttleD)
+      return nextTs
+    }, 'continuous')
   }
 
   unPublishShuttleEvent(sShuttleId: string) {

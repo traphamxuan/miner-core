@@ -1,6 +1,8 @@
 import { Heap } from 'heap-js';
 import { GameProcessor } from '../common/interfaces/GameProcessor';
 
+export type InternalUpdateFn = (ts: number, isSkip: boolean) => number
+
 export type TInternalRequest = {
   id: string
   // key: string
@@ -8,7 +10,8 @@ export type TInternalRequest = {
   ts: number
   nonce: number
   isDone: boolean
-  update: (err: Error | null, ts: number, isSkip: boolean) => void
+  type: 'oneshot' | 'continuous'
+  update: InternalUpdateFn
 }
 
 export class InternalProcessor implements GameProcessor {
@@ -27,10 +30,24 @@ export class InternalProcessor implements GameProcessor {
       if (req.ts > ts) {
         return ts
       }
-      req.update(null, req.ts, req.isDone)
-      req.isDone = true
       tick = req.ts
       this.queue.pop()
+      const nextTs = req.update(req.ts, req.isDone)
+      let tmp: never
+      switch (req.type) {
+        case 'oneshot':
+          req.isDone = true
+          break
+        case 'continuous':
+          if (nextTs > req.ts) {
+            req.ts = nextTs
+            this.queue.push(req)
+          }
+          break
+        default:
+          tmp = req.type
+          break
+      }
       if (limitStep) {
         limitStep--
       }
@@ -46,7 +63,7 @@ export class InternalProcessor implements GameProcessor {
 
   reset(): void {
     for(let req = this.queue.pop(); req; req = this.queue.pop()) {
-      req.update(null, 0, true)
+      req.update(0, true)
       req.isDone = true
     }
     this.queue.clear()

@@ -2,9 +2,10 @@ import { GameLoop } from './GameLoop'
 import { InputProcessor, TInputRequest } from './InputProcessor'
 import { InternalProcessor, TInternalRequest } from './InternalProcessor'
 import { SyncProcessor } from './SyncProcessor'
+import { InternalUpdateFn } from './InternalProcessor'
 
 export type { SyncProcessor }
-export type { InternalProcessor, TInternalRequest }
+export type { InternalProcessor, TInternalRequest, InternalUpdateFn }
 export type { InputProcessor, TInputRequest }
 export type { GameLoop }
 export type Engine = {
