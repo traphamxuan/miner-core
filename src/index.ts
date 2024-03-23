@@ -13,18 +13,21 @@ import {
   Shuttle,
   Recipe,
   Machine,
-  ShuttleD,
-  MachineR,
   TStaticData,
   ResourceAmount,
 } from "./entities"
 
-export type GameData = RawPlanet & {
+export type PlanetData = RawPlanet & {
   deposits: RawDeposit[]
   shuttles: RawShuttle[]
   resources: RawResource[]
   machines: RawMachine[]
   recipes: RawRecipe[]
+}
+
+export type GameData = {
+  planet: PlanetData
+  static: TStaticData
 }
 
 export type Action = {
@@ -77,7 +80,7 @@ export class Game {
     return tick
   }
 
-  load(rawData: GameData) {
+  load(rawData: PlanetData) {
     const pService = this.getService('planet')
     const wService = this.getService('warehouse')
     const mService = this.getService('miner')
@@ -187,7 +190,7 @@ export class Game {
     this.component.service.planet.unload()
   }
 
-  toRaw(): GameData | undefined {
+  toRaw(): PlanetData | undefined {
     if (!this.component.service.planet.planet) {
       return undefined
     }
