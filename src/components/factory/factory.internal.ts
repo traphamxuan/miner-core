@@ -54,33 +54,14 @@ export class FactoryInternalEvent extends BaseInternalEvent{
         if (machine.isRun) {
           return ts + machine.progress / machine.power * 1_000
         }
+        this.waitingRecipeRequirements(machine as MachineR)
         return 0
       }, 'continuous')
-    } else {
-      return new Promise<Machine>(ok => {
-        const recipeUID = this.getWaitingRecipeUID(machine.base.id)
-        recipe.base.ingredients.forEach(ingre => {
-          this.warehouseService.registerChange(ingre.id, recipeUID, {
-            onIncrease: (resourceId, _, resource, ts) => {
-              if (machine.isRun) {
-                this.stopWaitingRecipeRequirements(machine)
-                return
-              }
-              if (resource.amount >= ingre.amount) {
-                machine.isRun = this.warehouseService.take(recipe.base.ingredients)
-                machine.syncedAt = ts
-                if (machine.isRun) {
-                  this.publishMachineEvent(machineId)
-                    .catch(err => console.warn(err.message))
-                  ok(machine)
-                  this.stopWaitingRecipeRequirements(machine)
-                }
-              }
-            }
-          })
-        })
-      })
     }
+    this.waitingRecipeRequirements(machine as MachineR)
+    return new Promise<Machine>(ok => {
+      ok(machine)
+    })
   }
 
   unpublishMachineEvent(machine: Machine) {
@@ -190,5 +171,29 @@ export class FactoryInternalEvent extends BaseInternalEvent{
     const recipe = machine.recipe
     const uid = this.getWaitingRecipeUID(machine.base.id)
     recipe?.base.ingredients.forEach(unIngre => this.warehouseService.unregisterChanges(unIngre.id, uid))
+  }
+
+  private waitingRecipeRequirements(machine: MachineR) {
+    const recipe = machine.recipe
+    const recipeUID = this.getWaitingRecipeUID(machine.base.id)
+    recipe.base.ingredients.forEach(ingre => {
+      this.warehouseService.registerChange(ingre.id, recipeUID, {
+        onIncrease: (resourceId, _, resource, ts) => {
+          if (machine.isRun) {
+            this.stopWaitingRecipeRequirements(machine)
+            return
+          }
+          if (resource.amount >= ingre.amount) {
+            machine.isRun = this.warehouseService.take(recipe.base.ingredients)
+            machine.syncedAt = ts
+            if (machine.isRun) {
+              this.publishMachineEvent(machine.base.id)
+                .catch(err => console.warn(err.message))
+              this.stopWaitingRecipeRequirements(machine)
+            }
+          }
+        }
+      })
+    })
   }
 }
