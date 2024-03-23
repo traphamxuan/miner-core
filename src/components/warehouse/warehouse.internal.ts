@@ -24,7 +24,10 @@ export class WarehouseInternalEvent extends BaseInternalEvent{
         failed(new Error(`Invalid resource id ${sResourceId}`))
         return -1
       }
-      ts = ts < timestamp ? timestamp : ts
+      if (resource.syncedAt > ts) {
+        failed(new Error(`Invalid timestamp ${ts} for resource ${sResourceId}`))
+        return -1
+      }
       this.warehouseService.sell(sResourceId, ts, amount)
       ok(resource)
       return 0

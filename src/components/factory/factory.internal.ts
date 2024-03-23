@@ -124,6 +124,10 @@ export class FactoryInternalEvent extends BaseInternalEvent{
         failed(new Error(`Invalid machine ID ${sMachineId}`))
         return -1
       }
+      if (machine.syncedAt > ts) {
+        failed(new Error(`Invalid timestamp ${ts} for setMachineRecipe machine ${sMachineId}`))
+        return -1
+      }
       const recipe = sRecipeId ? this.factoryService.Recipe(sRecipeId) : undefined
       ts = ts < timestamp ? timestamp : ts
       machine.sync(ts)
@@ -153,6 +157,10 @@ export class FactoryInternalEvent extends BaseInternalEvent{
       const machine = this.factoryService.Machine(sMachineId)
       if (!machine) {
         failed(new Error(`Invalid machine ID ${sMachineId}`))
+        return -1
+      }
+      if (machine.syncedAt > ts) {
+        failed(new Error(`Invalid timestamp ${ts} for upMachinePower machine ${sMachineId}`))
         return -1
       }
       machine.sync(ts)

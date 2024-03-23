@@ -66,6 +66,10 @@ export class MinerInternalEvent extends BaseInternalEvent{
         failed(new Error(`Invalid shuttle ID ${sShuttleId}`))
         return -1 
       }
+      if (shuttle.syncedAt > ts) {
+        failed(new Error(`Invalid timestamp ${ts} for setShuttleDeposit shuttle ${sShuttleId}`))
+        return -1
+      }
       const deposit = sDepositId ? this.minerService.Deposit(sDepositId) : undefined
       ts = ts < timestamp ? timestamp : ts
       shuttle.sync(ts)
@@ -92,6 +96,10 @@ export class MinerInternalEvent extends BaseInternalEvent{
         failed(new Error(`Invalid deposit ID ${sDepositId}`))
         return 0
       }
+      if (deposit.syncedAt > ts) {
+        failed(new Error(`Invalid timestamp ${ts} for upDepositRate deposit ${sDepositId}`))
+        return 0
+      }
       deposit.sync(ts)
       deposit.rate *= 1.2
       ok(deposit)
@@ -108,6 +116,10 @@ export class MinerInternalEvent extends BaseInternalEvent{
       const shuttle = this.minerService.Shuttle(sShuttleId)
       if (!shuttle) {
         failed(new Error(`Invalid shuttle ID ${sShuttleId}`))
+        return 0
+      }
+      if (shuttle.syncedAt > ts) {
+        failed(new Error(`Invalid timestamp ${ts} for upShuttleSpeed shuttle ${sShuttleId}`))
         return 0
       }
       shuttle.sync(ts)
@@ -127,6 +139,10 @@ export class MinerInternalEvent extends BaseInternalEvent{
       const shuttle = this.minerService.Shuttle(sShuttleId)
       if (!shuttle) {
         failed(new Error(`Invalid shuttle ID ${sShuttleId}`))
+        return 0
+      }
+      if (shuttle.syncedAt > ts) {
+        failed(new Error(`Invalid timestamp ${ts} for upShuttleCapacity shuttle ${sShuttleId}`))
         return 0
       }
       shuttle.sync(ts)
