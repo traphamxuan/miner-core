@@ -2,7 +2,7 @@ import readline from 'readline';
 
 import * as inputs from './inputs.json'
 import * as gameData from './gamedata.json'
-import * as gameStatic from './static.json'
+// import * as gameStatic from './static.json'
 import { Action, Game } from '../src'
 import { registerContinuousShow, showMain, toTimeAmount, unregisterContinuousShow } from './view';
 import { writeFileSync } from 'fs';
@@ -16,34 +16,34 @@ const userInputs: Action[] = inputs.actions.map((action: Omit<Action, 'command'>
 }))
 
 function main() {
-	game.init(gameStatic)
+	game.init(gameData.static)
 	game.load({
-		...gameData,
-		deposits: gameData.deposits.map((deposit) => ({
+		...gameData.planet,
+		deposits: gameData.planet.deposits.map((deposit) => ({
 			...deposit,
-			pid: gameData.id,
+			pid: gameData.planet.id,
 		})),
-		shuttles: gameData.shuttles.map((shuttle) => ({
+		shuttles: gameData.planet.shuttles.map((shuttle) => ({
 			...shuttle,
 			load: shuttle.load || [],
-			pid: gameData.id,
+			pid: gameData.planet.id,
 		})),
-		resources: gameData.resources.map((resource) => ({
+		resources: gameData.planet.resources.map((resource) => ({
 			...resource,
-			pid: gameData.id,
+			pid: gameData.planet.id,
 		})),
-		machines: gameData.machines.map((machine) => ({
+		machines: gameData.planet['machines']?.map((machine) => ({
 			...machine,
-			pid: gameData.id,
-		})),
-		recipes: gameData.recipes.map((recipe) => ({
+			pid: gameData.planet.id,
+		})) || [],
+		recipes: gameData.planet['recipes']?.map((recipe) => ({
 			...recipe,
-			pid: gameData.id,
-		})),
+			pid: gameData.planet.id,
+		})) || [],
 	})
 	game.loadInput(userInputs)
 	registerContinuousShow(game)
-	let tick = new Date().getTime() - gameData.startedAt
+	let tick = new Date().getTime() - gameData.planet.startedAt
 	console.log(`Re-Calculate the game to ${tick}...`)
 	let currentTick = 0;
 	while (currentTick < tick) {

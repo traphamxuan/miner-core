@@ -136,9 +136,17 @@ export class Game {
   }
 
   loadInput(inputs: Action[]): Promise<Resource | Deposit | Shuttle | Recipe | Machine>[] {
+    const planet = this.getService('planet').planet
+    if (!planet) {
+      throw new Error('Planet not found')
+    }
     const promises: Promise<Resource | Deposit | Shuttle | Recipe | Machine>[] = []
     const { factory, miner, warehouse } = this.component.input
     for (const act of inputs) {
+      if (act.createdAt < planet.updatedAt.getTime()) {
+        console.warn('Skip old actions', act.target, act.command, act.params, act.createdAt)
+        continue
+      }
       switch (act.target as keyof StaticObject) {
         case 'resource':
           if (act.command == ActionCommand.SELL && act.params.length == 2) {
