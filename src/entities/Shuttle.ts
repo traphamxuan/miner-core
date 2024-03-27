@@ -115,9 +115,6 @@ export class Shuttle {
   }
 
   upgradeSpeed() {
-    const deposit = this.deposit
-    if (!deposit) return
-    if (this.speed >= deposit.base.position.y * 10) return
     this.power *= 1.2
     this.normalizeSpeed()
   }
@@ -142,8 +139,8 @@ export class Shuttle {
 
   private normalizeSpeed() {
     if (this.deposit) {
-      if (this.speed > this.deposit.base.position.y * 10) {
-        this.speed = this.deposit.base.position.y * 10
+      if (this.speed > this.deposit.base.position.y * 20) {
+        this.speed = this.deposit.base.position.y * 20
       }
     }
   }
