@@ -27,22 +27,25 @@ export type TMachine = {
 export class Machine {
   planetId: string
   isRun: boolean
-  power: number
+  private power: number
   recipe?: Recipe
   progress: number
   syncedAt: number
+  speed: number
   base: StaticMachine
 
   constructor(data: RawMachine, sMachine: StaticMachine, recipe?: Recipe) {
     if (!sMachine) throw new Error('Cannot create new machine')
     this.planetId = data.pid
     this.base = sMachine
-    this.recipe = recipe
 
     this.isRun = data.isRun
     this.power = data.power
-    this.progress = data.progress
     this.syncedAt = data.syncedAt
+    this.speed = this.power
+
+    this.setRecipe(recipe)
+    this.progress = data.progress
   }
 
   toRaw(): RawMachine {
@@ -69,16 +72,41 @@ export class Machine {
     }, sMachine)
   }
 
-  sync(ts: number): Machine {
+  sync(ts: number) {
     if (ts < this.syncedAt) return this
-    if (this.recipe && this.isRun) {
-      this.progress -= this.power * (ts - this.syncedAt) / 1000
-      while (this.progress < 0) this.progress += this.recipe.cost
+    if (this.recipe) {
+      if (this.isRun) {
+        this.progress -= this.speed * (ts - this.syncedAt) / 1000
+        while (this.progress < 0) this.progress += this.recipe.cost
+      }
     } else {
-      this.progress = this.recipe?.cost || 0
+      this.progress = 0
     }
     this.syncedAt = ts
-    return this
+  }
+
+  getNextEventAt(): number {
+    return this.syncedAt + this.progress / this.speed * 1_000
+  }
+
+  upgradeSpeed() {
+    this.power *= 1.2
+    this.normalizeSpeed()
+  }
+
+  setRecipe(recipe?: Recipe) {
+    this.recipe = recipe
+    this.progress = recipe?.cost || 0
+    this.normalizeSpeed()
+  }
+
+  private normalizeSpeed() {
+    this.speed = this.power
+    if (this.recipe) {
+      if ((this.recipe.base.cost || 0) * 10 < this.speed) {
+        this.speed = (this.recipe?.base.cost || 0 ) * 10
+      }
+    }
   }
 }
 

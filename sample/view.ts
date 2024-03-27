@@ -36,7 +36,7 @@ export function showMain(game: Game) {
 
   let machineInfo = ''
   for (const machine of machines) {
-    machineInfo += `${machine.base.id}\t${machine.base.name}\t${toTimeAmount(machine.syncedAt).timeString}\t${machine.recipe?.base.target.name || ''}\t${toTimeAmount(machine.progress).timeString}\n`
+    machineInfo += `${machine.base.id}\t${machine.base.name}\t${toTimeAmount(machine.syncedAt).timeString}\t${machine.recipe?.base.target.name || ''}\t${toTimeAmount(machine.progress*1000).timeString}\n`
   }
 
   const screen = `Welcome to ExoMiner in console version

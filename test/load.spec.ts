@@ -1,5 +1,5 @@
 import {describe, expect, test, beforeAll, afterEach} from '@jest/globals';
-import { Game, GameData } from '../src';
+import { Game, PlanetData } from '../src';
 import * as staticData from '../sample/static.json';
 import { MinerService } from '../src/components/miner';
 import { FactoryService } from '../src/components/factory';
@@ -23,7 +23,7 @@ describe('load game', () => {
   });
 
   test('load game with empty data', async () => {
-    const rawData: GameData = {
+    const rawData: PlanetData = {
       id: 'planet-1',
       name: 'Planet 1',
       money: '0',
@@ -49,7 +49,7 @@ describe('load game', () => {
   });
 
   test('load game with full data', async () => {
-    const rawData: GameData = {
+    const rawData: PlanetData = {
       id: 'planet-1',
       name: 'Planet 1',
       money: '0',
@@ -156,7 +156,7 @@ describe('load game', () => {
     expect(machine?.recipe?.base.id).toBe('162');
     expect(machine?.progress).toBe(2);
     expect(machine?.isRun).toBe(true);
-    expect(machine?.power).toBe(1);
+    expect(machine?.speed).toBe(1);
     expect(machine?.syncedAt).toBe(30);
 
     const recipe = fService.Recipe('162');

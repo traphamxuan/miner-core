@@ -35,6 +35,7 @@ export class Shuttle {
   capacity    :number
   position    :number
   isReturned  :boolean
+  private power       :number
   speed       :number
   load        :ResourceAmount[]
   syncedAt   :number
@@ -49,11 +50,12 @@ export class Shuttle {
     this.capacity = data.capacity
     this.position = data.position.y
     this.isReturned = data.isReturned
-    this.speed = data.power
+    this.power = data.power
+    this.speed = this.power
     this.load = load
     this.syncedAt = data.syncedAt
 
-    this.deposit = (data.sdid && data.sdid == deposit?.base.id) ? deposit : undefined
+    this.setDeposit((data.sdid && data.sdid == deposit?.base.id) ? deposit : undefined)
   }
 
   static initFromStatic(planetId: string, sShuttle: StaticShuttle, lastedUpdatedAt: number): Shuttle {
@@ -79,13 +81,13 @@ export class Shuttle {
       capacity    : this.capacity,
       position: { x: 0, y: this.position },
       isReturned  : this.isReturned,
-      power       : this.speed,
+      power       : this.power,
       load        : this.load.map(res => ({ srid: res.base.id, amount: res.amount.toString() })),
       syncedAt   : this.syncedAt,
     }
   }
 
-  sync(ts: number): Shuttle {
+  sync(ts: number) {
     if (ts < this.syncedAt) return this
     const distance = this.deposit?.base.position.y || 0
     if (distance <= 0) return this
@@ -110,7 +112,40 @@ export class Shuttle {
 
     this.position = position
     this.syncedAt = ts
-    return this
+  }
+
+  upgradeSpeed() {
+    const deposit = this.deposit
+    if (!deposit) return
+    if (this.speed >= deposit.base.position.y * 10) return
+    this.power *= 1.2
+    this.normalizeSpeed()
+  }
+
+  upgradeCapacity() {
+    this.capacity *= 1.2
+  }
+
+  setDeposit(deposit?: Deposit) {
+    this.deposit = deposit
+    this.normalizeSpeed()
+  }
+
+  getNextEventAt(): number {
+    if (!this.deposit) {
+      return 0
+    }
+    return this.isReturned ?
+       this.syncedAt + this.position / this.speed * 1000 :
+        this.syncedAt + (this.deposit.base.position.y - this.position) / this.speed * 1000
+  }
+
+  private normalizeSpeed() {
+    if (this.deposit) {
+      if (this.speed > this.deposit.base.position.y * 10) {
+        this.speed = this.deposit.base.position.y * 10
+      }
+    }
   }
 }
 

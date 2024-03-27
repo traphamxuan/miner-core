@@ -73,7 +73,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
       const deposit = sDepositId ? this.minerService.Deposit(sDepositId) : undefined
       ts = ts < timestamp ? timestamp : ts
       shuttle.sync(ts)
-      shuttle.deposit = deposit
+      shuttle.setDeposit(deposit)
       if (shuttle.deposit) {
         shuttle.deposit.sync(ts)
         this.publishShuttleEvent(sShuttleId).catch(err => console.warn(err.message))
@@ -123,7 +123,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
         return 0
       }
       shuttle.sync(ts)
-      shuttle.speed *= 1.2
+      shuttle.upgradeSpeed()
       shuttle.deposit && this.publishShuttleEvent(sShuttleId).catch(err => console.warn(err.message))
       ok(shuttle)
       return 0
@@ -162,9 +162,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
     if (!shuttle.deposit) {
       throw new Error(`Invalid shuttle deposit ${sShuttleId}`)
     }
-    const nextTs = shuttle.isReturned ?
-       shuttle.syncedAt + shuttle.position / shuttle.speed * 1000 :
-        shuttle.syncedAt + (shuttle.deposit.base.position.y - shuttle.position) / shuttle.speed * 1000
+    const nextTs = shuttle.getNextEventAt()
 
     return this.makeRequest('shuttle-touch-' + sShuttleId, nextTs, (ok, failed) => (ts, isSkip) => {
       if (isSkip) {
@@ -182,14 +180,13 @@ export class MinerInternalEvent extends BaseInternalEvent{
       }
       shuttle.deposit.sync(ts)
       shuttle.sync(ts)
-      const nextTs = shuttle.syncedAt + shuttle.deposit.base.position.y / shuttle.speed * 1000
       if (shuttle.isReturned) {
         this.minerService.unloadShuttleResources(shuttle, ts)
       } else {
         this.minerService.loadShuttleResources(shuttle)
       }
       ok(shuttle as ShuttleD)
-      return nextTs
+      return shuttle.getNextEventAt()
     }, 'continuous')
   }
 

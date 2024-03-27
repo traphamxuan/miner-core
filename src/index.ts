@@ -99,16 +99,19 @@ export class Game {
     pService.load(rawData)
 
     rawData.resources.forEach(r => {
+      if (wService.Resource(r.srid)) return
       const sResource = sService.getOne('resource', r.srid)
       if (!sResource) throw new Error(`Resource ${r.srid} not found`)
       wService.addResource(new Resource(r, sResource))
     })
     rawData.deposits.forEach(d => {
+      if (mService.Deposit(d.sdid)) return
       const sDeposit = sService.getOne('deposit', d.sdid)
       if (!sDeposit) throw new Error(`Deposit ${d.sdid} not found`)
       mService.addDeposit(new Deposit(d, sDeposit))
     })
     rawData.shuttles.forEach(s => {
+      if (mService.Shuttle(s.ssid)) return
       const sShuttle = sService.getOne('shuttle', s.ssid)
       if (!sShuttle) throw new Error(`Shuttle ${s.ssid} not found`)
       const load = s.load.map(res => {
@@ -120,11 +123,13 @@ export class Game {
       mService.addShuttle(new Shuttle(s, sShuttle, load, deposit))
     })
     rawData.recipes.forEach(r => {
+      if (fService.Recipe(r.sreid)) return
       const sRecipe = sService.getOne('recipe', r.sreid)
       if (!sRecipe) throw new Error(`Recipe ${r.sreid} not found`)
       fService.addRecipe(new Recipe(r, sRecipe))
     })
     rawData.machines.forEach(m => {
+      if (fService.Machine(m.smid)) return
       const sMachine = sService.getOne('machine', m.smid)
       if (!sMachine) throw new Error(`Machine ${m.smid} not found`)
       const recipe = m.sreid ? fService.Recipe(m.sreid) : undefined

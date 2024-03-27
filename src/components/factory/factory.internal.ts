@@ -31,8 +31,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
     }
   
     if (machine.isRun) {
-      const nextTs = machine.syncedAt + machine.progress / machine.power * 1_000
-
+      const nextTs = machine.getNextEventAt()
       return this.makeRequest('run-' + machineId, nextTs, (ok, failed) => (ts, isSkip) => {
         if (isSkip) {
           failed(new Error(`Skip publishMachineEvent ${machineId}`))
@@ -52,7 +51,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
         machine.isRun = this.warehouseService.take(recipe.base.ingredients)
         ok(machine)
         if (machine.isRun) {
-          return ts + machine.progress / machine.power * 1_000
+          return machine.getNextEventAt()
         }
         this.waitingRecipeRequirements(machine as MachineR)
         return 0
@@ -167,8 +166,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
       if (machine.recipe) {
         this.unpublishMachineEvent(machine)
       }
-      machine.power *= 1.2
-      machine.syncedAt = ts
+      machine.upgradeSpeed()
       machine.recipe && this.publishMachineEvent(sMachineId).catch(err => console.warn(err.message))
       ok(machine)
       return 0
