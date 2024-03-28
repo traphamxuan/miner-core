@@ -1,19 +1,15 @@
 import readline from 'readline';
 
-import * as inputs from './inputs.json'
-import * as gameData from './gamedata.json'
+import * as gd from './gamedata.json'
 // import * as gameStatic from './static.json'
-import { Action, Game } from '../src'
+import { Action, Game, GameData, RawDeposit, RawMachine, RawRecipe, RawResource, RawResourceAmount, RawShuttle, ResourceAmount } from '../src'
 import { registerContinuousShow, showMain, toTimeAmount, unregisterContinuousShow } from './view';
 import { writeFileSync } from 'fs';
 import { ActionCommand } from '../src/common/enum';
 
 const game = new Game()
 let inputText = ''
-const userInputs: Action[] = inputs.actions.map((action: Omit<Action, 'command'> & { command: string }) => ({
-	...action,
-	command: ActionCommand[action.command as keyof typeof ActionCommand],
-}))
+let gameData: GameData & { actions: Action[] } = { ...(gd as any) }
 
 function main() {
 	game.init(gameData.static)
@@ -25,7 +21,7 @@ function main() {
 		})),
 		shuttles: gameData.planet.shuttles.map((shuttle) => ({
 			...shuttle,
-			load: shuttle.load || [],
+			load: (shuttle.load || []),
 			pid: gameData.planet.id,
 		})),
 		resources: gameData.planet.resources.map((resource) => ({
@@ -41,7 +37,7 @@ function main() {
 			pid: gameData.planet.id,
 		})) || [],
 	})
-	game.loadInput(userInputs)
+	Promise.allSettled(game.loadInput(gameData.actions))
 	registerContinuousShow(game)
 	let tick = new Date().getTime() - gameData.planet.startedAt
 	console.log(`Re-Calculate the game to ${tick}...`)
@@ -70,8 +66,14 @@ function main() {
 		if (key.ctrl && key.name === 'c') {
 			clearInterval(timer);
 			unregisterContinuousShow(game);
+			const rawGame = game.toRaw()
 			game.unload();
-			writeFileSync(`${__dirname}/inputs.json`, JSON.stringify({ actions: userInputs }, null, 2))
+			gameData.planet = rawGame || gameData.planet
+			writeFileSync(`${__dirname}/gamedata.json`, JSON.stringify({
+				planet: gameData.planet,
+				static: gameData.static,
+				actions: gameData.actions,
+			}, null, 2))
 			process.exit(); // Exit the process if Ctrl+C is pressed
 		}
 		if (key.name === 'backspace') {
@@ -90,7 +92,7 @@ function main() {
 				}
 				const action: Action = {
 					target,
-					command: ActionCommand[command as keyof typeof ActionCommand],
+					command: ActionCommand[command.toUpperCase() as keyof typeof ActionCommand],
 					createdAt: 0,
 					params: args,
 				}
@@ -99,12 +101,12 @@ function main() {
 			inputText = ''
 			Promise.all(game.loadInput(loadInputs)).then((results) => {
 				if (results.length === 0) {
-					console.log('Invalid command')
+					console.log('Invalid command', results)
 					return
 				}
 				results.forEach((result, index) => {
 					loadInputs[index].createdAt = result.syncedAt
-					userInputs.push(loadInputs[index])
+					gameData.actions.push(loadInputs[index])
 				})
 			}).catch(err => {
 				console.error(err)

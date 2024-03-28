@@ -19,7 +19,7 @@ export function createCoreEngine(): Engine {
   const internal = new InternalProcessor()
   const input = new InputProcessor()
   const sync = new SyncProcessor()
-  const loop = new GameLoop(internal, input, sync)
+  const loop = new GameLoop(input, internal, sync)
   return {
     sync,
     internal,

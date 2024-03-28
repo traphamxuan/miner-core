@@ -138,6 +138,7 @@ export class Shuttle {
   }
 
   private normalizeSpeed() {
+    this.speed = this.power
     if (this.deposit) {
       if (this.speed > this.deposit.base.position.y * 20) {
         this.speed = this.deposit.base.position.y * 20

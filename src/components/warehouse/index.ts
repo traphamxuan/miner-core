@@ -1,4 +1,4 @@
-import { Engine, InputProcessor, SyncProcessor } from '../../core'
+import { Engine } from '../../core'
 import { PlanetService } from '../planet/planet.service'
 import { StaticService } from '../static/static.service'
 import { WarehouseInputManagement } from './warehouse.input'

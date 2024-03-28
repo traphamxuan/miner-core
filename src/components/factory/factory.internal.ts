@@ -159,7 +159,7 @@ export class FactoryInternalEvent extends BaseInternalEvent{
         return -1
       }
       if (machine.syncedAt > ts) {
-        failed(new Error(`Invalid timestamp ${ts} for upMachinePower machine ${sMachineId}`))
+        failed(new Error(`Invalid timestamp ${ts} for upMachinePower machine ${sMachineId} at ${machine.syncedAt}`))
         return -1
       }
       machine.sync(ts)

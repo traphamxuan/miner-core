@@ -22,11 +22,12 @@ export class InputProcessor implements GameProcessor {
   }
 
   process(timestamp: number, _?: number): number {
-    this.execQueue.forEach(act => {
-      if (act.isDisable) return
+    for (let i = 0; i < this.execQueue.length; i++) {
+      const act = this.execQueue[i]
+      if (act.isDisable) continue
       act.action(null, timestamp, false)
       act.submit && this.submitQueue.push(act)
-    })
+    }
 
     // submit
     this.execQueue = []

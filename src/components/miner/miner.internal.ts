@@ -119,7 +119,7 @@ export class MinerInternalEvent extends BaseInternalEvent{
         return 0
       }
       if (shuttle.syncedAt > ts) {
-        failed(new Error(`Invalid timestamp ${ts} for upShuttleSpeed shuttle ${sShuttleId}`))
+        failed(new Error(`Invalid timestamp ${ts} for upShuttleSpeed shuttle ${sShuttleId} at ${shuttle.syncedAt}`))
         return 0
       }
       shuttle.sync(ts)
