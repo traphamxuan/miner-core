@@ -113,7 +113,7 @@ export class FactoryService {
   }
 
   private setRecipe(machine: Machine, recipe: Recipe, ts: number): Machine {
-    machine.setRecipe()
+    machine.setRecipe(recipe)
     machine.isRun = this.warehouseService.take(recipe.base.ingredients)
     machine.syncedAt = ts
     return machine
@@ -127,7 +127,7 @@ export class FactoryService {
       this.warehouseService.put(recipe.base.ingredients, ts)
       machine.isRun = false
     }
-    machine.setRecipe()
+    machine.setRecipe(recipe)
     return machine
   }
 
