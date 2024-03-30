@@ -1,4 +1,3 @@
-import { Position } from "../common";
 import { StaticResource, TStaticResource } from "./Resource";
 
 export type RawStaticDeposit = {

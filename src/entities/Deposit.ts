@@ -1,8 +1,7 @@
-import { Ore, RawOre } from './common/Ore'
+import { Ore, RawOre } from './Ore'
 import { TResource } from './Resource'
-import { ResourceAmount, TResourceAmount } from './common/ResourceAmount'
-import { StaticDeposit } from './static'
-import { TStaticDeposit } from './static/Deposit'
+import { ResourceAmount } from './static/ResourceAmount'
+import { StaticDeposit, TStaticDeposit } from './static'
 
 export type RawDeposit = {
   pid    :string

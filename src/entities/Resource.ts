@@ -1,5 +1,4 @@
-import { StaticResource } from "./static"
-import { TStaticResource } from "./static/Resource"
+import { TStaticResource } from "./static"
 
 export type RawResource = {
   pid: string

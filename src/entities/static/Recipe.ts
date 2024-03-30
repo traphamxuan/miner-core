@@ -1,4 +1,4 @@
-import { ResourceAmount } from '../common/ResourceAmount'
+import { ResourceAmount } from './ResourceAmount'
 import { StaticResource, TStaticResource } from './Resource'
 
 export type RawStaticRecipe = {

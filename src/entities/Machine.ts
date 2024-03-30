@@ -1,7 +1,6 @@
 
-import { StaticMachine } from "./static"
+import { StaticMachine, TStaticMachine } from "./static"
 import { Recipe, TRecipe } from "./Recipe"
-import { TStaticMachine } from "./static/Machine"
 
 export type RawMachine = {
   pid: string

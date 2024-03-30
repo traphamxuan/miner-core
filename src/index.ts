@@ -1,6 +1,5 @@
 import { ActionCommand } from "./common/enum"
-import { Component, createComponents } from "./components"
-import { Engine, createCoreEngine } from "./core"
+import { Loop } from "./core/loop"
 import {
   RawPlanet,
   RawDeposit,
@@ -16,8 +15,12 @@ import {
   TStaticData,
   ResourceAmount,
 } from "./entities"
+import { createEvents } from "./event"
+import { creatInputs } from "./input"
+import { createPool } from "./pool"
+import { createSync } from "./sync"
 
-export type PlanetData = RawPlanet & {
+type PlanetData = RawPlanet & {
   deposits: RawDeposit[]
   shuttles: RawShuttle[]
   resources: RawResource[]
@@ -25,23 +28,40 @@ export type PlanetData = RawPlanet & {
   recipes: RawRecipe[]
 }
 
-export type GameData = {
+type GameData = {
   planet: PlanetData
   static: TStaticData
 }
 
-export type Action = {
+type Action = {
   target: string
   command: ActionCommand
   params: string[]
   createdAt: number
 }
-export class Game {
-  private readonly engine: Engine
+
+type Component = {
+  service: ReturnType<typeof createPool>
+  render: Omit<ReturnType<typeof createSync>, 'sync'>,
+  input: Omit<ReturnType<typeof creatInputs>, 'input'>,
+  event: Omit<ReturnType<typeof createEvents>, 'event'>,
+}
+
+class Game {
+  private readonly engine: Loop
   private readonly component: Component
   constructor() {
-    this.engine = createCoreEngine()
-    this.component = createComponents(this.engine)
+    const services = createPool()
+    const { event: eventProc, ...events } = createEvents(services.static, services.miner, services.factory, services.warehouse)
+    const { input: inputProc, ...inputs } = creatInputs(events.miner, events.factory, events.warehouse)
+    const { sync: syncProc, ...syncs } = createSync(services.factory, services.miner, services.warehouse)
+    this.engine = new Loop(inputProc, eventProc, syncProc)
+    this.component = {
+      service: services,
+      render: syncs,
+      input: inputs,
+      event: events,
+    }
   }
 
   init(data: TStaticData) {
@@ -64,14 +84,14 @@ export class Game {
   }
 
   run(ts: number, limit?: number): number {
-    return this.engine.loop.run(ts, limit)
+    return this.engine.run(ts, limit)
   }
 
   async runAsync(ts: number, msPeriod = 100, onProgress?: (ts: number) => boolean): Promise<number> {
     let tick = 0
     while (tick < ts) {
       tick = await new Promise(ok => setTimeout(() => {
-        ok(this.engine.loop.run(ts, msPeriod * 1000))
+        ok(this.engine.run(ts, msPeriod * 1000))
       }, msPeriod))
       if (onProgress && !onProgress(tick)) {
         return tick
@@ -86,8 +106,8 @@ export class Game {
     const mService = this.getService('miner')
     const fService = this.getService('factory')
     const sService = this.getService('static')
-    const mInternal = this.component.internal.miner
-    const fInternal = this.component.internal.factory
+    const mEvent = this.component.event.miner
+    const fEvent = this.component.event.factory
 
     if (pService.planet) {
       if (pService.planet.id != rawData.id) {
@@ -136,8 +156,8 @@ export class Game {
       fService.addMachine(new Machine(m, sMachine, recipe))
     })
 
-    mService.Shuttles().forEach(shuttle => shuttle.deposit && mInternal.publishShuttleEvent(shuttle.base.id).catch(err => console.warn(err.message)))
-    fService.Machines().forEach(machine => machine.recipe && fInternal.publishMachineEvent(machine.base.id).catch(err => console.warn(err.message)))
+    mService.Shuttles().forEach(shuttle => shuttle.deposit && mEvent.publishShuttleEvent(shuttle.base.id).catch(err => console.warn(err.message)))
+    fService.Machines().forEach(machine => machine.recipe && fEvent.publishMachineEvent(machine.base.id).catch(err => console.warn(err.message)))
   }
 
   loadInput(inputs: Action[]): Promise<Resource | Deposit | Shuttle | Recipe | Machine>[] {
@@ -188,7 +208,7 @@ export class Game {
   }
 
   unload() {
-    this.engine.loop.reset()
+    this.engine.reset()
     this.component.service.miner.reset()
     this.component.service.factory.reset()
     this.component.service.warehouse.reset()
@@ -212,3 +232,5 @@ export class Game {
 
 export * from './entities'
 export { Component, TStaticData, ActionCommand }
+export { PlanetData, GameData, Action }
+export { Game }

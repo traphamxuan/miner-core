@@ -1,5 +1,4 @@
-import { StaticRecipe } from './static'
-import { TStaticRecipe } from './static/Recipe'
+import { StaticRecipe, TStaticRecipe } from './static'
 
 export type RawRecipe = {
   pid   :string
