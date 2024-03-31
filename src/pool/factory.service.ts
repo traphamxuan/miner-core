@@ -1,7 +1,8 @@
 import { Machine, Recipe, TResourceAmount } from "../entities"
+import type { StaticMachine, StaticRecipe } from "../entities"
+
 import { WarehouseService } from "./warehouse.service"
-import { QuickAccessStore } from "../common/services/QuickAccessStore"
-import type { StaticMachine, StaticRecipe } from "../entities/static"
+import { QuickAccessStore } from "../common"
 import { PlanetService } from "./planet.service"
 
 export class FactoryService {

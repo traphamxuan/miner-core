@@ -1,14 +1,4 @@
-import { GameProcessor } from "../core/loop"
-
-export type TInputRequest<T> = {
-  // id: string
-  // key: string
-  // data: T
-  isDisable?: boolean
-  action: (err: Error | null, ts: number, isSkip: boolean) => T
-  submit?: (id: string, data: T) => void
-  // callback?: <T>(result: T) => void
-}
+import type { GameProcessor } from "./loop"
 
 export class InputProcessor implements GameProcessor {
   readonly Name = InputProcessor.name

@@ -1,18 +1,5 @@
 import { Heap } from 'heap-js';
-import { GameProcessor } from '../core/loop';
-
-export type EventUpdateFn = (ts: number, isSkip: boolean) => number
-
-export type TEventRequest = {
-  id: string
-  // key: string
-  // data: object
-  ts: number
-  nonce: number
-  isDone: boolean
-  type: 'oneshot' | 'continuous'
-  update: EventUpdateFn
-}
+import type { GameProcessor } from './loop';
 
 export class EventProcessor implements GameProcessor {
   readonly Name = EventProcessor.name

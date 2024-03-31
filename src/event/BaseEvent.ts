@@ -1,4 +1,4 @@
-import { EventProcessor, EventUpdateFn, TEventRequest } from "./event"
+import type { EventProcessor } from "../core"
 
 export abstract class BaseEvent {
   private preMsgQueue: Record<string, TEventRequest>

@@ -1,4 +1,4 @@
-import { QuickAccessStore } from "../common/services/QuickAccessStore";
+import { QuickAccessStore } from "../common";
 import { ResourceAmount, StaticDeposit, StaticMachine, StaticRecipe, StaticResource, StaticShuttle, TStaticData } from "../entities";
 
 export class StaticService {

@@ -1,4 +1,4 @@
-import { SyncProcessor, SyncService, TRenderAction } from "./sync"
+import { SyncProcessor } from "../core"
 import { WarehouseService } from "../pool"
 
 export class WarehouseRender implements SyncService {

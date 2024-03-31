@@ -1,7 +1,7 @@
-import { Deposit, Shuttle } from '../entities'
+import type { Deposit, Shuttle } from '../entities'
 import { MinerInternalEvent } from '../event'
 import { BaseInputEvent } from './BaseInputEvent'
-import { InputProcessor } from './input'
+import { InputProcessor } from '../core'
 
 export class MinerInputManagement extends BaseInputEvent {
   constructor(

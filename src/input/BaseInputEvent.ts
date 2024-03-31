@@ -1,4 +1,4 @@
-import { InputProcessor } from "./input"
+import { InputProcessor } from "../core"
 
 export class BaseInputEvent {
   constructor(private inputProcessor: InputProcessor) {}

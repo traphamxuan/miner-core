@@ -1,7 +1,7 @@
-import { Recipe, Machine } from '../entities'
+import type { Recipe, Machine } from '../entities'
 import { FactoryInternalEvent } from '../event'
 import { BaseInputEvent } from './BaseInputEvent'
-import { InputProcessor } from './input'
+import { InputProcessor } from '../core'
 
 export class FactoryInputManagement extends BaseInputEvent {
 

@@ -1,7 +1,7 @@
 import { WarehouseService, FactoryService, StaticService } from "../pool";
-import { Machine, MachineR, Recipe, StaticMachine, StaticRecipe } from "../entities";
+import { Machine, MachineR, Recipe } from "../entities";
 import { BaseEvent } from "./BaseEvent";
-import { EventProcessor } from "./event";
+import { EventProcessor } from "../core";
 
 export class FactoryInternalEvent extends BaseEvent{
   constructor(

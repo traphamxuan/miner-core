@@ -1,15 +1,5 @@
-import { GameProcessor } from '../core/loop'
-import { SubEvent } from '../common/services/SubEvent'
-import { isEmptyObject } from '../common/utils'
-
-export interface SyncService {
-  id: string
-  sync(ts: number): void
-}
-
-export type TRenderAction = {
-  onSync: (id: string, ts: number) => void
-}
+import type { GameProcessor } from './loop'
+import { SubEvent, isEmptyObject } from '../common'
 
 export class SyncProcessor implements GameProcessor {
   readonly Name = SyncProcessor.name

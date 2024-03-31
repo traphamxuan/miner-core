@@ -1,6 +1,6 @@
 import { StaticShuttle, TStaticShuttle } from "./static";
 import { Deposit, TDeposit } from "./Deposit";
-import { RawResourceAmount, ResourceAmount } from "./static/ResourceAmount";
+import { RawResourceAmount, ResourceAmount } from "./static";
 
 export type RawShuttle = {
   pid     :string

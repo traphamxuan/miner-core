@@ -1,16 +1,16 @@
 import { FactoryService, MinerService, StaticService, WarehouseService } from "../pool"
-import { EventProcessor } from "./event"
+import { EventProcessor } from "../core"
 import { FactoryInternalEvent } from "./factory.event"
 import { MinerInternalEvent } from "./miner.event"
 import { WarehouseInternalEvent } from "./warehouse.event"
 
 export const createEvents = (
+  event: EventProcessor,
   sService: StaticService,
   mService: MinerService,
   fService: FactoryService,
   wService: WarehouseService,
 ) => {
-  const event = new EventProcessor()
   return {
     event,
     factory: new FactoryInternalEvent(event, sService, fService, wService),

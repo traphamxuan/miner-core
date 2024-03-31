@@ -1,7 +1,7 @@
-import { Deposit, Shuttle, ShuttleD, StaticDeposit, StaticShuttle } from "../entities";
+import { Deposit, Shuttle, ShuttleD } from "../entities";
 import { MinerService, StaticService } from "../pool";
 import { BaseEvent } from "./BaseEvent";
-import { EventProcessor } from "./event";
+import { EventProcessor } from "../core";
 
 export class MinerInternalEvent extends BaseEvent{
   constructor(

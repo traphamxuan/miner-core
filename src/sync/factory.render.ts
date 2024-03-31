@@ -1,4 +1,4 @@
-import { SyncProcessor, SyncService, TRenderAction } from "./sync"
+import { SyncProcessor } from "../core"
 import { FactoryService } from "../pool"
 
 export class FactoryRender implements SyncService {

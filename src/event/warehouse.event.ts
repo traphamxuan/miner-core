@@ -1,7 +1,7 @@
 import { Resource } from "../entities";
 import { WarehouseService } from "../pool";
 import { BaseEvent } from "./BaseEvent";
-import { EventProcessor } from "./event";
+import { EventProcessor } from "../core";
 
 export class WarehouseInternalEvent extends BaseEvent{
   constructor(

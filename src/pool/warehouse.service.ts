@@ -1,6 +1,5 @@
 import { TResource, Resource, TResourceAmount } from '../entities'
-import { QuickAccessStore } from '../common/services/QuickAccessStore'
-import { SubEvent } from '../common/services/SubEvent'
+import { QuickAccessStore, SubEvent } from '../common'
 import { PlanetService } from './planet.service'
 import { StaticService } from './static.service'
 

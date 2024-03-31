@@ -1,7 +1,7 @@
 import { BaseInputEvent } from './BaseInputEvent'
-import { Resource } from '../entities'
+import type { Resource } from '../entities'
 import { WarehouseInternalEvent } from '../event'
-import { InputProcessor } from './input'
+import { InputProcessor } from '../core'
 
 export class WarehouseInputManagement extends BaseInputEvent {
   constructor(

@@ -1,5 +1,5 @@
-import { ActionCommand } from "./common/enum"
-import { Loop } from "./core/loop"
+import { ActionCommand } from "./common"
+import { Engine, createEngine } from "./core"
 import {
   RawPlanet,
   RawDeposit,
@@ -48,14 +48,15 @@ type Component = {
 }
 
 class Game {
-  private readonly engine: Loop
+  private readonly engine: Engine
   private readonly component: Component
   constructor() {
+    this.engine = createEngine()
     const services = createPool()
-    const { event: eventProc, ...events } = createEvents(services.static, services.miner, services.factory, services.warehouse)
-    const { input: inputProc, ...inputs } = creatInputs(events.miner, events.factory, events.warehouse)
-    const { sync: syncProc, ...syncs } = createSync(services.factory, services.miner, services.warehouse)
-    this.engine = new Loop(inputProc, eventProc, syncProc)
+    const { event: eventProc, ...events } = createEvents(this.engine.event, services.static, services.miner, services.factory, services.warehouse)
+    const { input: inputProc, ...inputs } = creatInputs(this.engine.input, events.miner, events.factory, events.warehouse)
+    const { sync: syncProc, ...syncs } = createSync(this.engine.sync, services.factory, services.miner, services.warehouse)
+    
     this.component = {
       service: services,
       render: syncs,
@@ -84,14 +85,14 @@ class Game {
   }
 
   run(ts: number, limit?: number): number {
-    return this.engine.run(ts, limit)
+    return this.engine.loop.run(ts, limit)
   }
 
   async runAsync(ts: number, msPeriod = 100, onProgress?: (ts: number) => boolean): Promise<number> {
     let tick = 0
     while (tick < ts) {
       tick = await new Promise(ok => setTimeout(() => {
-        ok(this.engine.run(ts, msPeriod * 1000))
+        ok(this.engine.loop.run(ts, msPeriod * 1000))
       }, msPeriod))
       if (onProgress && !onProgress(tick)) {
         return tick
@@ -208,7 +209,7 @@ class Game {
   }
 
   unload() {
-    this.engine.reset()
+    this.engine.loop.reset()
     this.component.service.miner.reset()
     this.component.service.factory.reset()
     this.component.service.warehouse.reset()
