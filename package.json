@@ -7,12 +7,13 @@
   "files": [
     "dist"
   ],
-  "repository": "git@gitlab.com:tareling/exo-miner-core.git",
+  "repository": "git@github.com:traphamxuan/miner-core.git",
   "author": "Pham Xuan Tra <jurytare@gmail.com>",
   "license": "MIT",
   "prepare": "npm run build",
   "publishConfig": {
-    "@tareling:registry": "https://gitlab.com/api/v4/projects/44454002/packages/npm/"
+    "@tareling:registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "scripts": {
     "ts-run": "ts-node -r tsconfig-paths/register --project tsconfig.json --files",
