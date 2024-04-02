@@ -1,5 +1,4 @@
-import { StaticRecipe } from './static'
-import { TStaticRecipe } from './static/Recipe'
+import { StaticRecipe, TStaticRecipe } from './static'
 
 export type RawRecipe = {
   pid   :string
@@ -21,20 +20,18 @@ export class Recipe {
   syncedAt: number
   base: StaticRecipe
 
-  constructor(data: RawRecipe, staticRecipe?: StaticRecipe) {
-    const sRecipe = staticRecipe || StaticRecipe.RECIPES.getOne(data.sreid)
-    if (!sRecipe) throw new Error(`Cannot create new Recipe`)
+  constructor(data: RawRecipe, sRecipe: StaticRecipe) {
     this.base = sRecipe
     this.planetId = data.pid
     this.cost = data.cost
     this.syncedAt = data.syncedAt
   }
-  static initFromStatic(planetId: string, sRecipe: StaticRecipe): Recipe {
+  static initFromStatic(planetId: string, sRecipe: StaticRecipe, ts: number): Recipe {
     return new Recipe({
       pid: planetId,
       sreid: sRecipe.id,
       cost: sRecipe.cost,
-      syncedAt: 0,
+      syncedAt: ts,
     }, sRecipe)
   }
   toRaw(): RawRecipe {

@@ -1,4 +1,3 @@
-import { QuickAccessStore } from "../../common/services/QuickAccessStore"
 import { StaticRecipe } from "./Recipe"
 
 export type RawStaticMachine = {
@@ -17,7 +16,6 @@ export type TStaticMachine = {
 }
 
 export class StaticMachine implements TStaticMachine {
-  static readonly MACHINES: QuickAccessStore<StaticMachine> = new QuickAccessStore()
   readonly id: string
   readonly name: string
   readonly power: number

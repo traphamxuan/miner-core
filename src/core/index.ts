@@ -1,32 +1,22 @@
-import { ExternalProcessor } from './ExternalProcessor'
-import { GameLoop } from './GameLoop'
-import { InputProcessor, TInputRequest } from './InputProcessor'
-import { InternalProcessor, TInternalRequest } from './InternalProcessor'
-import { SyncProcessor } from './SyncProcessor'
+import { EventProcessor } from "./event"
+import { InputProcessor } from "./input"
+import { Loop } from "./loop"
+import { SyncProcessor } from "./sync"
 
-export type { SyncProcessor }
-export type { InternalProcessor, TInternalRequest }
-export type { InputProcessor, TInputRequest }
-export type { GameLoop }
 export type Engine = {
-  external: ExternalProcessor,
-  sync: SyncProcessor,
-  internal: InternalProcessor,
-  input: InputProcessor,
-  loop: GameLoop,
+  loop: Loop
+  input: InputProcessor
+  event: EventProcessor
+  sync: SyncProcessor
 }
 
-export function createCoreEngine(): Engine {
-  const external = new ExternalProcessor()
-  const sync = new SyncProcessor()
-  const internal = new InternalProcessor()
+export function createEngine(): Engine {
   const input = new InputProcessor()
-  const loop = new GameLoop(external, internal, input, sync)
-  return {
-    external,
-    sync,
-    internal,
-    input,
-    loop,
-  }
+  const event = new EventProcessor()
+  const sync = new SyncProcessor()
+  const loop = new Loop(input, event, sync)
+
+  return { loop, input, event, sync }
 }
+
+export type { InputProcessor, EventProcessor, SyncProcessor }

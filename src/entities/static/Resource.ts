@@ -1,5 +1,3 @@
-import { QuickAccessStore } from '../../common/services/QuickAccessStore'
-
 export type RawStaticResource = {
   id: string
   name: string
@@ -19,7 +17,6 @@ export type TStaticResource = {
 }
 
 export class StaticResource {
-  static readonly RESOURCES: QuickAccessStore<StaticResource> = new QuickAccessStore()
   readonly id: string
   readonly name: string
   readonly icon?: string

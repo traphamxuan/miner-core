@@ -1,4 +1,3 @@
-import { QuickAccessStore } from "../../common/services/QuickAccessStore";
 import { StaticDeposit, TStaticDeposit } from "./Deposit";
 
 export type RawStaticShuttle = {
@@ -7,7 +6,6 @@ export type RawStaticShuttle = {
   power: number
   capacity: number
   price: string
-  deposit?: string
 }
 
 export type TStaticShuttle = {
@@ -20,13 +18,11 @@ export type TStaticShuttle = {
 }
 
 export class StaticShuttle {
-  static readonly SHUTTLES: QuickAccessStore<StaticShuttle> = new QuickAccessStore()
   readonly id: string
   readonly name: string
   readonly power: number
   readonly capacity: number
   readonly price: bigint
-  readonly deposit?: StaticDeposit
   readonly ores: any;
 
   constructor(data: RawStaticShuttle) {
@@ -35,9 +31,6 @@ export class StaticShuttle {
     this.power = data.power
     this.capacity = data.capacity
     this.price = BigInt(data.price)
-    if (data.deposit) {
-      this.deposit = StaticDeposit.DEPOSITS.getStores().find(d => d.name === data.deposit)
-    }
     return this
   }
 }

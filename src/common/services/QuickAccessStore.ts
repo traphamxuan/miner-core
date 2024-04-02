@@ -7,19 +7,13 @@ export class QuickAccessStore<T> {
   }
 
   get length(): number { return this.aData.length }
+  get Type(): T { return this.aData[0] }
 
   reset() { this.oData = {}; this.aData = [] }
 
   add(data: T, keys: string[] = []) {
     keys.forEach(key => this.oData[key] = data)
     this.aData.push(data)
-  }
-  replaceKey(oKey: string, nKey: string): T | undefined {
-    const data = this.oData[oKey]
-    if (!data) return undefined
-    delete this.oData[oKey]
-    this.oData[nKey] = data
-    return data
   }
   getStores(): T[] { return this.aData }
   getOne(idOrKey: string): T | undefined { return this.oData[idOrKey] }
