@@ -1,4 +1,4 @@
-# game-plan-core
+# game-miner-core
 
 ## ARCHITECTURE
 
