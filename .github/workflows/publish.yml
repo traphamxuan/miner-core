@@ -1,9 +1,8 @@
-name: Node CI
+name: Publish npm package
 
 on:
   push:
-    branches:
-      - release
+    tags:
       - 'v*.*.*'
 
 jobs:
